@@ -1,45 +1,65 @@
+/*
+==============================================
+     TRTS SYSTEM CREED – RATIONAL ONLY
+==============================================
+
+- All propagation must remain strictly within the rational field ℚ.
+- No operation may simplify, normalize, reduce, fit, scale, or apply GCD to any value.
+- `mpq_canonicalize()` is strictly forbidden and must never be used.
+- All propagation must use raw integer numerator/denominator tracking.
+- Any evaluation to floating-point must be snapshot-only for analysis.
+  These values must NEVER influence state, behavior, or propagation.
+- Rational form must preserve its full historical tension; no compression.
+- Zero-crossings, sign changes, and stack depth are all meaningful logic.
+- Nothing shall "optimize" away the very thing we are trying to study.
+
+Violation of these principles invalidates all results. There are no exceptions.
+
+*/
+
 #include "koppa.h"
 
 #include <gmp.h>
 
+#include "rational.h"
+
 static void koppa_dump(TRTS_State *state) {
-    mpq_set_ui(state->koppa, 0, 1);
+    rational_set_si(state->koppa, 0, 1);
 }
 
 static void koppa_pop(TRTS_State *state) {
-    mpq_set(state->koppa, state->epsilon);
+    rational_set(state->koppa, state->epsilon);
 }
 
 static void koppa_accumulate(TRTS_State *state) {
-    mpq_add(state->koppa, state->koppa, state->epsilon);
-    mpq_canonicalize(state->koppa);
+    rational_add(state->koppa, state->koppa, state->epsilon);
 }
 
 static void koppa_stack_push(TRTS_State *state, mpq_srcptr value) {
     if (state->koppa_stack_size == 4) {
         for (size_t i = 1; i < 4; ++i) {
-            mpq_set(state->koppa_stack[i - 1], state->koppa_stack[i]);
+            rational_set(state->koppa_stack[i - 1], state->koppa_stack[i]);
         }
-        mpq_set(state->koppa_stack[3], value);
+        rational_set(state->koppa_stack[3], value);
     } else {
-        mpq_set(state->koppa_stack[state->koppa_stack_size], value);
+        rational_set(state->koppa_stack[state->koppa_stack_size], value);
         state->koppa_stack_size += 1;
     }
 }
 
 static void koppa_update_sample(TRTS_State *state, int microtick, bool multi_level_active) {
     state->koppa_sample_index = -1;
-    mpq_set(state->koppa_sample, state->koppa);
+    rational_set(state->koppa_sample, state->koppa);
 
     if (!multi_level_active) {
         return;
     }
 
     if (microtick == 11 && state->koppa_stack_size > 0) {
-        mpq_set(state->koppa_sample, state->koppa_stack[0]);
+        rational_set(state->koppa_sample, state->koppa_stack[0]);
         state->koppa_sample_index = 0;
     } else if (microtick == 5 && state->koppa_stack_size > 2) {
-        mpq_set(state->koppa_sample, state->koppa_stack[2]);
+        rational_set(state->koppa_sample, state->koppa_stack[2]);
         state->koppa_sample_index = 2;
     }
 }
@@ -85,11 +105,10 @@ void koppa_accrue(const Config *config, TRTS_State *state, bool psi_fired, bool 
     }
 
     mpq_t addition;
-    mpq_init(addition);
-    mpq_add(addition, state->upsilon, state->beta);
-    mpq_add(state->koppa, state->koppa, addition);
-    mpq_canonicalize(state->koppa);
-    mpq_clear(addition);
+    rational_init(addition);
+    rational_add(addition, state->upsilon, state->beta);
+    rational_add(state->koppa, state->koppa, addition);
+    rational_clear(addition);
 
     if (config->koppa_trigger == KOPPA_ON_MU_AFTER_PSI) {
         state->psi_recent = false;

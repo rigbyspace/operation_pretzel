@@ -1,27 +1,63 @@
+/*
+==============================================
+     TRTS SYSTEM CREED – RATIONAL ONLY
+==============================================
+
+- All propagation must remain strictly within the rational field ℚ.
+- No operation may simplify, normalize, reduce, fit, scale, or apply GCD to any value.
+- `mpq_canonicalize()` is strictly forbidden and must never be used.
+- All propagation must use raw integer numerator/denominator tracking.
+- Any evaluation to floating-point must be snapshot-only for analysis.
+  These values must NEVER influence state, behavior, or propagation.
+- Rational form must preserve its full historical tension; no compression.
+- Zero-crossings, sign changes, and stack depth are all meaningful logic.
+- Nothing shall "optimize" away the very thing we are trying to study.
+
+Violation of these principles invalidates all results. There are no exceptions.
+
+*/
+
 #include "state.h"
 
-void state_init(TRTS_State *state) {
-    mpq_init(state->upsilon);
-    mpq_init(state->beta);
-    mpq_init(state->koppa);
-    mpq_init(state->epsilon);
-    mpq_init(state->phi);
-    mpq_init(state->previous_upsilon);
-    mpq_init(state->previous_beta);
-    for (size_t i = 0; i < 4; ++i) {
-        mpq_init(state->koppa_stack[i]);
-        mpq_set_ui(state->koppa_stack[i], 0, 1);
-    }
-    mpq_init(state->koppa_sample);
+#include "rational.h"
 
-    mpq_set_ui(state->upsilon, 0, 1);
-    mpq_set_ui(state->beta, 0, 1);
-    mpq_set_ui(state->koppa, 0, 1);
-    mpq_set_ui(state->epsilon, 0, 1);
-    mpq_set_ui(state->phi, 0, 1);
-    mpq_set_ui(state->previous_upsilon, 0, 1);
-    mpq_set_ui(state->previous_beta, 0, 1);
-    mpq_set(state->koppa_sample, state->koppa);
+static void state_zero(mpq_t value) {
+    rational_set_si(value, 0, 1);
+}
+
+void state_init(TRTS_State *state) {
+    rational_init(state->upsilon);
+    rational_init(state->beta);
+    rational_init(state->koppa);
+    rational_init(state->epsilon);
+    rational_init(state->phi);
+    rational_init(state->previous_upsilon);
+    rational_init(state->previous_beta);
+    rational_init(state->delta_upsilon);
+    rational_init(state->delta_beta);
+    rational_init(state->triangle_phi_over_epsilon);
+    rational_init(state->triangle_prev_over_phi);
+    rational_init(state->triangle_epsilon_over_prev);
+    for (size_t i = 0; i < 4; ++i) {
+        rational_init(state->koppa_stack[i]);
+        state_zero(state->koppa_stack[i]);
+    }
+    rational_init(state->koppa_sample);
+
+    state_zero(state->upsilon);
+    state_zero(state->beta);
+    state_zero(state->koppa);
+    state_zero(state->epsilon);
+    state_zero(state->phi);
+    state_zero(state->previous_upsilon);
+    state_zero(state->previous_beta);
+    state_zero(state->delta_upsilon);
+    state_zero(state->delta_beta);
+    state_zero(state->triangle_phi_over_epsilon);
+    state_zero(state->triangle_prev_over_phi);
+    state_zero(state->triangle_epsilon_over_prev);
+    state_zero(state->koppa_sample);
+
     state->koppa_stack_size = 0;
     state->koppa_sample_index = -1;
     state->rho_pending = false;
@@ -30,34 +66,47 @@ void state_init(TRTS_State *state) {
     state->ratio_triggered_recent = false;
     state->psi_triple_recent = false;
     state->dual_engine_last_step = false;
+    state->ratio_threshold_recent = false;
+    state->psi_strength_applied = false;
+    state->sign_flip_polarity = false;
 }
 
 void state_clear(TRTS_State *state) {
-    mpq_clear(state->upsilon);
-    mpq_clear(state->beta);
-    mpq_clear(state->koppa);
-    mpq_clear(state->epsilon);
-    mpq_clear(state->phi);
-    mpq_clear(state->previous_upsilon);
-    mpq_clear(state->previous_beta);
+    rational_clear(state->upsilon);
+    rational_clear(state->beta);
+    rational_clear(state->koppa);
+    rational_clear(state->epsilon);
+    rational_clear(state->phi);
+    rational_clear(state->previous_upsilon);
+    rational_clear(state->previous_beta);
+    rational_clear(state->delta_upsilon);
+    rational_clear(state->delta_beta);
+    rational_clear(state->triangle_phi_over_epsilon);
+    rational_clear(state->triangle_prev_over_phi);
+    rational_clear(state->triangle_epsilon_over_prev);
     for (size_t i = 0; i < 4; ++i) {
-        mpq_clear(state->koppa_stack[i]);
+        rational_clear(state->koppa_stack[i]);
     }
-    mpq_clear(state->koppa_sample);
+    rational_clear(state->koppa_sample);
 }
 
 void state_reset(TRTS_State *state, const Config *config) {
-    mpq_set(state->upsilon, config->initial_upsilon);
-    mpq_set(state->beta, config->initial_beta);
-    mpq_set(state->koppa, config->initial_koppa);
-    mpq_set(state->epsilon, config->initial_upsilon);
-    mpq_set(state->phi, config->initial_beta);
-    mpq_set(state->previous_upsilon, config->initial_upsilon);
-    mpq_set(state->previous_beta, config->initial_beta);
+    rational_set(state->upsilon, config->initial_upsilon);
+    rational_set(state->beta, config->initial_beta);
+    rational_set(state->koppa, config->initial_koppa);
+    rational_set(state->epsilon, config->initial_upsilon);
+    rational_set(state->phi, config->initial_beta);
+    rational_set(state->previous_upsilon, config->initial_upsilon);
+    rational_set(state->previous_beta, config->initial_beta);
+    state_zero(state->delta_upsilon);
+    state_zero(state->delta_beta);
+    state_zero(state->triangle_phi_over_epsilon);
+    state_zero(state->triangle_prev_over_phi);
+    state_zero(state->triangle_epsilon_over_prev);
     for (size_t i = 0; i < 4; ++i) {
-        mpq_set_ui(state->koppa_stack[i], 0, 1);
+        state_zero(state->koppa_stack[i]);
     }
-    mpq_set(state->koppa_sample, state->koppa);
+    rational_set(state->koppa_sample, state->koppa);
     state->koppa_stack_size = 0;
     state->koppa_sample_index = -1;
     state->rho_pending = false;
@@ -66,4 +115,7 @@ void state_reset(TRTS_State *state, const Config *config) {
     state->ratio_triggered_recent = false;
     state->psi_triple_recent = false;
     state->dual_engine_last_step = false;
+    state->ratio_threshold_recent = false;
+    state->psi_strength_applied = false;
+    state->sign_flip_polarity = false;
 }

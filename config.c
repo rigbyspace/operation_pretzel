@@ -4,9 +4,15 @@ void config_init(Config *config) {
     config->psi_mode = PSI_MODE_MSTEP;
     config->koppa_mode = KOPPA_MODE_DUMP;
     config->engine_mode = ENGINE_MODE_ADD;
+    config->engine_upsilon = ENGINE_TRACK_ADD;
+    config->engine_beta = ENGINE_TRACK_ADD;
+    config->dual_track_mode = false;
+    config->triple_psi_mode = false;
+    config->multi_level_koppa = false;
     config->koppa_trigger = KOPPA_ON_PSI;
     config->prime_target = PRIME_ON_NEW_UPSILON;
     config->mt10_behavior = MT10_FORCED_EMISSION_ONLY;
+    config->ratio_trigger_mode = RATIO_TRIGGER_NONE;
     config->ticks = 0;
     mpq_init(config->initial_upsilon);
     mpq_init(config->initial_beta);

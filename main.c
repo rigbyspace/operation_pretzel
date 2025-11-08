@@ -9,12 +9,18 @@ int main(void) {
     config_init(&config);
 
     config.ticks = 5;
-    config.psi_mode = PSI_MODE_INHIBIT_RHO;
-    config.koppa_mode = KOPPA_MODE_POP;
+    config.psi_mode = PSI_MODE_RHO_ONLY;
+    config.koppa_mode = KOPPA_MODE_DUMP;
     config.engine_mode = ENGINE_MODE_ADD;
-    config.koppa_trigger = KOPPA_ON_ALL_MU;
+    config.engine_upsilon = ENGINE_TRACK_ADD;
+    config.engine_beta = ENGINE_TRACK_ADD;
+    config.dual_track_mode = false;
+    config.triple_psi_mode = false;
+    config.multi_level_koppa = false;
+    config.koppa_trigger = KOPPA_ON_PSI;
     config.prime_target = PRIME_ON_NEW_UPSILON;
     config.mt10_behavior = MT10_FORCED_PSI;
+    config.ratio_trigger_mode = RATIO_TRIGGER_NONE;
 
     mpq_set_si(config.initial_upsilon, 3, 5);
     mpq_set_si(config.initial_beta, 5, 7);

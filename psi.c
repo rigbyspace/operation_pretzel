@@ -1,79 +1,175 @@
+/*
+==============================================
+     TRTS SYSTEM CREED – RATIONAL ONLY
+==============================================
+
+- All propagation must remain strictly within the rational field ℚ.
+- No operation may simplify, normalize, reduce, fit, scale, or apply GCD to any value.
+- `mpq_canonicalize()` is strictly forbidden and must never be used.
+- All propagation must use raw integer numerator/denominator tracking.
+- Any evaluation to floating-point must be snapshot-only for analysis.
+  These values must NEVER influence state, behavior, or propagation.
+- Rational form must preserve its full historical tension; no compression.
+- Zero-crossings, sign changes, and stack depth are all meaningful logic.
+- Nothing shall "optimize" away the very thing we are trying to study.
+
+Violation of these principles invalidates all results. There are no exceptions.
+
+*/
+
 #include "psi.h"
 
 #include <gmp.h>
 
-bool psi_transform(const Config *config, TRTS_State *state) {
-    state->psi_triple_recent = false;
+#include "rational.h"
 
-    if (config->triple_psi_mode) {
-        if (mpq_sgn(state->upsilon) == 0 || mpq_sgn(state->beta) == 0 || mpq_sgn(state->koppa) == 0) {
-            state->psi_recent = false;
-            return false;
-        }
+static bool numerator_is_prime(mpq_srcptr value) {
+    mpz_t magnitude;
+    mpz_init(magnitude);
+    rational_abs_num(magnitude, value);
+    bool is_prime = mpz_cmp_ui(magnitude, 2UL) >= 0 && mpz_probab_prime_p(magnitude, 25) > 0;
+    mpz_clear(magnitude);
+    return is_prime;
+}
 
-        mpq_t new_upsilon;
-        mpq_t new_beta;
-        mpq_t new_koppa;
-        mpq_init(new_upsilon);
-        mpq_init(new_beta);
-        mpq_init(new_koppa);
-
-        mpq_div(new_upsilon, state->beta, state->upsilon);
-        mpq_canonicalize(new_upsilon);
-
-        mpq_div(new_beta, state->koppa, state->beta);
-        mpq_canonicalize(new_beta);
-
-        mpq_div(new_koppa, state->upsilon, state->koppa);
-        mpq_canonicalize(new_koppa);
-
-        mpq_set(state->phi, state->upsilon);
-        mpq_set(state->upsilon, new_upsilon);
-        mpq_set(state->beta, new_beta);
-        mpq_set(state->koppa, new_koppa);
-
-        mpq_clear(new_upsilon);
-        mpq_clear(new_beta);
-        mpq_clear(new_koppa);
-
-        state->psi_recent = true;
-        state->rho_pending = false;
-        state->rho_latched = false;
-        state->psi_triple_recent = true;
-        return true;
+static bool standard_psi(TRTS_State *state) {
+    if (rational_is_zero(state->upsilon) || rational_is_zero(state->beta)) {
+        return false;
     }
 
-    mpz_srcptr ups_num = mpq_numref(state->upsilon);
-    mpz_srcptr beta_num = mpq_numref(state->beta);
+    mpz_t beta_den;
+    mpz_t ups_num;
+    mpz_t ups_den;
+    mpz_t beta_num;
+    mpz_init(beta_den);
+    mpz_init(ups_num);
+    mpz_init(ups_den);
+    mpz_init(beta_num);
 
-    if (mpz_sgn(ups_num) == 0 || mpz_sgn(beta_num) == 0) {
-        state->psi_recent = false;
+    mpz_set(beta_den, mpq_denref(state->beta));
+    mpz_set(ups_num, mpq_numref(state->upsilon));
+    if (mpz_sgn(ups_num) == 0) {
+        mpz_clear(beta_den);
+        mpz_clear(ups_num);
+        mpz_clear(ups_den);
+        mpz_clear(beta_num);
+        return false;
+    }
+    mpz_set(ups_den, mpq_denref(state->upsilon));
+    mpz_set(beta_num, mpq_numref(state->beta));
+    if (mpz_sgn(beta_num) == 0) {
+        mpz_clear(beta_den);
+        mpz_clear(ups_num);
+        mpz_clear(ups_den);
+        mpz_clear(beta_num);
         return false;
     }
 
     mpq_t new_upsilon;
     mpq_t new_beta;
-    mpq_init(new_upsilon);
-    mpq_init(new_beta);
+    rational_init(new_upsilon);
+    rational_init(new_beta);
 
-    mpq_set_num(new_upsilon, mpq_denref(state->beta));
-    mpq_set_den(new_upsilon, mpq_numref(state->upsilon));
-    mpq_canonicalize(new_upsilon);
+    rational_set_components(new_upsilon, beta_den, ups_num);
+    rational_set_components(new_beta, ups_den, beta_num);
 
-    mpq_set_num(new_beta, mpq_denref(state->upsilon));
-    mpq_set_den(new_beta, mpq_numref(state->beta));
-    mpq_canonicalize(new_beta);
+    rational_set(state->phi, state->upsilon);
+    rational_set(state->upsilon, new_upsilon);
+    rational_set(state->beta, new_beta);
 
-    mpq_set(state->phi, state->upsilon);
-    mpq_set(state->upsilon, new_upsilon);
-    mpq_set(state->beta, new_beta);
+    rational_clear(new_upsilon);
+    rational_clear(new_beta);
+    mpz_clear(beta_den);
+    mpz_clear(ups_num);
+    mpz_clear(ups_den);
+    mpz_clear(beta_num);
 
-    mpq_clear(new_upsilon);
-    mpq_clear(new_beta);
-
+    state->psi_triple_recent = false;
     state->psi_recent = true;
     state->rho_pending = false;
     state->rho_latched = false;
-
     return true;
+}
+
+static bool triple_psi(TRTS_State *state) {
+    if (rational_is_zero(state->upsilon) || rational_is_zero(state->beta) ||
+        rational_is_zero(state->koppa)) {
+        return false;
+    }
+
+    mpq_t new_upsilon;
+    mpq_t new_beta;
+    mpq_t new_koppa;
+    rational_init(new_upsilon);
+    rational_init(new_beta);
+    rational_init(new_koppa);
+
+    rational_div(new_upsilon, state->beta, state->upsilon);
+    rational_div(new_beta, state->koppa, state->beta);
+    rational_div(new_koppa, state->upsilon, state->koppa);
+
+    rational_set(state->phi, state->upsilon);
+    rational_set(state->upsilon, new_upsilon);
+    rational_set(state->beta, new_beta);
+    rational_set(state->koppa, new_koppa);
+
+    rational_clear(new_upsilon);
+    rational_clear(new_beta);
+    rational_clear(new_koppa);
+
+    state->psi_triple_recent = true;
+    state->psi_recent = true;
+    state->rho_pending = false;
+    state->rho_latched = false;
+    return true;
+}
+
+static int psi_strength(const Config *config, const TRTS_State *state) {
+    if (!config->enable_psi_strength_parameter || !state->rho_pending) {
+        return 1;
+    }
+
+    int prime_count = 0;
+    prime_count += numerator_is_prime(state->upsilon) ? 1 : 0;
+    prime_count += numerator_is_prime(state->beta) ? 1 : 0;
+    prime_count += numerator_is_prime(state->koppa) ? 1 : 0;
+    if (prime_count <= 0) {
+        prime_count = 1;
+    }
+    return prime_count;
+}
+
+bool psi_transform(const Config *config, TRTS_State *state) {
+    state->psi_triple_recent = false;
+    state->psi_recent = false;
+    state->psi_strength_applied = false;
+
+    int strength = psi_strength(config, state);
+    if (strength > 1) {
+        state->psi_strength_applied = true;
+    }
+
+    bool fired = false;
+    for (int i = 0; i < strength; ++i) {
+        bool request_triple = config->triple_psi_mode;
+        if (config->enable_conditional_triple_psi) {
+            if (numerator_is_prime(state->upsilon) && numerator_is_prime(state->beta) &&
+                numerator_is_prime(state->koppa)) {
+                request_triple = true;
+            }
+        }
+        if (strength >= 3 && i == strength - 1) {
+            request_triple = true;
+        }
+
+        bool step_ok = request_triple ? triple_psi(state) : standard_psi(state);
+        if (!step_ok) {
+            state->psi_recent = fired;
+            return fired;
+        }
+        fired = true;
+    }
+
+    state->psi_recent = fired;
+    return fired;
 }

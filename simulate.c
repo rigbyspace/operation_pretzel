@@ -1,3 +1,22 @@
+/*
+==============================================
+     TRTS SYSTEM CREED – RATIONAL ONLY
+==============================================
+
+- All propagation must remain strictly within the rational field ℚ.
+- No operation may simplify, normalize, reduce, fit, scale, or apply GCD to any value.
+- `mpq_canonicalize()` is strictly forbidden and must never be used.
+- All propagation must use raw integer numerator/denominator tracking.
+- Any evaluation to floating-point must be snapshot-only for analysis.
+  These values must NEVER influence state, behavior, or propagation.
+- Rational form must preserve its full historical tension; no compression.
+- Zero-crossings, sign changes, and stack depth are all meaningful logic.
+- Nothing shall "optimize" away the very thing we are trying to study.
+
+Violation of these principles invalidates all results. There are no exceptions.
+
+*/
+
 #include "simulate.h"
 
 #include <gmp.h>
@@ -7,6 +26,7 @@
 
 #include "engine.h"
 #include "koppa.h"
+#include "rational.h"
 #include "psi.h"
 #include "state.h"
 
@@ -39,7 +59,7 @@ static bool mpz_is_prime(mpz_srcptr value) {
     mpz_init(abs_value);
     mpz_abs(abs_value, value);
 
-    bool prime = mpz_cmp_ui(abs_value, 2) >= 0 && mpz_probab_prime_p(abs_value, 10) > 0;
+    bool prime = mpz_cmp_ui(abs_value, 2UL) >= 0 && mpz_probab_prime_p(abs_value, 10) > 0;
     mpz_clear(abs_value);
     return prime;
 }
@@ -51,25 +71,23 @@ static bool mpq_has_prime_component(mpq_srcptr value) {
 static void ratio_bounds(RatioTriggerMode mode, mpq_t lower, mpq_t upper) {
     switch (mode) {
     case RATIO_TRIGGER_GOLDEN:
-        mpq_set_si(lower, 3, 2);  // 1.5
-        mpq_set_si(upper, 17, 10); // 1.7
+        rational_set_si(lower, 3, 2);
+        rational_set_si(upper, 17, 10);
         break;
     case RATIO_TRIGGER_SQRT2:
-        mpq_set_si(lower, 13, 10); // 1.3
-        mpq_set_si(upper, 3, 2);   // 1.5
+        rational_set_si(lower, 13, 10);
+        rational_set_si(upper, 3, 2);
         break;
     case RATIO_TRIGGER_PLASTIC:
-        mpq_set_si(lower, 6, 5);   // 1.2
-        mpq_set_si(upper, 7, 5);   // 1.4
+        rational_set_si(lower, 6, 5);
+        rational_set_si(upper, 7, 5);
         break;
     case RATIO_TRIGGER_NONE:
     default:
-        mpq_set_si(lower, 0, 1);
-        mpq_set_si(upper, 0, 1);
+        rational_set_si(lower, 0, 1);
+        rational_set_si(upper, 0, 1);
         break;
     }
-    mpq_canonicalize(lower);
-    mpq_canonicalize(upper);
 }
 
 static bool ratio_in_range(const Config *config, const TRTS_State *state) {
@@ -77,33 +95,56 @@ static bool ratio_in_range(const Config *config, const TRTS_State *state) {
         return false;
     }
 
-    if (mpq_sgn(state->beta) == 0) {
+    if (rational_is_zero(state->beta)) {
         return false;
     }
 
     mpq_t ratio;
     mpq_t lower;
     mpq_t upper;
-    mpq_init(ratio);
-    mpq_init(lower);
-    mpq_init(upper);
+    rational_init(ratio);
+    rational_init(lower);
+    rational_init(upper);
 
     ratio_bounds(config->ratio_trigger_mode, lower, upper);
-
-    mpq_div(ratio, state->upsilon, state->beta);
-    mpq_canonicalize(ratio);
+    rational_div(ratio, state->upsilon, state->beta);
 
     bool in_range = mpq_cmp(ratio, lower) > 0 && mpq_cmp(ratio, upper) < 0;
 
-    mpq_clear(ratio);
-    mpq_clear(lower);
-    mpq_clear(upper);
+    rational_clear(ratio);
+    rational_clear(lower);
+    rational_clear(upper);
 
     return in_range;
 }
 
-static bool should_fire_psi(const Config *config, const TRTS_State *state, bool is_memory_step) {
+static bool ratio_threshold_outside(const Config *config, const TRTS_State *state) {
+    if (!config->enable_ratio_threshold_psi) {
+        return false;
+    }
+
+    if (rational_is_zero(state->beta)) {
+        return false;
+    }
+
+    mpq_t ratio;
+    rational_init(ratio);
+    rational_div(ratio, state->upsilon, state->beta);
+
+    double ratio_snapshot = mpq_get_d(ratio); // SNAPSHOT ONLY – DO NOT FEED BACK
+    rational_clear(ratio);
+
+    double magnitude = ratio_snapshot >= 0.0 ? ratio_snapshot : -ratio_snapshot;
+    return magnitude < 0.5 || magnitude > 2.0;
+}
+
+static bool should_fire_psi(const Config *config, const TRTS_State *state, bool is_memory_step,
+                            bool allow_stack) {
     if (!is_memory_step) {
+        return false;
+    }
+
+    if (!allow_stack) {
         return false;
     }
 
@@ -121,17 +162,26 @@ static bool should_fire_psi(const Config *config, const TRTS_State *state, bool 
     return false;
 }
 
+static bool stack_allows_psi(const Config *config, const TRTS_State *state) {
+    if (!config->enable_stack_depth_modes) {
+        return true;
+    }
+    return state->koppa_stack_size == 2 || state->koppa_stack_size == 4;
+}
+
 static void log_event(FILE *events_file, size_t tick, int microtick, char phase, bool rho_event,
                       bool psi_fired, bool mu_zero, bool forced_emission, const TRTS_State *state) {
-    fprintf(events_file, "%zu,%d,%c,%d,%d,%d,%d,%d,%d,%d,%d\n", tick, microtick, phase,
+    fprintf(events_file, "%zu,%d,%c,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n", tick, microtick, phase,
             rho_event ? 1 : 0, psi_fired ? 1 : 0, mu_zero ? 1 : 0, forced_emission ? 1 : 0,
             state->ratio_triggered_recent ? 1 : 0, state->psi_triple_recent ? 1 : 0,
-            state->dual_engine_last_step ? 1 : 0, state->koppa_sample_index);
+            state->dual_engine_last_step ? 1 : 0, state->koppa_sample_index,
+            state->ratio_threshold_recent ? 1 : 0, state->psi_strength_applied ? 1 : 0,
+            state->sign_flip_polarity ? 1 : 0);
 }
 
 static void log_values(FILE *values_file, size_t tick, int microtick, const TRTS_State *state) {
     gmp_fprintf(values_file,
-                "%zu,%d,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%zu\n",
+                "%zu,%d,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%zu,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd,%Zd\n",
                 tick, microtick, mpq_numref(state->upsilon), mpq_denref(state->upsilon),
                 mpq_numref(state->beta), mpq_denref(state->beta), mpq_numref(state->koppa),
                 mpq_denref(state->koppa), mpq_numref(state->koppa_sample),
@@ -141,7 +191,15 @@ static void log_values(FILE *values_file, size_t tick, int microtick, const TRTS
                 mpq_denref(state->koppa_stack[0]), mpq_numref(state->koppa_stack[1]),
                 mpq_denref(state->koppa_stack[1]), mpq_numref(state->koppa_stack[2]),
                 mpq_denref(state->koppa_stack[2]), mpq_numref(state->koppa_stack[3]),
-                mpq_denref(state->koppa_stack[3]), state->koppa_stack_size);
+                mpq_denref(state->koppa_stack[3]), state->koppa_stack_size,
+                mpq_numref(state->delta_upsilon), mpq_denref(state->delta_upsilon),
+                mpq_numref(state->delta_beta), mpq_denref(state->delta_beta),
+                mpq_numref(state->triangle_phi_over_epsilon),
+                mpq_denref(state->triangle_phi_over_epsilon),
+                mpq_numref(state->triangle_prev_over_phi),
+                mpq_denref(state->triangle_prev_over_phi),
+                mpq_numref(state->triangle_epsilon_over_prev),
+                mpq_denref(state->triangle_epsilon_over_prev));
 }
 
 void simulate(const Config *config) {
@@ -158,9 +216,9 @@ void simulate(const Config *config) {
     }
 
     fprintf(events_file,
-            "tick,mt,event_type,rho_event,psi_fired,mu_zero,forced_emission,ratio_triggered,triple_psi,dual_engine,koppa_sample_index\n");
+            "tick,mt,event_type,rho_event,psi_fired,mu_zero,forced_emission,ratio_triggered,triple_psi,dual_engine,koppa_sample_index,ratio_threshold,psi_strength,sign_flip\n");
     fprintf(values_file,
-            "tick,mt,upsilon_num,upsilon_den,beta_num,beta_den,koppa_num,koppa_den,koppa_sample_num,koppa_sample_den,prev_upsilon_num,prev_upsilon_den,prev_beta_num,prev_beta_den,koppa_stack0_num,koppa_stack0_den,koppa_stack1_num,koppa_stack1_den,koppa_stack2_num,koppa_stack2_den,koppa_stack3_num,koppa_stack3_den,koppa_stack_size\n");
+            "tick,mt,upsilon_num,upsilon_den,beta_num,beta_den,koppa_num,koppa_den,koppa_sample_num,koppa_sample_den,prev_upsilon_num,prev_upsilon_den,prev_beta_num,prev_beta_den,koppa_stack0_num,koppa_stack0_den,koppa_stack1_num,koppa_stack1_den,koppa_stack2_num,koppa_stack2_den,koppa_stack3_num,koppa_stack3_den,koppa_stack_size,delta_upsilon_num,delta_upsilon_den,delta_beta_num,delta_beta_den,triangle_phi_over_epsilon_num,triangle_phi_over_epsilon_den,triangle_prev_over_phi_num,triangle_prev_over_phi_den,triangle_epsilon_over_prev_num,triangle_epsilon_over_prev_den\n");
 
     TRTS_State state;
     state_init(&state);
@@ -178,12 +236,14 @@ void simulate(const Config *config) {
             state.psi_triple_recent = false;
             state.dual_engine_last_step = false;
             state.koppa_sample_index = -1;
-            mpq_set(state.koppa_sample, state.koppa);
+            rational_set(state.koppa_sample, state.koppa);
+            state.ratio_threshold_recent = false;
+            state.psi_strength_applied = false;
 
             switch (phase) {
             case 'E': {
-                mpq_set(state.epsilon, state.upsilon);
-                bool engine_ok = engine_step(config, &state);
+                rational_set(state.epsilon, state.upsilon);
+                bool engine_ok = engine_step(config, &state, microtick);
                 (void)engine_ok;
 
                 mpq_srcptr prime_target =
@@ -199,19 +259,29 @@ void simulate(const Config *config) {
 
                 forced_emission = (microtick == 10);
                 if (microtick == 10 && config->mt10_behavior == MT10_FORCED_PSI) {
-                    psi_fired = psi_transform(config, &state);
+                    bool allow_stack = stack_allows_psi(config, &state);
+                    if (allow_stack) {
+                        psi_fired = psi_transform(config, &state);
+                    }
                 }
                 break;
             }
             case 'M': {
-                mu_zero = mpq_sgn(state.beta) == 0;
-                bool request_psi = should_fire_psi(config, &state, true);
+                mu_zero = rational_is_zero(state.beta);
+                bool allow_stack = stack_allows_psi(config, &state);
+                bool request_psi = should_fire_psi(config, &state, true, allow_stack);
                 bool ratio_triggered = ratio_in_range(config, &state);
                 if (ratio_triggered) {
                     request_psi = true;
                 }
 
-                if (request_psi) {
+                bool ratio_threshold = ratio_threshold_outside(config, &state);
+                if (ratio_threshold) {
+                    request_psi = true;
+                    state.ratio_threshold_recent = true;
+                }
+
+                if (request_psi && allow_stack) {
                     psi_fired = psi_transform(config, &state);
                 } else {
                     state.psi_recent = false;

@@ -6,6 +6,7 @@
 #include "config.h"
 #include "state.h"
 
-void koppa_accrue(const Config *config, TRTS_State *state, bool psi_fired, bool is_memory_step);
+void koppa_accrue(const Config *config, TRTS_State *state, bool psi_fired, bool is_memory_step,
+                  int microtick);
 
 #endif // KOPPA_H

@@ -5,6 +5,6 @@
 
 #include "state.h"
 
-bool psi_transform(TRTS_State *state);
+bool psi_transform(const Config *config, TRTS_State *state);
 
 #endif // PSI_H

@@ -15,7 +15,37 @@ static void koppa_accumulate(TRTS_State *state) {
     mpq_canonicalize(state->koppa);
 }
 
-void koppa_accrue(const Config *config, TRTS_State *state, bool psi_fired, bool is_memory_step) {
+static void koppa_stack_push(TRTS_State *state, mpq_srcptr value) {
+    if (state->koppa_stack_size == 4) {
+        for (size_t i = 1; i < 4; ++i) {
+            mpq_set(state->koppa_stack[i - 1], state->koppa_stack[i]);
+        }
+        mpq_set(state->koppa_stack[3], value);
+    } else {
+        mpq_set(state->koppa_stack[state->koppa_stack_size], value);
+        state->koppa_stack_size += 1;
+    }
+}
+
+static void koppa_update_sample(TRTS_State *state, int microtick, bool multi_level_active) {
+    state->koppa_sample_index = -1;
+    mpq_set(state->koppa_sample, state->koppa);
+
+    if (!multi_level_active) {
+        return;
+    }
+
+    if (microtick == 11 && state->koppa_stack_size > 0) {
+        mpq_set(state->koppa_sample, state->koppa_stack[0]);
+        state->koppa_sample_index = 0;
+    } else if (microtick == 5 && state->koppa_stack_size > 2) {
+        mpq_set(state->koppa_sample, state->koppa_stack[2]);
+        state->koppa_sample_index = 2;
+    }
+}
+
+void koppa_accrue(const Config *config, TRTS_State *state, bool psi_fired, bool is_memory_step,
+                  int microtick) {
     bool trigger = false;
 
     switch (config->koppa_trigger) {
@@ -34,7 +64,12 @@ void koppa_accrue(const Config *config, TRTS_State *state, bool psi_fired, bool 
         if (!psi_fired && config->koppa_trigger != KOPPA_ON_ALL_MU) {
             state->psi_recent = state->psi_recent && (config->koppa_trigger == KOPPA_ON_MU_AFTER_PSI);
         }
+        koppa_update_sample(state, microtick, config->multi_level_koppa);
         return;
+    }
+
+    if (config->multi_level_koppa) {
+        koppa_stack_push(state, state->koppa);
     }
 
     switch (config->koppa_mode) {
@@ -49,9 +84,18 @@ void koppa_accrue(const Config *config, TRTS_State *state, bool psi_fired, bool 
         break;
     }
 
+    mpq_t addition;
+    mpq_init(addition);
+    mpq_add(addition, state->upsilon, state->beta);
+    mpq_add(state->koppa, state->koppa, addition);
+    mpq_canonicalize(state->koppa);
+    mpq_clear(addition);
+
     if (config->koppa_trigger == KOPPA_ON_MU_AFTER_PSI) {
         state->psi_recent = false;
     } else {
         state->psi_recent = psi_fired;
     }
+
+    koppa_update_sample(state, microtick, config->multi_level_koppa);
 }

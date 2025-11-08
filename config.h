@@ -21,8 +21,15 @@ typedef enum {
 typedef enum {
     ENGINE_MODE_ADD,
     ENGINE_MODE_MULTI,
-    ENGINE_MODE_SLIDE
+    ENGINE_MODE_SLIDE,
+    ENGINE_MODE_DELTA_ADD
 } EngineMode;
+
+typedef enum {
+    ENGINE_TRACK_ADD,
+    ENGINE_TRACK_MULTI,
+    ENGINE_TRACK_SLIDE
+} EngineTrackMode;
 
 typedef enum {
     KOPPA_ON_PSI,
@@ -40,13 +47,26 @@ typedef enum {
     MT10_FORCED_PSI
 } Mt10Behavior;
 
+typedef enum {
+    RATIO_TRIGGER_NONE,
+    RATIO_TRIGGER_GOLDEN,
+    RATIO_TRIGGER_SQRT2,
+    RATIO_TRIGGER_PLASTIC
+} RatioTriggerMode;
+
 typedef struct {
     PsiMode psi_mode;
     KoppaMode koppa_mode;
     EngineMode engine_mode;
+    EngineTrackMode engine_upsilon;
+    EngineTrackMode engine_beta;
+    bool dual_track_mode;
+    bool triple_psi_mode;
+    bool multi_level_koppa;
     KoppaTrigger koppa_trigger;
     PrimeTarget prime_target;
     Mt10Behavior mt10_behavior;
+    RatioTriggerMode ratio_trigger_mode;
     size_t ticks;
     mpq_t initial_upsilon;
     mpq_t initial_beta;

@@ -338,6 +338,11 @@ void simulate(TRTS_State *state, Config *config) {
     FILE *events_csv = fopen("events.csv", "w");
     FILE *values_csv = fopen("values.csv", "w");
     
+    if (!events_csv || !values_csv) {
+        printf("Error: Could not create output files\n");
+        return;
+    }
+    
     fprintf(events_csv, "tick,mt,event_type,rho_event,psi_fired,mu_zero,forced_emission\n");
     fprintf(values_csv, "tick,mt,upsilon_num,upsilon_den,beta_num,beta_den,koppa_num,koppa_den,memory_num,memory_den,phi_num,phi_den\n");
     
@@ -514,14 +519,14 @@ void usage(const char *program_name) {
     printf("  --koppa-trigger T        Koppa accrual (on_psi, on_mu_after_psi, on_all_mu)\n");
     printf("  --mt10-behavior T        MT10 behavior (forced_emission, forced_psi)\n");
     printf("\nArchitectural Variations:\n");
-    printf("  --dual-track U_BETA      Dual-track engines (e.g., multi-add, add-multi, slide-add)\n");
+    printf("  --dual-track U_BETA      Dual-track engines (multi-add, add-multi, slide-add)\n");
     printf("  --triple-psi             Enable triple psi transform\n");
     printf("  --ratio-trigger MODE     Ratio triggers (golden, sqrt2, plastic)\n");
     printf("  --multi-level-koppa      Enable multi-level koppa stack\n");
     printf("  --reverse-causality      Reverse causality mode\n");
     printf("  --alternating-sign       Enable alternating signs\n");
     printf("  --output PREFIX          Output file prefix\n");
-    printf("  --help                   Show this help\n");
+    printf("  -h, --help               Show this help\n");
 }
 
 void parse_arguments(int argc, char *argv[], Config *config) {
@@ -552,63 +557,126 @@ void parse_arguments(int argc, char *argv[], Config *config) {
     // Parse command line
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "--psi-mode") == 0) {
+            if (i + 1 >= argc) {
+                printf("Error: --psi-mode requires an argument\n");
+                exit(1);
+            }
             i++;
             if (strcmp(argv[i], "term") == 0) config->psi_mode = PSI_MODE_TERM;
             else if (strcmp(argv[i], "mstep") == 0) config->psi_mode = PSI_MODE_MSTEP;
             else if (strcmp(argv[i], "mstep_rho") == 0) config->psi_mode = PSI_MODE_MSTEP_RHO;
             else if (strcmp(argv[i], "rho_only") == 0) config->psi_mode = PSI_MODE_RHO_ONLY;
             else if (strcmp(argv[i], "inhibit_rho") == 0) config->psi_mode = PSI_MODE_INHIBIT_RHO;
+            else {
+                printf("Error: Invalid psi mode: %s\n", argv[i]);
+                exit(1);
+            }
         }
         else if (strcmp(argv[i], "--koppa") == 0) {
+            if (i + 1 >= argc) {
+                printf("Error: --koppa requires an argument\n");
+                exit(1);
+            }
             i++;
             if (strcmp(argv[i], "dump") == 0) config->koppa_mode = KOPPA_MODE_DUMP;
             else if (strcmp(argv[i], "pop") == 0) config->koppa_mode = KOPPA_MODE_POP;
             else if (strcmp(argv[i], "accumulate") == 0) config->koppa_mode = KOPPA_MODE_ACCUMULATE;
+            else {
+                printf("Error: Invalid koppa mode: %s\n", argv[i]);
+                exit(1);
+            }
         }
         else if (strcmp(argv[i], "--engine") == 0) {
+            if (i + 1 >= argc) {
+                printf("Error: --engine requires an argument\n");
+                exit(1);
+            }
             i++;
             if (strcmp(argv[i], "add") == 0) config->engine_mode = ENGINE_MODE_ADD;
             else if (strcmp(argv[i], "multi") == 0) config->engine_mode = ENGINE_MODE_MULTI;
             else if (strcmp(argv[i], "slide") == 0) config->engine_mode = ENGINE_MODE_SLIDE;
+            else {
+                printf("Error: Invalid engine mode: %s\n", argv[i]);
+                exit(1);
+            }
         }
         else if (strcmp(argv[i], "--prime-target") == 0) {
+            if (i + 1 >= argc) {
+                printf("Error: --prime-target requires an argument\n");
+                exit(1);
+            }
             i++;
             if (strcmp(argv[i], "memory") == 0) config->prime_target = PRIME_ON_MEMORY;
             else if (strcmp(argv[i], "new_u") == 0) config->prime_target = PRIME_ON_NEW_U;
+            else {
+                printf("Error: Invalid prime target: %s\n", argv[i]);
+                exit(1);
+            }
         }
         else if (strcmp(argv[i], "--koppa-trigger") == 0) {
+            if (i + 1 >= argc) {
+                printf("Error: --koppa-trigger requires an argument\n");
+                exit(1);
+            }
             i++;
             if (strcmp(argv[i], "on_psi") == 0) config->koppa_trigger = KOPPA_ON_PSI;
             else if (strcmp(argv[i], "on_mu_after_psi") == 0) config->koppa_trigger = KOPPA_ON_MU_AFTER_PSI;
             else if (strcmp(argv[i], "on_all_mu") == 0) config->koppa_trigger = KOPPA_ON_ALL_MU;
+            else {
+                printf("Error: Invalid koppa trigger: %s\n", argv[i]);
+                exit(1);
+            }
         }
         else if (strcmp(argv[i], "--mt10-behavior") == 0) {
+            if (i + 1 >= argc) {
+                printf("Error: --mt10-behavior requires an argument\n");
+                exit(1);
+            }
             i++;
             if (strcmp(argv[i], "forced_emission") == 0) config->mt10_behavior = MT10_FORCED_EMISSION_ONLY;
             else if (strcmp(argv[i], "forced_psi") == 0) config->mt10_behavior = MT10_FORCED_PSI;
+            else {
+                printf("Error: Invalid MT10 behavior: %s\n", argv[i]);
+                exit(1);
+            }
         }
         else if (strcmp(argv[i], "--dual-track") == 0) {
+            if (i + 1 >= argc) {
+                printf("Error: --dual-track requires an argument\n");
+                exit(1);
+            }
             i++;
             config->dual_track_mode = true;
-            if (strstr(argv[i], "multi") && strstr(argv[i], "add")) {
+            if (strcmp(argv[i], "multi-add") == 0) {
                 config->engine_upsilon = ENGINE_UPSILON_MULTI;
                 config->engine_beta = ENGINE_BETA_ADD;
-            } else if (strstr(argv[i], "add") && strstr(argv[i], "multi")) {
+            } else if (strcmp(argv[i], "add-multi") == 0) {
                 config->engine_upsilon = ENGINE_UPSILON_ADD;
                 config->engine_beta = ENGINE_BETA_MULTI;
-            } else if (strstr(argv[i], "slide") && strstr(argv[i], "add")) {
+            } else if (strcmp(argv[i], "slide-add") == 0) {
                 config->engine_upsilon = ENGINE_UPSILON_SLIDE;
                 config->engine_beta = ENGINE_BETA_ADD;
+            } else {
+                printf("Error: Invalid dual-track mode: %s\n", argv[i]);
+                exit(1);
             }
         }
         else if (strcmp(argv[i], "--triple-psi") == 0) {
             config->triple_psi_mode = true;
         }
         else if (strcmp(argv[i], "--ratio-trigger") == 0) {
+            if (i + 1 >= argc) {
+                printf("Error: --ratio-trigger requires an argument\n");
+                exit(1);
+            }
             i++;
             if (strcmp(argv[i], "golden") == 0) config->ratio_trigger_mode = RATIO_TRIGGER_GOLDEN;
             else if (strcmp(argv[i], "sqrt2") == 0) config->ratio_trigger_mode = RATIO_TRIGGER_SQRT2;
             else if (strcmp(argv[i], "plastic") == 0) config->ratio_trigger_mode = RATIO_TRIGGER_PLASTIC;
+            else {
+                printf("Error: Invalid ratio trigger: %s\n", argv[i]);
+                exit(1);
+            }
         }
         else if (strcmp(argv[i], "--multi-level-koppa") == 0) {
             config->multi_level_koppa = true;
@@ -620,28 +688,60 @@ void parse_arguments(int argc, char *argv[], Config *config) {
             config->alternating_sign_mode = true;
         }
         else if (strcmp(argv[i], "--ticks") == 0) {
+            if (i + 1 >= argc) {
+                printf("Error: --ticks requires an argument\n");
+                exit(1);
+            }
             i++;
             config->ticks = atoi(argv[i]);
+            if (config->ticks <= 0) {
+                printf("Error: Ticks must be positive\n");
+                exit(1);
+            }
         }
         else if (strcmp(argv[i], "--seed-u") == 0) {
+            if (i + 1 >= argc) {
+                printf("Error: --seed-u requires an argument\n");
+                exit(1);
+            }
             i++;
             long num, den;
-            sscanf(argv[i], "%ld/%ld", &num, &den);
+            if (sscanf(argv[i], "%ld/%ld", &num, &den) != 2 || den == 0) {
+                printf("Error: Invalid seed format for upsilon. Use NUM/DEN\n");
+                exit(1);
+            }
             rational_set(&config->seed_upsilon, num, den);
         }
         else if (strcmp(argv[i], "--seed-b") == 0) {
+            if (i + 1 >= argc) {
+                printf("Error: --seed-b requires an argument\n");
+                exit(1);
+            }
             i++;
             long num, den;
-            sscanf(argv[i], "%ld/%ld", &num, &den);
+            if (sscanf(argv[i], "%ld/%ld", &num, &den) != 2 || den == 0) {
+                printf("Error: Invalid seed format for beta. Use NUM/DEN\n");
+                exit(1);
+            }
             rational_set(&config->seed_beta, num, den);
         }
         else if (strcmp(argv[i], "--output") == 0) {
+            if (i + 1 >= argc) {
+                printf("Error: --output requires an argument\n");
+                exit(1);
+            }
             i++;
-            strcpy(config->output_prefix, argv[i]);
+            strncpy(config->output_prefix, argv[i], 99);
+            config->output_prefix[99] = '\0';
         }
-        else if (strcmp(argv[i], "--help") == 0) {
+        else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
             usage(argv[0]);
             exit(0);
+        }
+        else {
+            printf("Error: Unknown option: %s\n", argv[i]);
+            usage(argv[0]);
+            exit(1);
         }
     }
 }
@@ -682,10 +782,30 @@ int main(int argc, char *argv[]) {
            config.mt10_behavior == MT10_FORCED_EMISSION_ONLY ? "forced_emission" : "forced_psi");
     
     if (config.dual_track_mode) {
-        printf("  Dual-Track: upsilon=%d, beta=%d\n", config.engine_upsilon, config.engine_beta);
+        const char *upsilon_str = "UNKNOWN";
+        const char *beta_str = "UNKNOWN";
+        switch (config.engine_upsilon) {
+            case ENGINE_UPSILON_ADD: upsilon_str = "ADD"; break;
+            case ENGINE_UPSILON_MULTI: upsilon_str = "MULTI"; break;
+            case ENGINE_UPSILON_SLIDE: upsilon_str = "SLIDE"; break;
+        }
+        switch (config.engine_beta) {
+            case ENGINE_BETA_ADD: beta_str = "ADD"; break;
+            case ENGINE_BETA_MULTI: beta_str = "MULTI"; break;
+            case ENGINE_BETA_SLIDE: beta_str = "SLIDE"; break;
+        }
+        printf("  Dual-Track: upsilon=%s, beta=%s\n", upsilon_str, beta_str);
     }
     if (config.triple_psi_mode) printf("  Triple Psi: ENABLED\n");
-    if (config.ratio_trigger_mode != RATIO_TRIGGER_NONE) printf("  Ratio Trigger: %d\n", config.ratio_trigger_mode);
+    if (config.ratio_trigger_mode != RATIO_TRIGGER_NONE) {
+        const char *ratio_str = "UNKNOWN";
+        switch (config.ratio_trigger_mode) {
+            case RATIO_TRIGGER_GOLDEN: ratio_str = "GOLDEN"; break;
+            case RATIO_TRIGGER_SQRT2: ratio_str = "SQRT2"; break;
+            case RATIO_TRIGGER_PLASTIC: ratio_str = "PLASTIC"; break;
+        }
+        printf("  Ratio Trigger: %s\n", ratio_str);
+    }
     if (config.multi_level_koppa) printf("  Multi-Level Koppa: ENABLED\n");
     if (config.reverse_causality_mode) printf("  Reverse Causality: ENABLED\n");
     if (config.alternating_sign_mode) printf("  Alternating Sign: ENABLED\n");

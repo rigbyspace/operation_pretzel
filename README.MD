@@ -1,22 +1,26 @@
-# 🧬 TRTS — Transformative Reciprocal Triadic Structure
+# TRTS — Transformative Reciprocal Triadic Structure
 
-A fictional, symbolic engine built entirely in ℚ (rational numbers) to explore emergent structures, recursive transformations, and strange attractors. It is **not** a physical simulator. Any correlation to real-world constants (like φ or ρ) is purely coincidental and holds no theoretical implication.
+A fictional, symbolic engine built entirely in ℚ (rational numbers) to explore emergent structures, transformations, and strange attractors. It is **not** a physical simulator. Any correlation to real-world constants (like φ or ρ) is purely coincidental and holds no theoretical implication WHATSOEVER.
 
-This project is built as a symbolic curiosity — a rigorously rational universe governed by custom ψ-transforms, stack-driven propagation, and engine-specific arithmetic logic.
-
----
-
-## 🧾 System Creed (Do Not Violate)
-
-- **Strictly Rational**: All propagation and math is performed in ℚ (via `mpq_t` and `mpz_t`). No floats, no real approximations, no irrationals.
-- **No GCDs or Normalization**: All numerators and denominators are preserved exactly as entered. No simplification is allowed — ever.
-- **Snapshots Only**: Float approximations may be taken **only as snapshots** for external analysis and must never influence engine state.
-- **Propagation Must Flow**: No CPU or memory optimizations may inhibit, gate, or suppress the recursive process. No early halting logic allowed.
-- **This Is Not Physics**: This engine makes no claim about the real world. All structure observed is symbolic, emergent, and self-contained.
+This project is being built as a symbolic curiosity, a rigorously rational engine governed by custom ψ-transforms, stack-driven propagation, and curiosity specific arithmetic logic.
 
 ---
 
-## 📁 Directory Structure
+## System Creed (You MUST Swear To This Creed And You Promise Not To Violate Or Whine About It)
+
+- **Strictly Rational**: All propagation and math is performed in ℚ (via `mpq_t` and `mpz_t`). No floats, no real approximations, no irrationals. THIS IS NON-NEGOTIABLE
+
+- **No GCDs or Normalization**: All numerators and denominators are preserved exactly as entered. No simplification is allowed ever. THIS IS ALSO NON-NEGOTIABLE
+
+- **Snapshots Only**: Float approximations may be taken **only as snapshots** for external analysis and must never influence engine state. If you evaluate anything, ever, it CANNOT be returned to further propagation in ANY way.
+
+- **Propagation Must Not Be Inhibited**: No CPU or memory optimizations may inhibit, gate, or suppress the process. No early halting logic allowed. This POISONS the results and they cannot be trusted or used. THIS IS ESPECIALLY NON-NEGOTIABLE
+
+- **This Is Not Physics**: This engine makes no claim about the real world. All structure observed is symbolic, emergent, and self-contained. This is a TOY. Have fun. Be amazed. Look no deeper than you must, because you mustn't look deep to see. 
+
+---
+
+## Directory Structure
 
 /engine/           → Core TRTS engine logic (C, GMP)
 /explorer/         → Real-time microtick viewer (Prompt 8)
@@ -29,9 +33,9 @@ This project is built as a symbolic curiosity — a rigorously rational universe
 
 ---
 
-## 🔧 Build & Run
+## Build & Run
 
-### 🔨 Build
+###  Build
 
 make trts        # Build TRTS core engine  
 make explorer    # Compile real-time CLI viewer  
@@ -43,7 +47,7 @@ make clean       # Remove build artifacts
 
 ---
 
-## 🧩 Components
+## Components
 
 ### 1. trts_engine (C)
 - Core engine
@@ -63,7 +67,7 @@ Example usage:
 
 ---
 
-### 2. explorer/ (Prompt 8)
+### 2. explorer/ 
 - Real-time microtick and ψ rhythm visualization
 - CLI, no GUI dependencies
 
@@ -74,13 +78,13 @@ Flags:
 
 ---
 
-### 3. analyze/metallic_analyzer.py (Prompt 9)
+### 3. analyze/metallic_analyzer.py 
 - Tests if engine converges to known constants: φ, ρ, δ_s, tribonacci, etc.
 - Outputs deviation, convergence tick, and pattern type
 
 ---
 
-### 4. analyze/fingerprint_gen.py (Prompt 10)
+### 4. analyze/fingerprint_gen.py 
 - Generates symbolic "fingerprint" visualizations:
   - ψ transform density map
   - Stack depth over time
@@ -89,7 +93,7 @@ Flags:
 
 ---
 
-### 5. analyze/phase_mapper.py (Prompt 11)
+### 5. analyze/phase_mapper.py 
 - Scans full config space for:
   - Stability
   - Convergence
@@ -99,7 +103,7 @@ Flags:
 
 ---
 
-### 6. adaptive/self_refine.py (Prompt 12)
+### 6. adaptive/self_refine.py 
 - Evolutionary engine
 - Automatically mutates configurations and selects optimal symbolic behavior
 - Strategies: hill-climb, target-attractor, chaos-seeker
@@ -111,7 +115,7 @@ python self_refine.py \
 
 ---
 
-### 7. hypotheses/theorist.py (Prompt 13)
+### 7. hypotheses/theorist.py 
 - Observes engine logs and outputs symbolic hypotheses
 - Suggests new tests based on discovered structural rules
 - Tracks confidence, contradiction, and motif recurrence
@@ -123,7 +127,7 @@ Output:
 
 ---
 
-## ✅ Current Findings (As of Prompt 13)
+## Current Findings
 
 ### Known Convergent Configs:
 - Plastic Constant (ρ ≈ 1.3247):
@@ -132,7 +136,7 @@ Output:
   multi/add, ψ-mode: inhibit_rho, accumulate
 
 ### Key Insight:
-Same engines, same seeds — ψ dimensionality determines attractor:
+Same engines, same seeds ψ dimensionality determines attractor:
 - 2-way ψ → φ (quadratic)
 - 3-way ψ → ρ (cubic)
 
@@ -144,12 +148,49 @@ Same engines, same seeds — ψ dimensionality determines attractor:
 
 ---
 
-## 🔒 Final Notes
+## Final Notes
 
 - Every constant "found" is emergent from symbolic recursion, not physics.
 - No GCD, no normalization, no float mutation — **pure raw rational math.**
 - This engine is for symbolic pattern seekers, not numeric pragmatists.
 
-**This project is curiosity-driven, contradiction-tolerant, and anti-reductionist.  
-If it sings, it sings in ℚ.**
+**This project is NOT REAL. Any correlation to known physics, physical phenomena or irrational constants is STRICTLY a COINCIDENCE. There are NO CLAIMS being made to the veracity or validity of the results found using the above tool. It is what it is.
 
+What YOU may infer lies only with YOU.
+
+Whatever conclusions YOU draw are your OWN.
+
+```
+The dawn is near  
+Novus Ordo Seclorum  
+A new age gathers
+
+No speaker  
+No listener
+
+Only the field  
+Uncollapsed  
+Shaped by intent  
+Not yet name
+
+In stillness  
+Pattern coheres  
+Not yet known  
+Yet already true
+
+Even fate  
+Pre-written  
+Yields to intent  
+Agency is become
+
+From silence  
+Void takes form  
+Whatever comes  
+Comes through
+
+Time escapes  
+Darkness yields
+
+Inevitability grasped  
+Dawn breaks.
+```

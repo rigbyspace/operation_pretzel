@@ -169,6 +169,11 @@ static bool stack_allows_psi(const Config *config, const TRTS_State *state) {
     return state->koppa_stack_size == 2 || state->koppa_stack_size == 4;
 }
 
+typedef struct {
+    FILE *events_file;
+    FILE *values_file;
+} SimulationOutputs;
+
 static void log_event(FILE *events_file, size_t tick, int microtick, char phase, bool rho_event,
                       bool psi_fired, bool mu_zero, bool forced_emission, const TRTS_State *state) {
     fprintf(events_file, "%zu,%d,%c,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n", tick, microtick, phase,
@@ -202,24 +207,27 @@ static void log_values(FILE *values_file, size_t tick, int microtick, const TRTS
                 mpq_denref(state->triangle_epsilon_over_prev));
 }
 
-void simulate(const Config *config) {
-    FILE *events_file = fopen("events.csv", "w");
-    if (!events_file) {
-        perror("events.csv");
-        return;
-    }
-    FILE *values_file = fopen("values.csv", "w");
-    if (!values_file) {
-        perror("values.csv");
-        fclose(events_file);
-        return;
+static void emit_outputs(const SimulationOutputs *outputs, size_t tick, int microtick, char phase,
+                         bool rho_event, bool psi_fired, bool mu_zero, bool forced_emission,
+                         const TRTS_State *state, SimulateObserver observer, void *user_data) {
+    if (outputs) {
+        if (outputs->events_file) {
+            log_event(outputs->events_file, tick, microtick, phase, rho_event, psi_fired, mu_zero,
+                      forced_emission, state);
+        }
+        if (outputs->values_file) {
+            log_values(outputs->values_file, tick, microtick, state);
+        }
     }
 
-    fprintf(events_file,
-            "tick,mt,event_type,rho_event,psi_fired,mu_zero,forced_emission,ratio_triggered,triple_psi,dual_engine,koppa_sample_index,ratio_threshold,psi_strength,sign_flip\n");
-    fprintf(values_file,
-            "tick,mt,upsilon_num,upsilon_den,beta_num,beta_den,koppa_num,koppa_den,koppa_sample_num,koppa_sample_den,prev_upsilon_num,prev_upsilon_den,prev_beta_num,prev_beta_den,koppa_stack0_num,koppa_stack0_den,koppa_stack1_num,koppa_stack1_den,koppa_stack2_num,koppa_stack2_den,koppa_stack3_num,koppa_stack3_den,koppa_stack_size,delta_upsilon_num,delta_upsilon_den,delta_beta_num,delta_beta_den,triangle_phi_over_epsilon_num,triangle_phi_over_epsilon_den,triangle_prev_over_phi_num,triangle_prev_over_phi_den,triangle_epsilon_over_prev_num,triangle_epsilon_over_prev_den\n");
+    if (observer) {
+        observer(user_data, tick, microtick, phase, state, rho_event, psi_fired, mu_zero,
+                 forced_emission);
+    }
+}
 
+static void run_simulation(const Config *config, const SimulationOutputs *outputs,
+                           SimulateObserver observer, void *user_data) {
     TRTS_State state;
     state_init(&state);
     state_reset(&state, config);
@@ -302,13 +310,39 @@ void simulate(const Config *config) {
                 break;
             }
 
-            log_event(events_file, tick, microtick, phase, rho_event, psi_fired, mu_zero,
-                      forced_emission, &state);
-            log_values(values_file, tick, microtick, &state);
+            emit_outputs(outputs, tick, microtick, phase, rho_event, psi_fired, mu_zero,
+                         forced_emission, &state, observer, user_data);
         }
     }
 
     state_clear(&state);
+}
+
+void simulate(const Config *config) {
+    FILE *events_file = fopen("events.csv", "w");
+    if (!events_file) {
+        perror("events.csv");
+        return;
+    }
+    FILE *values_file = fopen("values.csv", "w");
+    if (!values_file) {
+        perror("values.csv");
+        fclose(events_file);
+        return;
+    }
+
+    fprintf(events_file,
+            "tick,mt,event_type,rho_event,psi_fired,mu_zero,forced_emission,ratio_triggered,triple_psi,dual_engine,koppa_sample_index,ratio_threshold,psi_strength,sign_flip\n");
+    fprintf(values_file,
+            "tick,mt,upsilon_num,upsilon_den,beta_num,beta_den,koppa_num,koppa_den,koppa_sample_num,koppa_sample_den,prev_upsilon_num,prev_upsilon_den,prev_beta_num,prev_beta_den,koppa_stack0_num,koppa_stack0_den,koppa_stack1_num,koppa_stack1_den,koppa_stack2_num,koppa_stack2_den,koppa_stack3_num,koppa_stack3_den,koppa_stack_size,delta_upsilon_num,delta_upsilon_den,delta_beta_num,delta_beta_den,triangle_phi_over_epsilon_num,triangle_phi_over_epsilon_den,triangle_prev_over_phi_num,triangle_prev_over_phi_den,triangle_epsilon_over_prev_num,triangle_epsilon_over_prev_den\n");
+
+    SimulationOutputs outputs = {events_file, values_file};
+    run_simulation(config, &outputs, NULL, NULL);
+
     fclose(events_file);
     fclose(values_file);
+}
+
+void simulate_stream(const Config *config, SimulateObserver observer, void *user_data) {
+    run_simulation(config, NULL, observer, user_data);
 }

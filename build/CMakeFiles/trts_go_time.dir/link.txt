@@ -1,0 +1,1 @@
+/usr/bin/cc -Wl,--dependency-file=CMakeFiles/trts_go_time.dir/link.d CMakeFiles/trts_go_time.dir/trts_go_time.c.o -o trts_go_time  /usr/lib/x86_64-linux-gnu/libgmp.so

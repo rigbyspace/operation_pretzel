@@ -1,0 +1,43 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/trts_lab_gui.dir/link.d"
+  "CMakeFiles/trts_lab_gui_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/trts_lab_gui_autogen.dir/ParseCache.txt"
+  "trts_lab_gui_autogen"
+  "CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/src/MainWindow.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/MainWindow.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/src/StackViewerWidget.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/StackViewerWidget.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/src/main.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/src/main.cpp.o.d"
+  "CMakeFiles/trts_lab_gui.dir/trts_lab_gui_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/trts_lab_gui.dir/trts_lab_gui_autogen/mocs_compilation.cpp.o.d"
+  "trts_lab_gui"
+  "trts_lab_gui.pdb"
+  "trts_lab_gui_autogen/mocs_compilation.cpp"
+  "trts_lab_gui_autogen/timestamp"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/trts_lab_gui.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

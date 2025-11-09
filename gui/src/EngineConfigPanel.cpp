@@ -210,7 +210,10 @@ void EngineConfigPanel::buildUi() {
                                        m_mt10Behavior, m_ratioTrigger, m_primeTarget, m_signFlip,
                                        m_upsilonTrack, m_betaTrack};
     for (QComboBox *combo : combos) {
-        connect(combo, &QComboBox::currentIndexChanged, this, &EngineConfigPanel::emitConfigurationChanged);
+        connect(combo,
+                     static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+                     this,
+                     &EngineConfigPanel::emitConfigurationChanged);
     }
 
     const QList<QLineEdit *> edits = {m_upsilonSeed, m_betaSeed, m_koppaSeed};

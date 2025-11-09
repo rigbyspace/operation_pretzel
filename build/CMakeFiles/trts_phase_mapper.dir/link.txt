@@ -1,0 +1,1 @@
+/usr/bin/cc -Wl,--dependency-file=CMakeFiles/trts_phase_mapper.dir/link.d CMakeFiles/trts_phase_mapper.dir/phase_mapper.c.o -o trts_phase_mapper  libtrts_core.a /usr/lib/x86_64-linux-gnu/libgmp.so -lm

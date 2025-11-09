@@ -1,0 +1,1 @@
+/usr/bin/cc -Wl,--dependency-file=CMakeFiles/trts_self_refine.dir/link.d CMakeFiles/trts_self_refine.dir/self_refine.c.o -o trts_self_refine  libtrts_core.a /usr/lib/x86_64-linux-gnu/libgmp.so -lm

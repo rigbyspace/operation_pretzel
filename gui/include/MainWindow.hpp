@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QProcess>
 
 #include "TRTSConfig.hpp"
 

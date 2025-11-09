@@ -1,0 +1,218 @@
+{
+	"BUILD_DIR" : "/home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen",
+	"CMAKE_BINARY_DIR" : "/home/c/11_08_2025/operation_pretzel/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/c/11_08_2025/operation_pretzel/build/gui",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/c/11_08_2025/operation_pretzel/gui",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_LIST_FILES" : 
+	[
+		"/home/c/11_08_2025/operation_pretzel/gui/CMakeLists.txt",
+		"/usr/lib/x86_64-linux-gnu/cmake/Qt5/Qt5ConfigVersion.cmake",
+		"/usr/lib/x86_64-linux-gnu/cmake/Qt5/Qt5Config.cmake",
+		"/usr/lib/x86_64-linux-gnu/cmake/Qt5/Qt5ModuleLocation.cmake",
+		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigVersion.cmake",
+		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfig.cmake",
+		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake",
+		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake"
+	],
+	"CMAKE_SOURCE_DIR" : "/home/c/11_08_2025/operation_pretzel",
+	"CROSS_CONFIG" : false,
+	"DEP_FILE" : "/home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "trts_lab_gui_autogen/timestamp",
+	"HEADERS" : 
+	[
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/include/AnalyzerPanel.hpp",
+			"MU",
+			"6YEA5652QU/moc_AnalyzerPanel.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/include/EngineConfigPanel.hpp",
+			"MU",
+			"6YEA5652QU/moc_EngineConfigPanel.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/include/ExecutionPanel.hpp",
+			"MU",
+			"6YEA5652QU/moc_ExecutionPanel.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/include/FingerprintPanel.hpp",
+			"MU",
+			"6YEA5652QU/moc_FingerprintPanel.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/include/MainWindow.hpp",
+			"MU",
+			"6YEA5652QU/moc_MainWindow.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/include/OutputTableWidget.hpp",
+			"MU",
+			"6YEA5652QU/moc_OutputTableWidget.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/include/PhaseMapExplorer.hpp",
+			"MU",
+			"6YEA5652QU/moc_PhaseMapExplorer.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/include/RhythmVisualizerWidget.hpp",
+			"MU",
+			"6YEA5652QU/moc_RhythmVisualizerWidget.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/include/StackViewerWidget.hpp",
+			"MU",
+			"6YEA5652QU/moc_StackViewerWidget.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/include/TRTSConfig.hpp",
+			"MU",
+			"6YEA5652QU/moc_TRTSConfig.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/include/TRTSCoreProcess.hpp",
+			"MU",
+			"6YEA5652QU/moc_TRTSCoreProcess.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/include/TheoristExplorerPanel.hpp",
+			"MU",
+			"6YEA5652QU/moc_TheoristExplorerPanel.cpp",
+			null
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_GUI_LIB", "QT_NO_DEBUG", "QT_WIDGETS_LIB" ],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/c/11_08_2025/operation_pretzel/gui/include",
+		"/usr/include/x86_64-linux-gnu/qt5",
+		"/usr/include/x86_64-linux-gnu/qt5/QtCore",
+		"/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++",
+		"/usr/include/x86_64-linux-gnu/qt5/QtWidgets",
+		"/usr/include/x86_64-linux-gnu/qt5/QtGui",
+		"/usr/include/c++/15",
+		"/usr/include/x86_64-linux-gnu/c++/15",
+		"/usr/include/c++/15/backward",
+		"/usr/lib/gcc/x86_64-linux-gnu/15/include",
+		"/usr/local/include",
+		"/usr/x86_64-linux-gnu/include",
+		"/usr/include/x86_64-linux-gnu",
+		"/usr/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/c++",
+		"-std=gnu++17",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "/home/c/11_08_2025/operation_pretzel/build/gui/CMakeFiles/trts_lab_gui_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib/qt5/bin/moc",
+	"QT_UIC_EXECUTABLE" : "/usr/lib/qt5/bin/uic",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 15,
+	"SETTINGS_FILE" : "/home/c/11_08_2025/operation_pretzel/build/gui/CMakeFiles/trts_lab_gui_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/AnalyzerPanel.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/EngineConfigPanel.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/ExecutionPanel.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/FingerprintPanel.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/MainWindow.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/OutputTableWidget.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/PhaseMapExplorer.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/RhythmVisualizerWidget.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/StackViewerWidget.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/TRTSCoreProcess.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/TheoristExplorerPanel.cpp",
+			"MU",
+			null
+		],
+		[ "/home/c/11_08_2025/operation_pretzel/gui/src/main.cpp", "MU", null ]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"USE_BETTER_GRAPH" : false,
+	"VERBOSITY" : 0
+}

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtrts_core.a CMakeFiles/trts_core.dir/analysis_utils.c.o CMakeFiles/trts_core.dir/config.c.o CMakeFiles/trts_core.dir/config_loader.c.o CMakeFiles/trts_core.dir/engine.c.o CMakeFiles/trts_core.dir/koppa.c.o CMakeFiles/trts_core.dir/psi.c.o CMakeFiles/trts_core.dir/rational.c.o CMakeFiles/trts_core.dir/simulate.c.o CMakeFiles/trts_core.dir/state.c.o
+/usr/bin/ranlib libtrts_core.a

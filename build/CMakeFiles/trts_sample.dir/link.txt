@@ -1,0 +1,1 @@
+/usr/bin/cc -Wl,--dependency-file=CMakeFiles/trts_sample.dir/link.d CMakeFiles/trts_sample.dir/main.c.o -o trts_sample  libtrts_core.a /usr/lib/x86_64-linux-gnu/libgmp.so -lm

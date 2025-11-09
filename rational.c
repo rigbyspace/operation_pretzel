@@ -17,6 +17,7 @@ Violation of these principles invalidates all results. There are no exceptions.
 
 */
 
+#include <gmp.h>
 #include "rational_strict.h"
 
 static void rational_assign_components(mpq_t dest, mpz_srcptr numerator, mpz_srcptr denominator) {
@@ -206,7 +207,8 @@ bool rational_is_zero(mpq_srcptr value) {
 }
 
 void rational_print(FILE *stream, mpq_srcptr value) {
-    gmp_fprintf(stream, "%Zd/%Zd", mpq_numref(value), mpq_denref(value));
+    mpq_out_str(stream, 10, value);
+    fprintf(stream, "\n");
 }
 
 bool rational_denominator_zero(mpq_srcptr value) {

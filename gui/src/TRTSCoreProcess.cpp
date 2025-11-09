@@ -11,7 +11,7 @@
 #include <QStringList>
 
 namespace {
-constexpr auto kDefaultExecutable = "./trts_go_time";
+constexpr auto kDefaultExecutable = "./trts_engine";
 constexpr auto kConfigExtension = ".trtscfg";
 }
 
@@ -123,14 +123,19 @@ QString TRTSCoreProcess::resolveEngineExecutable() const {
         return overridePath;
     }
 
-    const QString localCandidate = QDir(QCoreApplication::applicationDirPath()).filePath(kDefaultExecutable);
-    if (QFileInfo::exists(localCandidate)) {
-        return localCandidate;
+    const QString appDirCandidate = QDir(QCoreApplication::applicationDirPath()).filePath(kDefaultExecutable);
+    if (QFileInfo::exists(appDirCandidate)) {
+        return appDirCandidate;
     }
 
     const QString repoCandidate = QDir::current().filePath(kDefaultExecutable);
     if (QFileInfo::exists(repoCandidate)) {
         return repoCandidate;
+    }
+
+    const QString buildCandidate = QDir::current().filePath(QStringLiteral("build/trts_engine"));
+    if (QFileInfo::exists(buildCandidate)) {
+        return buildCandidate;
     }
 
     return QString();

@@ -1,0 +1,107 @@
+
+.TH RIGBYSPACE 1 "November 2025" "Version 1.0" "Rational Engine CLI"
+.SH NAME
+rigbyspace \- A rational-state engine for emergent pattern exploration
+.SH SYNOPSIS
+.B rigbyspace
+[OPTIONS]
+.SH DESCRIPTION
+rigbyspace is a rational-state engine designed to explore pattern emergence and dynamic transformations in rational number sequences using psi-transforms, dual-tracks, koppa memory, and microtick-based logic. It provides a CLI interface to execute, experiment with, and analyze emergent behaviors across rational attractors, convergence profiles, and mathematical constants.
+
+All behavior is deterministic and rule-based. This tool makes no claims about physical validity — it is a sandbox for structured curiosity.
+
+.SH OPTIONS
+.TP
+.BI -r " min max"
+Enable ratio-based psi triggering when |upsilon / beta| falls between min and max.
+.TP
+.BI -l " filename"
+Log tick data to the specified CSV file.
+.TP
+.B -s , --sign-psi
+Enable psi triggering when upsilon or beta changes sign.
+.TP
+.B -f , --flip-sign
+Enable psi to flip signs of both upsilon and beta.
+.TP
+.B --flip-upsilon-only
+Limit psi sign flip to upsilon only.
+.TP
+.B --flip-beta-only
+Limit psi sign flip to beta only.
+.TP
+.B -c , --reverse-causality
+Enable reverse causality: psi fires by default unless delayed by rho.
+.TP
+.B -d , --dual-track
+Enable separate engines for upsilon and beta.
+.TP
+.BI -a " engine"
+Specify engine for upsilon track: "add" or "multi".
+.TP
+.BI -b " engine"
+Specify engine for beta track: "add" or "multi".
+.TP
+.B -x , --swap-on-psi
+Swap track engines when psi fires.
+.TP
+.B -k , --active-koppa
+Enable koppa as a third rational participant in psi transforms.
+.TP
+.B -m , --microtick-engine
+Enable per-microtick engine cycling (ADD/MULTI/SLIDE).
+.TP
+.BI -K " depth"
+Set koppa stack depth for long-term memory (default: 1).
+.TP
+.BI -t " profile"
+Trigger psi when number matches:
+.IR prime ,
+.IR fibo ,
+.IR power .
+.TP
+.B -D , --use-differences
+Enable difference-driven engine propagation based on Δupsilon and Δbeta.
+.TP
+.B -M , --mod-bound
+Apply modular bounds to rationals using a floating point modulus Q.
+.TP
+.B -P , --parity-branching
+Enable parity-based psi behavior (based on numerator parity).
+.TP
+.B -T , --triad-phase
+Enable meta-triad phasing: emission, memory, return ticks.
+
+.SH EXAMPLES
+.TP
+Generate the golden ratio:
+.B
+./rigbyspace -r 1.617 1.619 -l phi.csv
+
+.TP
+Enable all structural features with full logging:
+.B
+./rigbyspace -r 1.32 1.33 -l out.csv -m -K 3 -t fibo -D -f -c -k -d -a multi -b add -x -T -M 3.1415 -P
+
+.TP
+Enable dual track with engine swap on psi:
+.B
+./rigbyspace -d -a multi -b add -x
+
+.TP
+Trigger psi on Fibonacci numerators only:
+.B
+./rigbyspace -t fibo
+
+.SH FILES
+.B engine.c
+The core logic engine.
+
+.SH AUTHOR
+Brutally Honest Expert (BHE) — with deep respect to the original architect, a self-taught explorer driven by structure and truth.
+
+.SH DISCLAIMER
+This tool makes no physical claims. It is intended solely for mathematical and structural curiosity. All outputs are purely rational and emergent. No metaphysical or predictive validity is implied.
+
+.SH SEE ALSO
+mpq(3), gmp(3), man(1)

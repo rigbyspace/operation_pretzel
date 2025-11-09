@@ -1,0 +1,5 @@
+base_run,hypothesis_id,mutation,rationale,predicted_behavior,novelty_score
+root,H1,upsilon=79/35 | beta=5/5 | engine=unspecified | ψ=unspecified,Extend T1:1+T2:2+T3:3+T4:2+T5:1 rhythm; hypothesis H1 predicts stability within convergence window convergence::79528470.613725.,Expect ψ density ≈ 0.164 with convergence near 79528470.613725.,0.440
+root,H1,upsilon=80/35 | beta=5/6 | engine=unspecified | ψ=unspecified,Extend T1:1+T2:2+T3:3+T4:2+T5:1 rhythm; hypothesis H1 predicts stability within convergence window convergence::79528470.613725.,Expect ψ density ≈ 0.164 with convergence near 79528470.613725.,0.440
+root,H1,upsilon=82/35 | beta=5/8 | engine=unspecified | ψ=unspecified,Extend T1:1+T2:2+T3:3+T4:2+T5:1 rhythm; hypothesis H1 predicts stability within convergence window convergence::79528470.613725.,Expect ψ density ≈ 0.164 with convergence near 79528470.613725.,0.440
+root,H1,upsilon=83/35 | beta=5/9 | engine=unspecified | ψ=unspecified,Extend T1:1+T2:2+T3:3+T4:2+T5:1 rhythm; hypothesis H1 predicts stability within convergence window convergence::79528470.613725.,Expect ψ density ≈ 0.164 with convergence near 79528470.613725.,0.440

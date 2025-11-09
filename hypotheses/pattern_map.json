@@ -1,0 +1,18 @@
+{
+  "root": {
+    "convergence_value": 79528470.61372475,
+    "psi_pattern": "T1:1+T2:2+T3:3+T4:2+T5:1",
+    "rho_pattern": "T2:1+T3:2+T4:1",
+    "psi_density": 0.16363636363636364,
+    "rho_density": 0.07272727272727272,
+    "mu_zero_count": 0,
+    "engine_symmetry": "singular",
+    "engine_mode": "unspecified",
+    "psi_mode": "unspecified",
+    "koppa_mode": "unspecified",
+    "koppa_trigger": "unspecified",
+    "triple_psi_count": 0,
+    "initial_upsilon": "81/35",
+    "initial_beta": "5/7"
+  }
+}

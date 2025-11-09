@@ -1,0 +1,2 @@
+hypothesis_id,cluster_key,confidence_percent,coverage,entropy_bits,support_count,contradiction_count,psi_signature,engine_mode,koppa_mode,convergence_value
+H1,convergence::79528470.613725,0.00,1.000,0.000,1,1,T1:1+T2:2+T3:3+T4:2+T5:1,unspecified,unspecified,79528470.613725

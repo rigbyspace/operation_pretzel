@@ -31,6 +31,22 @@ double ratio_trigger_max = 1.619;
 FILE *log_fp = NULL;
 char *log_filename = NULL;
 
+// Tier 1 feature toggles
+int dual_track_enabled = 0;
+char *track_a_engine = "multi";
+char *track_b_engine = "add";
+int swap_on_psi = 0;
+
+int reverse_causality_enabled = 0;
+int delay_psi_ticks = 0;
+
+int active_koppa_enabled = 0;
+
+int flip_sign_enabled = 0;
+int flip_upsilon_only = 0;
+int flip_beta_only = 0;
+
+
 int sign_psi_enabled = 0;
 int prev_upsilon_sign = 0;
 int prev_beta_sign = 0;

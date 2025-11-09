@@ -23,6 +23,12 @@ Violation of these principles invalidates all results. There are no exceptions.
 
 #include "rational.h"
 
+// Ratio-trigger variables (added)
+int ratio_trigger_enabled = 0;
+double ratio_trigger_min = 1.617;
+double ratio_trigger_max = 1.619;
+
+
 static EngineTrackMode convert_engine_mode(EngineMode mode) {
     switch (mode) {
     case ENGINE_MODE_ADD:

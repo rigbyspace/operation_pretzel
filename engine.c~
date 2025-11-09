@@ -28,6 +28,10 @@ int ratio_trigger_enabled = 0;
 double ratio_trigger_min = 1.617;
 double ratio_trigger_max = 1.619;
 
+FILE *log_fp = NULL;
+char *log_filename = NULL;
+
+
 
 static EngineTrackMode convert_engine_mode(EngineMode mode) {
     switch (mode) {

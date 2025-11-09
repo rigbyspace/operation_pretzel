@@ -31,6 +31,11 @@ double ratio_trigger_max = 1.619;
 FILE *log_fp = NULL;
 char *log_filename = NULL;
 
+int sign_psi_enabled = 0;
+int prev_upsilon_sign = 0;
+int prev_beta_sign = 0;
+
+
 
 
 static EngineTrackMode convert_engine_mode(EngineMode mode) {

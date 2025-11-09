@@ -46,6 +46,16 @@ int flip_sign_enabled = 0;
 int flip_upsilon_only = 0;
 int flip_beta_only = 0;
 
+// Tier 2 feature toggles
+int microtick_engine_enabled = 0;
+int koppa_stack_depth = 1;
+char *trigger_profile = NULL;
+int use_differences = 0;
+
+// State for previous values
+mpq_t prev_upsilon, prev_beta;
+
+
 
 int sign_psi_enabled = 0;
 int prev_upsilon_sign = 0;

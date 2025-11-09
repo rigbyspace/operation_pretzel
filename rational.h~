@@ -20,7 +20,6 @@ Violation of these principles invalidates all results. There are no exceptions.
 #ifndef RATIONAL_H
 #define RATIONAL_H
 
-#include <gmp.h>
 #include "rational_strict.h"
 
 #endif // RATIONAL_H

@@ -1,5 +1,5 @@
-CMakeFiles/trts_core.dir/rational.c.o: \
- /home/c/11_08_2025/operation_pretzel/rational.c \
+CMakeFiles/trts_engine.dir/trts_engine_main.c.o: \
+ /home/c/11_08_2025/operation_pretzel/trts_engine_main.c \
  /usr/x86_64-linux-gnu/include/stdc-predef.h \
  /usr/x86_64-linux-gnu/include/stdio.h \
  /usr/x86_64-linux-gnu/include/bits/libc-header-start.h \
@@ -26,18 +26,6 @@ CMakeFiles/trts_core.dir/rational.c.o: \
  /usr/x86_64-linux-gnu/include/bits/stdio_lim.h \
  /usr/x86_64-linux-gnu/include/bits/floatn.h \
  /usr/x86_64-linux-gnu/include/bits/floatn-common.h \
- /usr/include/x86_64-linux-gnu/gmp.h \
- /usr/lib/gcc/x86_64-linux-gnu/15/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/15/include/syslimits.h \
- /usr/x86_64-linux-gnu/include/limits.h \
- /usr/x86_64-linux-gnu/include/bits/posix1_lim.h \
- /usr/x86_64-linux-gnu/include/bits/local_lim.h \
- /usr/x86_64-linux-gnu/include/linux/limits.h \
- /usr/x86_64-linux-gnu/include/bits/pthread_stack_min-dynamic.h \
- /usr/x86_64-linux-gnu/include/bits/pthread_stack_min.h \
- /usr/x86_64-linux-gnu/include/bits/posix2_lim.h \
- /usr/lib/gcc/x86_64-linux-gnu/15/include/stdbool.h \
- /home/c/11_08_2025/operation_pretzel/rational_strict.h \
  /usr/x86_64-linux-gnu/include/stdlib.h \
  /usr/x86_64-linux-gnu/include/bits/waitflags.h \
  /usr/x86_64-linux-gnu/include/bits/waitstatus.h \
@@ -65,4 +53,25 @@ CMakeFiles/trts_core.dir/rational.c.o: \
  /usr/x86_64-linux-gnu/include/bits/struct_mutex.h \
  /usr/x86_64-linux-gnu/include/bits/struct_rwlock.h \
  /usr/x86_64-linux-gnu/include/alloca.h \
- /usr/x86_64-linux-gnu/include/bits/stdlib-float.h
+ /usr/x86_64-linux-gnu/include/bits/stdlib-float.h \
+ /usr/x86_64-linux-gnu/include/string.h \
+ /usr/x86_64-linux-gnu/include/bits/types/locale_t.h \
+ /usr/x86_64-linux-gnu/include/bits/types/__locale_t.h \
+ /usr/x86_64-linux-gnu/include/strings.h \
+ /usr/include/x86_64-linux-gnu/gmp.h \
+ /usr/lib/gcc/x86_64-linux-gnu/15/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/15/include/syslimits.h \
+ /usr/x86_64-linux-gnu/include/limits.h \
+ /usr/x86_64-linux-gnu/include/bits/posix1_lim.h \
+ /usr/x86_64-linux-gnu/include/bits/local_lim.h \
+ /usr/x86_64-linux-gnu/include/linux/limits.h \
+ /usr/x86_64-linux-gnu/include/bits/pthread_stack_min-dynamic.h \
+ /usr/x86_64-linux-gnu/include/bits/pthread_stack_min.h \
+ /usr/x86_64-linux-gnu/include/bits/posix2_lim.h \
+ /home/c/11_08_2025/operation_pretzel/config_loader.h \
+ /usr/lib/gcc/x86_64-linux-gnu/15/include/stdbool.h \
+ /home/c/11_08_2025/operation_pretzel/config.h \
+ /home/c/11_08_2025/operation_pretzel/rational.h \
+ /home/c/11_08_2025/operation_pretzel/rational_strict.h \
+ /home/c/11_08_2025/operation_pretzel/simulate.h \
+ /home/c/11_08_2025/operation_pretzel/state.h

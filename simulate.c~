@@ -16,9 +16,9 @@
 Violation of these principles invalidates all results. There are no exceptions.
 
 */
-
-#include "simulate.h"
 #include <stdio.h>
+#include "simulate.h"
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <gmp.h>

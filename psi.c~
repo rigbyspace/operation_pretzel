@@ -164,25 +164,6 @@ bool psi_transform(const Config *config, TRTS_State *state) {
     state->psi_triple_recent = false;
     state->psi_recent = false;
     state->psi_strength_applied = false;
-    
-    if (config->enable_fibonacci_gate) {
-        if (!is_fibonacci_tick(state->current_tick)) {
-            // Inhibit action: the 'stretched' mass gap (non-event time).
-            state->rho_pending = false;
-            return false;
-        }
-        // Allowed to fire: the 'compressed' mass gap where time is realized.
-    }
-    
-    // Check if a psi event can fire based on current state (rho_pending, etc.)
-    bool can_fire = state->rho_pending || (config->psi_mode == PSI_MODE_MSTEP);
-
-    if (!can_fire) {
-        return false;
-    }
-    
-    // ... (rest of the original psi_transform logic continues from here) ...
-}
 
     int strength = psi_strength(config, state);
     if (strength > 1) {

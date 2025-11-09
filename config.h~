@@ -81,8 +81,6 @@ typedef enum {
     SIGN_FLIP_ALTERNATE
 } SignFlipMode;
 
-// Inside config.h, within the Config struct definition:
-
 typedef struct {
     PsiMode psi_mode;
     KoppaMode koppa_mode;
@@ -114,13 +112,9 @@ typedef struct {
     bool enable_psi_strength_parameter;
     bool enable_ratio_snapshot_logging;
     bool enable_feedback_oscillator;
-    bool enable_fibonacci_gate; 
     SignFlipMode sign_flip_mode;
     unsigned long koppa_wrap_threshold;
 } Config;
-
-void config_init(Config *config);
-// ... (rest of the file)
 
 void config_init(Config *config);
 void config_clear(Config *config);

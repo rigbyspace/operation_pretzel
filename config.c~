@@ -51,10 +51,9 @@ void config_init(Config *config) {
     config->enable_sign_flip = true;
     config->enable_modular_wrap = true;
     config->enable_psi_strength_parameter = true;
-    config->enable_ratio_snapshot_logging = false;
-    config->enable_feedback_oscillator = false;
-    config->enable_fibonacci_gate = false;
-    config->sign_flip_mode = SIGN_FLIP_NONE;
+    config->enable_ratio_snapshot_logging = true;
+    config->enable_feedback_oscillator = true;
+    config->sign_flip_mode = SIGN_FLIP_ALTERNATE;
     config->koppa_wrap_threshold = 1000UL;
 }
 

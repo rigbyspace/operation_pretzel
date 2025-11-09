@@ -1,0 +1,12 @@
+[engine]
+executable = ../trts_engine  # ← Adjust if needed
+
+[parameters]
+input_file = ../../data/values.csv
+event_file = ../../data/events.csv
+output_dir = ./output
+
+[runtime]
+steps = 1000
+mode = simulate
+

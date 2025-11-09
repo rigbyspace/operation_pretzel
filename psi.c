@@ -18,24 +18,22 @@ Violation of these principles invalidates all results. There are no exceptions.
 */
 
 #include <stdbool.h>
-#include <stddef.h> // For size_t
+#include <stddef.h>
+#include <gmp.h>
+
 #include "psi.h"
 #include "rational.h"
 
 #define ARRAY_COUNT(arr) (sizeof(arr) / sizeof((arr)[0]))
 
+// Fibonacci Ticks array (used for Rho-gated Psi modes)
 static const size_t FIB_TICKS[] = {
     5, 13, 89, 233, 1597, 
     4181, 10946, 28657, 75025, 196418, 
     514229, 1346269, 3524578, 9227465 // Covers runs up to 9 million ticks
 };
 
-// Helper function to check if the current tick is a Fibonacci number in our set
 static bool is_fibonacci_tick(size_t tick) {
-    if (tick == 0) {
-        return false;
-    }
-    // Simple linear search through the small, static list is fast enough.
     for (size_t i = 0; i < ARRAY_COUNT(FIB_TICKS); ++i) {
         if (tick == FIB_TICKS[i]) {
             return true;
@@ -48,11 +46,13 @@ static bool numerator_is_prime(mpq_srcptr value) {
     mpz_t magnitude;
     mpz_init(magnitude);
     rational_abs_num(magnitude, value);
+    // Use a reasonable primality test
     bool is_prime = mpz_cmp_ui(magnitude, 2UL) >= 0 && mpz_probab_prime_p(magnitude, 25) > 0;
     mpz_clear(magnitude);
     return is_prime;
 }
 
+// Standard psi transform: (u, b) -> (b/u, u/b)
 static bool standard_psi(TRTS_State *state) {
     if (rational_is_zero(state->upsilon) || rational_is_zero(state->beta)) {
         return false;
@@ -60,88 +60,83 @@ static bool standard_psi(TRTS_State *state) {
 
     mpz_t beta_den;
     mpz_t ups_num;
-    mpz_t ups_den;
     mpz_t beta_num;
-    mpz_init(beta_den);
-    mpz_init(ups_num);
-    mpz_init(ups_den);
-    mpz_init(beta_num);
-
-    mpz_set(beta_den, mpq_denref(state->beta));
+    mpz_t ups_den;
+    mpz_inits(beta_den, ups_num, beta_num, ups_den, NULL);
+    
+    // Snapshot original components
     mpz_set(ups_num, mpq_numref(state->upsilon));
-    if (mpz_sgn(ups_num) == 0) {
-        mpz_clear(beta_den);
-        mpz_clear(ups_num);
-        mpz_clear(ups_den);
-        mpz_clear(beta_num);
-        return false;
-    }
     mpz_set(ups_den, mpq_denref(state->upsilon));
     mpz_set(beta_num, mpq_numref(state->beta));
-    if (mpz_sgn(beta_num) == 0) {
-        mpz_clear(beta_den);
-        mpz_clear(ups_num);
-        mpz_clear(ups_den);
-        mpz_clear(beta_num);
-        return false;
-    }
+    mpz_set(beta_den, mpq_denref(state->beta));
 
-    mpq_t new_upsilon;
-    mpq_t new_beta;
-    rational_init(new_upsilon);
-    rational_init(new_beta);
+    mpz_t new_u_num, new_u_den;
+    mpz_t new_b_num, new_b_den;
+    mpz_inits(new_u_num, new_u_den, new_b_num, new_b_den, NULL);
 
-    rational_set_components(new_upsilon, beta_den, ups_num);
-    rational_set_components(new_beta, ups_den, beta_num);
+    // New Upsilon: (beta_num * ups_den) / (beta_den * ups_num)
+    mpz_mul(new_u_num, beta_num, ups_den);
+    mpz_mul(new_u_den, beta_den, ups_num);
+    
+    // New Beta: (ups_num * beta_den) / (ups_den * beta_num)
+    mpz_mul(new_b_num, ups_num, beta_den);
+    mpz_mul(new_b_den, ups_den, beta_num);
+    
+    // Set the new values
+    rational_set_components(state->upsilon, new_u_num, new_u_den);
+    rational_set_components(state->beta, new_b_num, new_b_den);
 
-    rational_set(state->phi, state->upsilon);
-    rational_set(state->upsilon, new_upsilon);
-    rational_set(state->beta, new_beta);
+    mpz_clears(beta_den, ups_num, beta_num, ups_den, NULL);
+    mpz_clears(new_u_num, new_u_den, new_b_num, new_b_den, NULL);
 
-    rational_clear(new_upsilon);
-    rational_clear(new_beta);
-    mpz_clear(beta_den);
-    mpz_clear(ups_num);
-    mpz_clear(ups_den);
-    mpz_clear(beta_num);
-
-    state->psi_triple_recent = false;
-    state->psi_recent = true;
-    state->rho_pending = false;
-    state->rho_latched = false;
     return true;
 }
 
+// Triple psi transform: (u, b, k) -> (b/k, k/u, k/b)
 static bool triple_psi(TRTS_State *state) {
-    if (rational_is_zero(state->upsilon) || rational_is_zero(state->beta) ||
-        rational_is_zero(state->koppa)) {
+    if (rational_is_zero(state->koppa) || rational_is_zero(state->upsilon) || rational_is_zero(state->beta)) {
         return false;
     }
 
-    mpq_t new_upsilon;
-    mpq_t new_beta;
-    mpq_t new_koppa;
-    rational_init(new_upsilon);
-    rational_init(new_beta);
-    rational_init(new_koppa);
+    mpz_t ups_num, ups_den;
+    mpz_t beta_num, beta_den;
+    mpz_t koppa_num, koppa_den;
+    mpz_inits(ups_num, ups_den, beta_num, beta_den, koppa_num, koppa_den, NULL);
 
-    rational_div(new_upsilon, state->beta, state->upsilon);
-    rational_div(new_beta, state->koppa, state->beta);
-    rational_div(new_koppa, state->upsilon, state->koppa);
+    // Snapshot original components
+    mpz_set(ups_num, mpq_numref(state->upsilon));
+    mpz_set(ups_den, mpq_denref(state->upsilon));
+    mpz_set(beta_num, mpq_numref(state->beta));
+    mpz_set(beta_den, mpq_denref(state->beta));
+    mpz_set(koppa_num, mpq_numref(state->koppa));
+    mpz_set(koppa_den, mpq_denref(state->koppa));
 
-    rational_set(state->phi, state->upsilon);
-    rational_set(state->upsilon, new_upsilon);
-    rational_set(state->beta, new_beta);
-    rational_set(state->koppa, new_koppa);
+    // New Upsilon: beta / koppa 
+    mpz_t new_u_num, new_u_den;
+    mpz_inits(new_u_num, new_u_den, NULL);
+    mpz_mul(new_u_num, beta_num, koppa_den);
+    mpz_mul(new_u_den, beta_den, koppa_num);
 
-    rational_clear(new_upsilon);
-    rational_clear(new_beta);
-    rational_clear(new_koppa);
+    // New Beta: koppa / upsilon
+    mpz_t new_b_num, new_b_den;
+    mpz_inits(new_b_num, new_b_den, NULL);
+    mpz_mul(new_b_num, koppa_num, ups_den);
+    mpz_mul(new_b_den, koppa_den, ups_num);
+    
+    // New Koppa: koppa / beta
+    mpz_t new_k_num, new_k_den;
+    mpz_inits(new_k_num, new_k_den, NULL);
+    mpz_mul(new_k_num, koppa_num, beta_den);
+    mpz_mul(new_k_den, koppa_den, beta_num);
+    
+    // Set the new values
+    rational_set_components(state->upsilon, new_u_num, new_u_den);
+    rational_set_components(state->beta, new_b_num, new_b_den);
+    rational_set_components(state->koppa, new_k_num, new_k_den);
 
-    state->psi_triple_recent = true;
-    state->psi_recent = true;
-    state->rho_pending = false;
-    state->rho_latched = false;
+    mpz_clears(ups_num, ups_den, beta_num, beta_den, koppa_num, koppa_den, NULL);
+    mpz_clears(new_u_num, new_u_den, new_b_num, new_b_den, new_k_num, new_k_den, NULL);
+
     return true;
 }
 
@@ -154,6 +149,8 @@ static int psi_strength(const Config *config, const TRTS_State *state) {
     prime_count += numerator_is_prime(state->upsilon) ? 1 : 0;
     prime_count += numerator_is_prime(state->beta) ? 1 : 0;
     prime_count += numerator_is_prime(state->koppa) ? 1 : 0;
+    
+    // If no numerators are prime, we still fire the transform once (strength of 1)
     if (prime_count <= 0) {
         prime_count = 1;
     }
@@ -164,52 +161,73 @@ bool psi_transform(const Config *config, TRTS_State *state) {
     state->psi_triple_recent = false;
     state->psi_recent = false;
     state->psi_strength_applied = false;
-    
-    if (config->enable_fibonacci_gate) {
-        if (!is_fibonacci_tick(state->current_tick)) {
-            // Inhibit action: the 'stretched' mass gap (non-event time).
-            state->rho_pending = false;
+
+    // Check firing conditions for RHO-gated modes (RHO_ONLY and MSTEP_RHO)
+    if (config->psi_mode == PSI_MODE_RHO_ONLY || config->psi_mode == PSI_MODE_MSTEP_RHO) {
+        if (!state->rho_pending) {
             return false;
         }
-        // Allowed to fire: the 'compressed' mass gap where time is realized.
+
+        // The RHO event must also land on a Fibonacci tick to fire the Psi transform
+        if (!is_fibonacci_tick(state->tick)) {
+            return false;
+        }
     }
-    
-    // Check if a psi event can fire based on current state (rho_pending, etc.)
+
+    // Determine if the Psi event can fire at all (only MSTEP fires without rho_pending)
     bool can_fire = state->rho_pending || (config->psi_mode == PSI_MODE_MSTEP);
 
     if (!can_fire) {
         return false;
     }
-    
-    // ... (rest of the original psi_transform logic continues from here) ...
-}
 
+    // Determine the strength (number of transforms to execute)
     int strength = psi_strength(config, state);
     if (strength > 1) {
         state->psi_strength_applied = true;
     }
 
     bool fired = false;
+    
+    // Execute the transform 'strength' number of times
     for (int i = 0; i < strength; ++i) {
         bool request_triple = config->triple_psi_mode;
+        
+        // Conditional triple psi based on all three numerators being prime
         if (config->enable_conditional_triple_psi) {
             if (numerator_is_prime(state->upsilon) && numerator_is_prime(state->beta) &&
                 numerator_is_prime(state->koppa)) {
                 request_triple = true;
             }
         }
-        if (strength >= 3 && i == strength - 1) {
+        
+        // Conditional triple psi based on the strength count (if strength >= 3, 
+        // the third-to-last fire is a triple)
+        if (strength >= 3 && i == strength - 3) {
             request_triple = true;
         }
 
-        bool step_ok = request_triple ? triple_psi(state) : standard_psi(state);
-        if (!step_ok) {
-            state->psi_recent = fired;
-            return fired;
+        // Apply the transform
+        if (request_triple) {
+            fired = triple_psi(state);
+            if (fired) {
+                state->psi_triple_recent = true;
+            }
+        } else {
+            fired = standard_psi(state);
         }
-        fired = true;
+
+        if (fired) {
+            state->psi_recent = true;
+            // The rho_pending flag is cleared on the *first* successful fire
+            if (i == 0) {
+                state->rho_pending = false;
+            }
+        } else {
+            // If the transform fails (e.g., division by zero), stop the loop
+            break;
+        }
     }
 
-    state->psi_recent = fired;
     return fired;
 }

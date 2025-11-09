@@ -1,11 +1,9 @@
 CMakeFiles/trts_core.dir/psi.c.o: \
  /home/c/11_08_2025/operation_pretzel/psi.c \
  /usr/x86_64-linux-gnu/include/stdc-predef.h \
- /home/c/11_08_2025/operation_pretzel/psi.h \
  /usr/lib/gcc/x86_64-linux-gnu/15/include/stdbool.h \
- /home/c/11_08_2025/operation_pretzel/state.h \
- /usr/include/x86_64-linux-gnu/gmp.h \
  /usr/lib/gcc/x86_64-linux-gnu/15/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/gmp.h \
  /usr/lib/gcc/x86_64-linux-gnu/15/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/15/include/syslimits.h \
  /usr/x86_64-linux-gnu/include/limits.h \
@@ -24,6 +22,8 @@ CMakeFiles/trts_core.dir/psi.c.o: \
  /usr/x86_64-linux-gnu/include/bits/pthread_stack_min-dynamic.h \
  /usr/x86_64-linux-gnu/include/bits/pthread_stack_min.h \
  /usr/x86_64-linux-gnu/include/bits/posix2_lim.h \
+ /home/c/11_08_2025/operation_pretzel/psi.h \
+ /home/c/11_08_2025/operation_pretzel/state.h \
  /home/c/11_08_2025/operation_pretzel/config.h \
  /home/c/11_08_2025/operation_pretzel/rational.h \
  /home/c/11_08_2025/operation_pretzel/rational_strict.h \

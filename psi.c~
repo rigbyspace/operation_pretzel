@@ -32,8 +32,8 @@ static const size_t FIB_TICKS[] = {
 
 // Helper function to check if the current tick is a Fibonacci number in our set
 static bool is_fibonacci_tick(size_t tick) {
-    if (tick == 0) {
-        return false;
+    if (tick == 1) {
+        return true;
     }
     // Simple linear search through the small, static list is fast enough.
     for (size_t i = 0; i < ARRAY_COUNT(FIB_TICKS); ++i) {
@@ -165,6 +165,27 @@ bool psi_transform(const Config *config, TRTS_State *state) {
     state->psi_recent = false;
     state->psi_strength_applied = false;
 
+    if (config->psi_mode == PSI_MODE_MSTEP_RHO || config->psi_mode == PSI_MODE_RHO_ONLY) {
+        if (!state->rho_pending) {
+            return false;
+        }
+
+        // FIX: Replaced 'state->current_tick' with 'state->tick'
+        // This is the check that was failing on line 169.
+        if (!is_fibonacci_tick(state->tick)) {
+            return false;
+        }
+    }
+    // Check if a psi event can fire based on current state (rho_pending, etc.)
+    bool can_fire = state->rho_pending || (config->psi_mode == PSI_MODE_MSTEP);
+
+    if (!can_fire) {
+        return false;
+    }
+    
+    // ... (rest of the original psi_transform logic continues from here) ...
+}
+
     int strength = psi_strength(config, state);
     if (strength > 1) {
         state->psi_strength_applied = true;
@@ -179,16 +200,16 @@ bool psi_transform(const Config *config, TRTS_State *state) {
                 request_triple = true;
             }
         }
-        if (strength >= 3 && i == strength - 1) {
+        if (strength >= 3 && i == strength - 3) {
             request_triple = true;
         }
 
-        bool step_ok = request_triple ? triple_psi(state) : standard_psi(state);
-        if (!step_ok) {
-            state->psi_recent = fired;
-            return fired;
+        if (request_triple) {
+            fired = triple_psi(state);
+            state->psi_triple_recent = fired;
+        } else {
+            fired = standard_psi(state);
         }
-        fired = true;
     }
 
     state->psi_recent = fired;

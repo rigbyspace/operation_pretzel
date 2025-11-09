@@ -46,6 +46,13 @@ int flip_sign_enabled = 0;
 int flip_upsilon_only = 0;
 int flip_beta_only = 0;
 
+// Tier 3 feature toggles
+int triad_phase_enabled = 0;
+int mod_bound_enabled = 0;
+double mod_bound_value = 0.0;
+int parity_branching_enabled = 0;
+
+
 // Tier 2 feature toggles
 int microtick_engine_enabled = 0;
 int koppa_stack_depth = 1;

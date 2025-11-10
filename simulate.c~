@@ -266,12 +266,16 @@ static void run_simulation(const Config *config, const SimulationOutputs *output
                 }
 
                 forced_emission = (microtick == 10);
-                if (microtick == 10 && config->mt10_behavior == MT10_FORCED_PSI) {
-                    bool allow_stack = stack_allows_psi(config, &state);
-                    if (allow_stack) {
-                        psi_fired = psi_transform(config, &state);
-                    }
-                }
+                if (microtick == 10) {
+                    mpq_srcptr prime_target =
+                        (config->prime_target == PRIME_ON_MEMORY) ? state.epsilon : state.upsilon;
+                    bool prime_event = mpq_has_prime_component(prime_target);
+                    if (prime_event || config->mt10_behavior == MT10_FORCED_PSI) {
+                         state.rho_pending = true;
+                         state.rho_latched = true;
+                 }
+                 forced_emission = true;
+}
                 break;
             }
             case 'M': {

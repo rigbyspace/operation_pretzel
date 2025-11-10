@@ -121,38 +121,10 @@ gui/CMakeFiles/trts_lab_gui.dir/src/MainWindow.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/trts_lab_gui.dir/src/MainWindow.cpp.s"
 	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/c/11_08_2025/operation_pretzel/gui/src/MainWindow.cpp -o CMakeFiles/trts_lab_gui.dir/src/MainWindow.cpp.s
 
-gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
-gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.cpp
-gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o"
-	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.cpp
-
-gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.i"
-	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.cpp > CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.i
-
-gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.s"
-	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.cpp -o CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.s
-
-gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
-gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/TRTSCoreProcess.cpp
-gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o"
-	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/TRTSCoreProcess.cpp
-
-gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.i"
-	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/c/11_08_2025/operation_pretzel/gui/src/TRTSCoreProcess.cpp > CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.i
-
-gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.s"
-	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/c/11_08_2025/operation_pretzel/gui/src/TRTSCoreProcess.cpp -o CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.s
-
 gui/CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
 gui/CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/EngineConfigPanel.cpp
 gui/CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o"
 	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/EngineConfigPanel.cpp
 
 gui/CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.i: cmake_force
@@ -166,7 +138,7 @@ gui/CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.s: cmake_force
 gui/CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
 gui/CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/ExecutionPanel.cpp
 gui/CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.o"
 	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/ExecutionPanel.cpp
 
 gui/CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.i: cmake_force
@@ -180,7 +152,7 @@ gui/CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.s: cmake_force
 gui/CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
 gui/CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/RhythmVisualizerWidget.cpp
 gui/CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o"
 	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/RhythmVisualizerWidget.cpp
 
 gui/CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.i: cmake_force
@@ -194,7 +166,7 @@ gui/CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.s: cmake_force
 gui/CMakeFiles/trts_lab_gui.dir/src/StackViewerWidget.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
 gui/CMakeFiles/trts_lab_gui.dir/src/StackViewerWidget.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/StackViewerWidget.cpp
 gui/CMakeFiles/trts_lab_gui.dir/src/StackViewerWidget.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/StackViewerWidget.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/StackViewerWidget.cpp.o"
 	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/StackViewerWidget.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/StackViewerWidget.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/StackViewerWidget.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/StackViewerWidget.cpp
 
 gui/CMakeFiles/trts_lab_gui.dir/src/StackViewerWidget.cpp.i: cmake_force
@@ -208,7 +180,7 @@ gui/CMakeFiles/trts_lab_gui.dir/src/StackViewerWidget.cpp.s: cmake_force
 gui/CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
 gui/CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/AnalyzerPanel.cpp
 gui/CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o"
 	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/AnalyzerPanel.cpp
 
 gui/CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.i: cmake_force
@@ -222,7 +194,7 @@ gui/CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.s: cmake_force
 gui/CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
 gui/CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/FingerprintPanel.cpp
 gui/CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.o"
 	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/FingerprintPanel.cpp
 
 gui/CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.i: cmake_force
@@ -236,7 +208,7 @@ gui/CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.s: cmake_force
 gui/CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
 gui/CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/PhaseMapExplorer.cpp
 gui/CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.o"
 	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/PhaseMapExplorer.cpp
 
 gui/CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.i: cmake_force
@@ -250,7 +222,7 @@ gui/CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.s: cmake_force
 gui/CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
 gui/CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/TheoristExplorerPanel.cpp
 gui/CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.o"
 	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/TheoristExplorerPanel.cpp
 
 gui/CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.i: cmake_force
@@ -264,7 +236,7 @@ gui/CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.s: cmake_force
 gui/CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
 gui/CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/OutputTableWidget.cpp
 gui/CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o"
 	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/OutputTableWidget.cpp
 
 gui/CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.i: cmake_force
@@ -275,13 +247,53 @@ gui/CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.s"
 	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/c/11_08_2025/operation_pretzel/gui/src/OutputTableWidget.cpp -o CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.s
 
+gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
+gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/TRTSCoreProcess.cpp
+gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o"
+	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/TRTSCoreProcess.cpp
+
+gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.i"
+	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/c/11_08_2025/operation_pretzel/gui/src/TRTSCoreProcess.cpp > CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.i
+
+gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.s"
+	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/c/11_08_2025/operation_pretzel/gui/src/TRTSCoreProcess.cpp -o CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.s
+
+gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
+gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o: /home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.cpp
+gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o"
+	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o -MF CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o.d -o CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o -c /home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.cpp
+
+gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.i"
+	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.cpp > CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.i
+
+gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.s"
+	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.cpp -o CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.s
+
+gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.o: gui/CMakeFiles/trts_lab_gui.dir/flags.make
+gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.o: /home/c/11_08_2025/operation_pretzel/simulate.c
+gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.o: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.o"
+	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.o -MF CMakeFiles/trts_lab_gui.dir/__/simulate.c.o.d -o CMakeFiles/trts_lab_gui.dir/__/simulate.c.o -c /home/c/11_08_2025/operation_pretzel/simulate.c
+
+gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/trts_lab_gui.dir/__/simulate.c.i"
+	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/c/11_08_2025/operation_pretzel/simulate.c > CMakeFiles/trts_lab_gui.dir/__/simulate.c.i
+
+gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/trts_lab_gui.dir/__/simulate.c.s"
+	cd /home/c/11_08_2025/operation_pretzel/build/gui && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/c/11_08_2025/operation_pretzel/simulate.c -o CMakeFiles/trts_lab_gui.dir/__/simulate.c.s
+
 # Object files for target trts_lab_gui
 trts_lab_gui_OBJECTS = \
 "CMakeFiles/trts_lab_gui.dir/trts_lab_gui_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/trts_lab_gui.dir/src/main.cpp.o" \
 "CMakeFiles/trts_lab_gui.dir/src/MainWindow.cpp.o" \
-"CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o" \
-"CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o" \
 "CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o" \
 "CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.o" \
 "CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o" \
@@ -290,7 +302,10 @@ trts_lab_gui_OBJECTS = \
 "CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.o" \
 "CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.o" \
 "CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.o" \
-"CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o"
+"CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o" \
+"CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o" \
+"CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o" \
+"CMakeFiles/trts_lab_gui.dir/__/simulate.c.o"
 
 # External object files for target trts_lab_gui
 trts_lab_gui_EXTERNAL_OBJECTS =
@@ -298,8 +313,6 @@ trts_lab_gui_EXTERNAL_OBJECTS =
 gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/trts_lab_gui_autogen/mocs_compilation.cpp.o
 gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/main.cpp.o
 gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/MainWindow.cpp.o
-gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o
-gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o
 gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o
 gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/ExecutionPanel.cpp.o
 gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o
@@ -309,13 +322,19 @@ gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/FingerprintPanel.cpp.o
 gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/PhaseMapExplorer.cpp.o
 gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/TheoristExplorerPanel.cpp.o
 gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/OutputTableWidget.cpp.o
+gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/TRTSCoreProcess.cpp.o
+gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/src/TRTSConfig.cpp.o
+gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.o
 gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/build.make
 gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/compiler_depend.ts
+gui/trts_lab_gui: libtrts_core.a
 gui/trts_lab_gui: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.15
+gui/trts_lab_gui: /usr/lib/x86_64-linux-gnu/libgmp.so
+gui/trts_lab_gui: /usr/lib/x86_64-linux-gnu/libm.so
 gui/trts_lab_gui: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.15
 gui/trts_lab_gui: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.15
 gui/trts_lab_gui: gui/CMakeFiles/trts_lab_gui.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable trts_lab_gui"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/c/11_08_2025/operation_pretzel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX executable trts_lab_gui"
 	cd /home/c/11_08_2025/operation_pretzel/build/gui && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/trts_lab_gui.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

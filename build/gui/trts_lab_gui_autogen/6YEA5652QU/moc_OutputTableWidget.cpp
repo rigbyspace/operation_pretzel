@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_OutputTableWidget_t {
-    QByteArrayData data[6];
-    char stringdata0[58];
+    QByteArrayData data[12];
+    char stringdata0[104];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,13 +35,20 @@ static const qt_meta_stringdata_OutputTableWidget_t qt_meta_stringdata_OutputTab
 QT_MOC_LITERAL(0, 0, 17), // "OutputTableWidget"
 QT_MOC_LITERAL(1, 18, 18), // "exportCsvRequested"
 QT_MOC_LITERAL(2, 37, 0), // ""
-QT_MOC_LITERAL(3, 38, 9), // "appendRow"
-QT_MOC_LITERAL(4, 48, 3), // "row"
-QT_MOC_LITERAL(5, 52, 5) // "clear"
+QT_MOC_LITERAL(3, 38, 14), // "onEngineUpdate"
+QT_MOC_LITERAL(4, 53, 6), // "size_t"
+QT_MOC_LITERAL(5, 60, 4), // "tick"
+QT_MOC_LITERAL(6, 65, 9), // "microtick"
+QT_MOC_LITERAL(7, 75, 5), // "phase"
+QT_MOC_LITERAL(8, 81, 3), // "rho"
+QT_MOC_LITERAL(9, 85, 3), // "psi"
+QT_MOC_LITERAL(10, 89, 7), // "mu_zero"
+QT_MOC_LITERAL(11, 97, 6) // "forced"
 
     },
     "OutputTableWidget\0exportCsvRequested\0"
-    "\0appendRow\0row\0clear"
+    "\0onEngineUpdate\0size_t\0tick\0microtick\0"
+    "phase\0rho\0psi\0mu_zero\0forced"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,7 +58,7 @@ static const uint qt_meta_data_OutputTableWidget[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -59,18 +66,16 @@ static const uint qt_meta_data_OutputTableWidget[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x06 /* Public */,
+       1,    0,   24,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       3,    1,   30,    2, 0x0a /* Public */,
-       5,    0,   33,    2, 0x0a /* Public */,
+       3,    7,   25,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QStringList,    4,
-    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 4, QMetaType::Int, QMetaType::Char, QMetaType::Bool, QMetaType::Bool, QMetaType::Bool, QMetaType::Bool,    5,    6,    7,    8,    9,   10,   11,
 
        0        // eod
 };
@@ -82,8 +87,7 @@ void OutputTableWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         (void)_t;
         switch (_id) {
         case 0: _t->exportCsvRequested(); break;
-        case 1: _t->appendRow((*reinterpret_cast< const QStringList(*)>(_a[1]))); break;
-        case 2: _t->clear(); break;
+        case 1: _t->onEngineUpdate((*reinterpret_cast< size_t(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< char(*)>(_a[3])),(*reinterpret_cast< bool(*)>(_a[4])),(*reinterpret_cast< bool(*)>(_a[5])),(*reinterpret_cast< bool(*)>(_a[6])),(*reinterpret_cast< bool(*)>(_a[7]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -127,13 +131,13 @@ int OutputTableWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 2)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 2;
     }
     return _id;
 }

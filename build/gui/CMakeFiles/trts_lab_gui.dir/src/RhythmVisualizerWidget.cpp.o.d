@@ -309,10 +309,95 @@ gui/CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qkeysequence.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QColor \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qcolor.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QString \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qstring.h \
  /usr/include/c++/15/deque /usr/include/c++/15/bits/stl_deque.h \
  /usr/include/c++/15/bits/deque.tcc \
+ /home/c/11_08_2025/operation_pretzel/gui/include/MainWindow.hpp \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qicon.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QTabWidget \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QProcess \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qprocess.h \
+ /home/c/11_08_2025/operation_pretzel/gui/include/../../state.h \
+ /usr/include/x86_64-linux-gnu/gmp.h \
+ /usr/lib/gcc/x86_64-linux-gnu/15/include/stdbool.h \
+ /home/c/11_08_2025/operation_pretzel/gui/include/../../config.h \
+ /home/c/11_08_2025/operation_pretzel/gui/include/../../rational.h \
+ /home/c/11_08_2025/operation_pretzel/gui/include/../../rational_strict.h \
+ /home/c/11_08_2025/operation_pretzel/gui/include/../../simulate.h \
+ /home/c/11_08_2025/operation_pretzel/gui/include/../../state.h \
+ /home/c/11_08_2025/operation_pretzel/gui/include/TRTSConfig.hpp \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QString \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qstring.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QStringList \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringlist.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborvalue.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdebug.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qmap.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qtextstream.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qlocale.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qvariant.h \
+ /usr/include/c++/15/variant /usr/include/c++/15/bits/monostate.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qset.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qregularexpression.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
+ /home/c/11_08_2025/operation_pretzel/gui/include/EngineConfigPanel.hpp \
+ /home/c/11_08_2025/operation_pretzel/gui/include/ExecutionPanel.hpp \
+ /home/c/11_08_2025/operation_pretzel/gui/include/StackViewerWidget.hpp \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QTreeWidget \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtreewidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtreeview.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractitemview.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractscrollarea.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractitemmodel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qitemselectionmodel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractitemdelegate.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstyleoption.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractspinbox.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qvalidator.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qslider.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractslider.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstyle.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabbar.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtreewidgetitemiterator.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QList \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h \
+ /home/c/11_08_2025/operation_pretzel/gui/include/AnalyzerPanel.hpp \
+ /home/c/11_08_2025/operation_pretzel/gui/include/FingerprintPanel.hpp \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h \
+ /home/c/11_08_2025/operation_pretzel/gui/include/PhaseMapExplorer.hpp \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QVector \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qvector.h \
+ /home/c/11_08_2025/operation_pretzel/gui/include/TheoristExplorerPanel.hpp \
+ /home/c/11_08_2025/operation_pretzel/gui/include/OutputTableWidget.hpp \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QStandardItemModel \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qstandarditemmodel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QTableView \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtableview.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
+ /home/c/11_08_2025/operation_pretzel/gui/include/TRTSCoreProcess.hpp \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QPainter \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainter.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextoption.h \
@@ -320,11 +405,6 @@ gui/CMakeFiles/trts_lab_gui.dir/src/RhythmVisualizerWidget.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QPaintEvent \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qevent.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreevent.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qvariant.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qmap.h \
- /usr/include/c++/15/variant /usr/include/c++/15/bits/monostate.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qset.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector2d.h \

@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/c/11_08_2025/operation_pretzel/simulate.c" "gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.o" "gcc" "gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.o.d"
   "" "gui/trts_lab_gui_autogen/timestamp" "custom" "gui/trts_lab_gui_autogen/deps"
   "/home/c/11_08_2025/operation_pretzel/gui/src/AnalyzerPanel.cpp" "gui/CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o" "gcc" "gui/CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o.d"
   "/home/c/11_08_2025/operation_pretzel/gui/src/EngineConfigPanel.cpp" "gui/CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o" "gcc" "gui/CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o.d"

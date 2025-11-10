@@ -6,16 +6,8 @@
 /home/c/11_08_2025/operation_pretzel/build/CMakeFiles/trts_go_time.dir
 /home/c/11_08_2025/operation_pretzel/build/CMakeFiles/edit_cache.dir
 /home/c/11_08_2025/operation_pretzel/build/CMakeFiles/rebuild_cache.dir
-/home/c/11_08_2025/operation_pretzel/build/CMakeFiles/list_install_components.dir
-/home/c/11_08_2025/operation_pretzel/build/CMakeFiles/install.dir
-/home/c/11_08_2025/operation_pretzel/build/CMakeFiles/install/local.dir
-/home/c/11_08_2025/operation_pretzel/build/CMakeFiles/install/strip.dir
 /home/c/11_08_2025/operation_pretzel/build/gui/CMakeFiles/trts_lab_gui.dir
 /home/c/11_08_2025/operation_pretzel/build/gui/CMakeFiles/edit_cache.dir
 /home/c/11_08_2025/operation_pretzel/build/gui/CMakeFiles/rebuild_cache.dir
-/home/c/11_08_2025/operation_pretzel/build/gui/CMakeFiles/list_install_components.dir
-/home/c/11_08_2025/operation_pretzel/build/gui/CMakeFiles/install.dir
-/home/c/11_08_2025/operation_pretzel/build/gui/CMakeFiles/install/local.dir
-/home/c/11_08_2025/operation_pretzel/build/gui/CMakeFiles/install/strip.dir
 /home/c/11_08_2025/operation_pretzel/build/gui/CMakeFiles/trts_lab_gui_autogen_timestamp_deps.dir
 /home/c/11_08_2025/operation_pretzel/build/gui/CMakeFiles/trts_lab_gui_autogen.dir

@@ -1,8 +1,8 @@
+// ExecutionPanel.hpp
 #pragma once
 
 #include <QWidget>
-
-#include "TRTSConfig.hpp"
+#include <QStringList>
 
 class QLabel;
 class QPushButton;
@@ -13,20 +13,35 @@ class ExecutionPanel : public QWidget {
 public:
     explicit ExecutionPanel(QWidget *parent = nullptr);
 
-    void updateState(const QString &tick, const QString &upsilon, const QString &beta, const QString &koppa,
-                     bool psiFired, int stackDepth, const QString &rhoSource, const QString &psiMode);
+    void updateState(const QString &tick,
+                     const QString &upsilon,
+                     const QString &beta,
+                     const QString &koppa,
+                     bool psi,
+                     int stackSize,
+                     const QString &rho,
+                     const QString &psiMode);
+
     void appendLogRow(const QStringList &row);
     void resetState();
 
 signals:
-    void stepRequested();
     void runRequested();
     void stopRequested();
     void resetRequested();
+    void stepRequested();
+
+private slots:
+    // Added to receive streamed updates:
+    void updateFromEngine(size_t tick,
+                          int microtick,
+                          char phase,
+                          bool rho,
+                          bool psi,
+                          bool mu_zero,
+                          bool forced);
 
 private:
-    void buildUi();
-
     QLabel *m_tickLabel;
     QLabel *m_upsilonLabel;
     QLabel *m_betaLabel;
@@ -41,5 +56,7 @@ private:
     QPushButton *m_resetButton;
 
     QTableWidget *m_logTable;
+
+    void buildUi();
 };
 

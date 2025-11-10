@@ -85,51 +85,6 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # The main all target
 all: cmake_check_build_system
 	cd /home/c/11_08_2025/operation_pretzel/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/c/11_08_2025/operation_pretzel/build/CMakeFiles /home/c/11_08_2025/operation_pretzel/build/gui//CMakeFiles/progress.marks
@@ -202,6 +157,30 @@ trts_lab_gui_autogen: gui/CMakeFiles/trts_lab_gui_autogen.dir/rule
 trts_lab_gui_autogen/fast:
 	cd /home/c/11_08_2025/operation_pretzel/build && $(MAKE) $(MAKESILENT) -f gui/CMakeFiles/trts_lab_gui_autogen.dir/build.make gui/CMakeFiles/trts_lab_gui_autogen.dir/build
 .PHONY : trts_lab_gui_autogen/fast
+
+__/simulate.o: __/simulate.c.o
+.PHONY : __/simulate.o
+
+# target to build an object file
+__/simulate.c.o:
+	cd /home/c/11_08_2025/operation_pretzel/build && $(MAKE) $(MAKESILENT) -f gui/CMakeFiles/trts_lab_gui.dir/build.make gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.o
+.PHONY : __/simulate.c.o
+
+__/simulate.i: __/simulate.c.i
+.PHONY : __/simulate.i
+
+# target to preprocess a source file
+__/simulate.c.i:
+	cd /home/c/11_08_2025/operation_pretzel/build && $(MAKE) $(MAKESILENT) -f gui/CMakeFiles/trts_lab_gui.dir/build.make gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.i
+.PHONY : __/simulate.c.i
+
+__/simulate.s: __/simulate.c.s
+.PHONY : __/simulate.s
+
+# target to generate assembly for a file
+__/simulate.c.s:
+	cd /home/c/11_08_2025/operation_pretzel/build && $(MAKE) $(MAKESILENT) -f gui/CMakeFiles/trts_lab_gui.dir/build.make gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.s
+.PHONY : __/simulate.c.s
 
 src/AnalyzerPanel.o: src/AnalyzerPanel.cpp.o
 .PHONY : src/AnalyzerPanel.o
@@ -546,14 +525,13 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... install"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... trts_lab_gui_autogen"
 	@echo "... trts_lab_gui_autogen_timestamp_deps"
 	@echo "... trts_lab_gui"
+	@echo "... __/simulate.o"
+	@echo "... __/simulate.i"
+	@echo "... __/simulate.s"
 	@echo "... src/AnalyzerPanel.o"
 	@echo "... src/AnalyzerPanel.i"
 	@echo "... src/AnalyzerPanel.s"

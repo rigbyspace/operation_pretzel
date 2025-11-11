@@ -10,3 +10,6 @@
 #include "6YEA5652QU/moc_StackViewerWidget.cpp"
 #include "6YEA5652QU/moc_TRTSCoreProcess.cpp"
 #include "6YEA5652QU/moc_TheoristExplorerPanel.cpp"
+#include "UVLADIE3JM/moc_EngineConfigPanel.cpp"
+#include "UVLADIE3JM/moc_ExecutionPanel.cpp"
+#include "UVLADIE3JM/moc_MainWindow.cpp"

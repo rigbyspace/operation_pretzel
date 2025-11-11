@@ -9,7 +9,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+#include "stdio.h"
 #include "config.h"
 #include "state.h"
 

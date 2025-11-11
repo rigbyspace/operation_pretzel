@@ -19,14 +19,18 @@
  /home/c/11_08_2025/operation_pretzel/gui/include/TheoristExplorerPanel.hpp
  /home/c/11_08_2025/operation_pretzel/gui/src/AnalyzerPanel.cpp
  /home/c/11_08_2025/operation_pretzel/gui/src/EngineConfigPanel.cpp
+ /home/c/11_08_2025/operation_pretzel/gui/src/EngineConfigPanel.hpp
  /home/c/11_08_2025/operation_pretzel/gui/src/ExecutionPanel.cpp
+ /home/c/11_08_2025/operation_pretzel/gui/src/ExecutionPanel.hpp
  /home/c/11_08_2025/operation_pretzel/gui/src/FingerprintPanel.cpp
  /home/c/11_08_2025/operation_pretzel/gui/src/MainWindow.cpp
+ /home/c/11_08_2025/operation_pretzel/gui/src/MainWindow.hpp
  /home/c/11_08_2025/operation_pretzel/gui/src/OutputTableWidget.cpp
  /home/c/11_08_2025/operation_pretzel/gui/src/PhaseMapExplorer.cpp
  /home/c/11_08_2025/operation_pretzel/gui/src/RhythmVisualizerWidget.cpp
  /home/c/11_08_2025/operation_pretzel/gui/src/StackViewerWidget.cpp
  /home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.cpp
+ /home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.hpp
  /home/c/11_08_2025/operation_pretzel/gui/src/TRTSCoreProcess.cpp
  /home/c/11_08_2025/operation_pretzel/gui/src/TheoristExplorerPanel.cpp
  /home/c/11_08_2025/operation_pretzel/gui/src/main.cpp

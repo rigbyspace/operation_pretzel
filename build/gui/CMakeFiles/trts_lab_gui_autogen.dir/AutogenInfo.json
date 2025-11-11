@@ -94,6 +94,30 @@
 			null
 		],
 		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/EngineConfigPanel.hpp",
+			"MU",
+			"UVLADIE3JM/moc_EngineConfigPanel.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/ExecutionPanel.hpp",
+			"MU",
+			"UVLADIE3JM/moc_ExecutionPanel.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/MainWindow.hpp",
+			"MU",
+			"UVLADIE3JM/moc_MainWindow.cpp",
+			null
+		],
+		[
+			"/home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.hpp",
+			"MU",
+			"UVLADIE3JM/moc_TRTSConfig.cpp",
+			null
+		],
+		[
 			"/home/c/11_08_2025/operation_pretzel/simulate.h",
 			"MU",
 			"YCDLW3T4OG/moc_simulate.cpp",

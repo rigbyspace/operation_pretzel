@@ -1,6 +1,7 @@
 CMakeFiles/trts_core.dir/simulate.c.o: \
  /home/c/11_08_2025/operation_pretzel/simulate.c \
  /usr/x86_64-linux-gnu/include/stdc-predef.h \
+ /home/c/11_08_2025/operation_pretzel/simulate.h \
  /usr/x86_64-linux-gnu/include/stdio.h \
  /usr/x86_64-linux-gnu/include/bits/libc-header-start.h \
  /usr/x86_64-linux-gnu/include/features.h \
@@ -26,7 +27,6 @@ CMakeFiles/trts_core.dir/simulate.c.o: \
  /usr/x86_64-linux-gnu/include/bits/stdio_lim.h \
  /usr/x86_64-linux-gnu/include/bits/floatn.h \
  /usr/x86_64-linux-gnu/include/bits/floatn-common.h \
- /home/c/11_08_2025/operation_pretzel/simulate.h \
  /home/c/11_08_2025/operation_pretzel/config.h \
  /usr/include/x86_64-linux-gnu/gmp.h \
  /usr/lib/gcc/x86_64-linux-gnu/15/include/limits.h \

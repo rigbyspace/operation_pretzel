@@ -459,7 +459,7 @@ void simulate(const Config *config) {
     }
     // Write CSV headers
     fprintf(events_file,
-            "tick,mt,phase,rho_event,psi_fired,mu_zero,forced_emission,";
+            "tick,mt,phase,rho_event,psi_fired,mu_zero,forced_emission,"
             "ratio_triggered,triple_psi,dual_engine,koppa_sample_index,"
             "ratio_threshold,psi_strength,sign_flip\n");
     fprintf(values_file,

@@ -18,14 +18,18 @@ gui/trts_lab_gui_autogen/timestamp: gui/trts_lab_gui_autogen/moc_predefs.h \
   /home/c/11_08_2025/operation_pretzel/gui/include/TheoristExplorerPanel.hpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/AnalyzerPanel.cpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/EngineConfigPanel.cpp \
+  /home/c/11_08_2025/operation_pretzel/gui/src/EngineConfigPanel.hpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/ExecutionPanel.cpp \
+  /home/c/11_08_2025/operation_pretzel/gui/src/ExecutionPanel.hpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/FingerprintPanel.cpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/MainWindow.cpp \
+  /home/c/11_08_2025/operation_pretzel/gui/src/MainWindow.hpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/OutputTableWidget.cpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/PhaseMapExplorer.cpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/RhythmVisualizerWidget.cpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/StackViewerWidget.cpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.cpp \
+  /home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.hpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/TRTSCoreProcess.cpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/TheoristExplorerPanel.cpp \
   /home/c/11_08_2025/operation_pretzel/gui/src/main.cpp \
@@ -634,8 +638,6 @@ gui/trts_lab_gui_autogen/timestamp: gui/trts_lab_gui_autogen/moc_predefs.h \
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qline.h:
 
-/usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h:
-
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtreeview.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringview.h:
@@ -645,8 +647,6 @@ gui/trts_lab_gui_autogen/timestamp: gui/trts_lab_gui_autogen/moc_predefs.h \
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qitemselectionmodel.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qhashfunctions.h:
-
-/usr/include/x86_64-linux-gnu/qt5/QtCore/qhash.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qglobal.h:
 
@@ -718,17 +718,17 @@ gui/trts_lab_gui_autogen/timestamp: gui/trts_lab_gui_autogen/moc_predefs.h \
 
 /usr/include/x86_64-linux-gnu/c++/15/bits/error_constants.h:
 
-/usr/include/c++/15/bits/localefwd.h:
+/usr/include/x86_64-linux-gnu/c++/15/bits/ctype_base.h:
 
-/usr/include/c++/15/bits/ranges_uninitialized.h:
+/usr/include/x86_64-linux-gnu/c++/15/bits/c++locale.h:
 
-/usr/include/c++/15/cctype:
+/usr/lib/gcc/x86_64-linux-gnu/15/include/stddef.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qprocess.h:
+
+/usr/include/x86_64-linux-gnu/c++/15/bits/c++config.h:
 
 /usr/include/c++/15/bits/stl_iterator.h:
-
-/usr/include/c++/15/bits/stl_pair.h:
-
-/usr/include/c++/15/bits/stl_bvector.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qlocale.h:
 
@@ -739,12 +739,6 @@ gui/trts_lab_gui_autogen/timestamp: gui/trts_lab_gui_autogen/moc_predefs.h \
 /usr/include/c++/15/vector:
 
 /home/c/11_08_2025/operation_pretzel/gui/include/MainWindow.hpp:
-
-/usr/include/x86_64-linux-gnu/qt5/QtCore/qmetatype.h:
-
-/usr/include/c++/15/bits/stl_relops.h:
-
-/usr/include/c++/15/bits/stl_algobase.h:
 
 /usr/include/c++/15/clocale:
 
@@ -761,6 +755,14 @@ gui/trts_lab_gui_autogen/timestamp: gui/trts_lab_gui_autogen/moc_predefs.h \
 /usr/include/c++/15/bits/refwrap.h:
 
 /usr/include/c++/15/type_traits:
+
+/usr/include/c++/15/bits/ranges_uninitialized.h:
+
+/usr/include/c++/15/bits/stl_bvector.h:
+
+/usr/include/c++/15/bits/stl_pair.h:
+
+/usr/include/c++/15/cctype:
 
 /usr/include/c++/15/bits/range_access.h:
 
@@ -784,10 +786,6 @@ gui/trts_lab_gui_autogen/timestamp: gui/trts_lab_gui_autogen/moc_predefs.h \
 
 /usr/include/c++/15/bits/uses_allocator.h:
 
-/usr/include/x86_64-linux-gnu/c++/15/bits/ctype_inline.h:
-
-/usr/include/c++/15/bits/move.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/15/include/limits.h:
 
 /usr/include/c++/15/bits/monostate.h:
@@ -797,6 +795,14 @@ gui/trts_lab_gui_autogen/timestamp: gui/trts_lab_gui_autogen/moc_predefs.h \
 /usr/include/c++/15/bits/atomic_lockfree_defines.h:
 
 /usr/include/c++/15/bits/max_size_type.h:
+
+/usr/include/c++/15/bits/localefwd.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qmetatype.h:
+
+/usr/include/c++/15/bits/stl_algobase.h:
+
+/usr/include/c++/15/bits/stl_relops.h:
 
 /usr/include/c++/15/bits/stl_function.h:
 
@@ -844,12 +850,6 @@ gui/trts_lab_gui_autogen/timestamp: gui/trts_lab_gui_autogen/moc_predefs.h \
 
 /usr/include/c++/15/bits/iterator_concepts.h:
 
-/usr/include/c++/15/bits/formatfwd.h:
-
-/usr/include/c++/15/bits/stl_raw_storage_iter.h:
-
-/usr/include/c++/15/bits/ranges_util.h:
-
 /usr/include/x86_64-linux-gnu/qt5/QtGui/QColor:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qcontainerfwd.h:
@@ -864,15 +864,45 @@ gui/trts_lab_gui_autogen/timestamp: gui/trts_lab_gui_autogen/moc_predefs.h \
 
 /usr/include/c++/15/ext/atomicity.h:
 
-/usr/include/x86_64-linux-gnu/qt5/QtGui/qcursor.h:
+/usr/include/x86_64-linux-gnu/c++/15/bits/ctype_inline.h:
 
-/home/c/11_08_2025/operation_pretzel/gui/src/main.cpp:
+/usr/include/c++/15/bits/move.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h:
+
+/home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.hpp:
 
 /usr/include/x86_64-linux-gnu/qt5/QtGui/qstandarditemmodel.h:
 
 /home/c/11_08_2025/operation_pretzel/gui/src/RhythmVisualizerWidget.cpp:
 
 /usr/include/c++/15/new:
+
+/usr/include/c++/15/bits/formatfwd.h:
+
+/home/c/11_08_2025/operation_pretzel/gui/src/MainWindow.hpp:
+
+/usr/include/x86_64-linux-gnu/qt5/QtGui/qtransform.h:
+
+/usr/include/c++/15/bits/stl_algo.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qmap.h:
+
+/usr/include/c++/15/bits/shared_ptr_atomic.h:
+
+/home/c/11_08_2025/operation_pretzel/simulate.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel:
+
+/usr/include/c++/15/compare:
+
+/usr/include/c++/15/bits/cxxabi_forced.h:
+
+/usr/x86_64-linux-gnu/include/asm-generic/errno.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qbytearray.h:
+
+/usr/include/c++/15/map:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qvarlengtharray.h:
 
@@ -906,8 +936,6 @@ gui/trts_lab_gui_autogen/timestamp: gui/trts_lab_gui_autogen/moc_predefs.h \
 
 /home/c/11_08_2025/operation_pretzel/gui/include/OutputTableWidget.hpp:
 
-/usr/include/c++/15/bits/basic_ios.tcc:
-
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qconfig.h:
 
 /usr/include/x86_64-linux-gnu/bits/time.h:
@@ -937,10 +965,6 @@ gui/trts_lab_gui_autogen/moc_predefs.h:
 /usr/include/c++/15/bits/c++0x_warning.h:
 
 /usr/include/c++/15/bits/std_function.h:
-
-/home/c/11_08_2025/operation_pretzel/gui/src/ExecutionPanel.cpp:
-
-/usr/include/c++/15/exception:
 
 /usr/include/c++/15/bits/algorithmfwd.h:
 
@@ -978,6 +1002,20 @@ gui/trts_lab_gui_autogen/moc_predefs.h:
 
 /usr/include/c++/15/bits/memoryfwd.h:
 
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qhash.h:
+
+/home/c/11_08_2025/operation_pretzel/gui/src/EngineConfigPanel.hpp:
+
+/usr/include/c++/15/bits/basic_string.h:
+
+/usr/include/c++/15/bits/cpp_type_traits.h:
+
+/usr/include/c++/15/streambuf:
+
+/usr/include/c++/15/bits/basic_ios.tcc:
+
+/home/c/11_08_2025/operation_pretzel/gui/src/ExecutionPanel.hpp:
+
 /home/c/11_08_2025/operation_pretzel/gui/CMakeLists.txt:
 
 /usr/x86_64-linux-gnu/include/features-time64.h:
@@ -985,14 +1023,6 @@ gui/trts_lab_gui_autogen/moc_predefs.h:
 /usr/include/c++/15/cerrno:
 
 /home/c/11_08_2025/operation_pretzel/gui/include/TheoristExplorerPanel.hpp:
-
-/home/c/11_08_2025/operation_pretzel/gui/include/EngineConfigPanel.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
-
-/usr/include/c++/15/bits/deque.tcc:
-
-/usr/include/c++/15/bits/stl_tempbuf.h:
 
 /home/c/11_08_2025/operation_pretzel/gui/include/PhaseMapExplorer.hpp:
 
@@ -1003,6 +1033,18 @@ gui/trts_lab_gui_autogen/moc_predefs.h:
 /home/c/11_08_2025/operation_pretzel/config.h:
 
 /home/c/11_08_2025/operation_pretzel/gui/include/AnalyzerPanel.hpp:
+
+/home/c/11_08_2025/operation_pretzel/gui/src/ExecutionPanel.cpp:
+
+/usr/include/c++/15/exception:
+
+/usr/include/x86_64-linux-gnu/qt5/QtGui/qcursor.h:
+
+/home/c/11_08_2025/operation_pretzel/gui/src/main.cpp:
+
+/home/c/11_08_2025/operation_pretzel/gui/include/EngineConfigPanel.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
 /usr/include/c++/15/bits/shared_ptr.h:
 
@@ -1022,13 +1064,23 @@ gui/trts_lab_gui_autogen/moc_predefs.h:
 
 /usr/include/c++/15/stdexcept:
 
-/home/c/11_08_2025/operation_pretzel/simulate.h:
-
-/usr/include/x86_64-linux-gnu/qt5/QtCore/qmap.h:
-
-/usr/include/c++/15/bits/shared_ptr_atomic.h:
-
 /home/c/11_08_2025/operation_pretzel/gui/src/AnalyzerPanel.cpp:
+
+/usr/include/c++/15/bits/exception_defines.h:
+
+/usr/include/c++/15/bits/stl_heap.h:
+
+/usr/include/c++/15/backward/auto_ptr.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h:
+
+/usr/include/c++/15/bits/concept_check.h:
+
+/usr/include/c++/15/bits/version.h:
+
+/usr/include/c++/15/backward/binders.h:
+
+/usr/include/c++/15/utility:
 
 /usr/include/c++/15/bits/stl_iterator_base_types.h:
 
@@ -1052,43 +1104,13 @@ gui/trts_lab_gui_autogen/moc_predefs.h:
 
 /usr/include/c++/15/bits/charconv.h:
 
-/usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h:
+/usr/include/c++/15/bits/ranges_util.h:
 
-/usr/include/c++/15/bits/concept_check.h:
+/usr/include/c++/15/bits/stl_raw_storage_iter.h:
 
-/usr/include/c++/15/bits/version.h:
+/usr/include/c++/15/bits/deque.tcc:
 
-/usr/include/c++/15/backward/binders.h:
-
-/usr/include/c++/15/utility:
-
-/usr/include/c++/15/bits/cpp_type_traits.h:
-
-/usr/include/c++/15/bits/basic_string.h:
-
-/usr/include/c++/15/streambuf:
-
-/usr/include/x86_64-linux-gnu/qt5/QtGui/qtransform.h:
-
-/usr/include/c++/15/bits/stl_algo.h:
-
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel:
-
-/usr/include/c++/15/compare:
-
-/usr/include/c++/15/bits/cxxabi_forced.h:
-
-/usr/x86_64-linux-gnu/include/asm-generic/errno.h:
-
-/usr/include/x86_64-linux-gnu/qt5/QtCore/qbytearray.h:
-
-/usr/include/c++/15/map:
-
-/usr/include/c++/15/bits/exception_defines.h:
-
-/usr/include/c++/15/backward/auto_ptr.h:
-
-/usr/include/c++/15/bits/stl_heap.h:
+/usr/include/c++/15/bits/stl_tempbuf.h:
 
 /usr/include/c++/15/bits/stl_tree.h:
 
@@ -1196,12 +1218,6 @@ gui/trts_lab_gui_autogen/moc_predefs.h:
 
 /usr/include/c++/15/iterator:
 
-/usr/lib/gcc/x86_64-linux-gnu/15/include/stddef.h:
-
-/usr/include/x86_64-linux-gnu/qt5/QtCore/qprocess.h:
-
-/usr/include/x86_64-linux-gnu/c++/15/bits/c++config.h:
-
 /usr/include/c++/15/bits/stl_map.h:
 
 /usr/include/c++/15/bits/locale_classes.h:
@@ -1277,8 +1293,6 @@ gui/trts_lab_gui_autogen/moc_predefs.h:
 /usr/include/c++/15/bits/out_ptr.h:
 
 /usr/include/x86_64-linux-gnu/bits/sched.h:
-
-/usr/include/x86_64-linux-gnu/c++/15/bits/ctype_base.h:
 
 /home/c/11_08_2025/operation_pretzel/rational.h:
 
@@ -1365,5 +1379,3 @@ gui/trts_lab_gui_autogen/moc_predefs.h:
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
-
-/usr/include/x86_64-linux-gnu/c++/15/bits/c++locale.h:

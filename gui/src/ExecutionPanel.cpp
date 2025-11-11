@@ -1,6 +1,12 @@
 // ExecutionPanel.cpp
-#include "ExecutionPanel.hpp"
-#include "MainWindow.hpp"
+// Implements the ExecutionPanel, which provides engine controls and state
+// display.  This version adds a pause button alongside the existing run,
+// stop, step and reset controls.  When clicked, the pause button emits
+// pauseRequested(); it does not pause the engine itself but allows the
+// surrounding MainWindow to implement pausing logic if supported.
+
+#include "../include/ExecutionPanel.hpp"
+#include "../include/MainWindow.hpp"
 
 #include <QHBoxLayout>
 #include <QHeaderView>
@@ -9,15 +15,17 @@
 #include <QTableWidget>
 #include <QVBoxLayout>
 #include <QTableWidgetItem>
+#include <QAbstractItemView>
 
 ExecutionPanel::ExecutionPanel(QWidget *parent)
     : QWidget(parent)
 {
     buildUi();
     resetState();
-
-    // Hook live updates from MainWindow:
-    if (auto *mw = qobject_cast<MainWindow*>(parent->parentWidget())) {
+    // Hook live updates from MainWindow.  If the parent is nested under a
+    // MainWindow, connect the engineUpdate signal so that updateFromEngine()
+    // receives streaming updates.
+    if (auto *mw = qobject_cast<MainWindow*>(parent ? parent->parentWidget() : nullptr)) {
         connect(mw, &MainWindow::engineUpdate,
                 this, &ExecutionPanel::updateFromEngine);
     }
@@ -26,7 +34,7 @@ ExecutionPanel::ExecutionPanel(QWidget *parent)
 void ExecutionPanel::buildUi()
 {
     auto *layout = new QVBoxLayout(this);
-
+    // State display row
     auto *stateRow = new QHBoxLayout();
     auto stateLabel = [stateRow](const QString &title, QLabel **labelOut) {
         auto *container   = new QWidget();
@@ -42,7 +50,6 @@ void ExecutionPanel::buildUi()
         stateRow->addWidget(container);
         *labelOut = valueLabel;
     };
-
     stateLabel(tr("Tick"),       &m_tickLabel);
     stateLabel(tr("υ"),          &m_upsilonLabel);
     stateLabel(tr("β"),          &m_betaLabel);
@@ -50,31 +57,33 @@ void ExecutionPanel::buildUi()
     stateLabel(tr("ρ"),          &m_rhoLabel);
     stateLabel(tr("ψ"),          &m_psiLabel);
     stateLabel(tr("Stack depth"), &m_stackLabel);
-
+    // Button row
     auto *buttonRow = new QHBoxLayout();
-    m_stepButton = new QPushButton(tr("Step"), this);
-    m_runButton  = new QPushButton(tr("Run"),  this);
-    m_stopButton = new QPushButton(tr("Stop"), this);
-    m_resetButton= new QPushButton(tr("Reset"),this);
-
+    m_stepButton   = new QPushButton(tr("Step"), this);
+    m_runButton    = new QPushButton(tr("Run"),  this);
+    m_stopButton   = new QPushButton(tr("Stop"), this);
+    m_resetButton  = new QPushButton(tr("Reset"),this);
+    m_pauseButton  = new QPushButton(tr("Pause"),this);
     buttonRow->addWidget(m_stepButton);
     buttonRow->addWidget(m_runButton);
+    buttonRow->addWidget(m_pauseButton);
     buttonRow->addWidget(m_stopButton);
     buttonRow->addWidget(m_resetButton);
     buttonRow->addStretch();
-
-    connect(m_stepButton, &QPushButton::clicked, this, &ExecutionPanel::stepRequested);
-    connect(m_runButton,  &QPushButton::clicked, this, &ExecutionPanel::runRequested);
-    connect(m_stopButton, &QPushButton::clicked, this, &ExecutionPanel::stopRequested);
-    connect(m_resetButton,&QPushButton::clicked, this, &ExecutionPanel::resetRequested);
-
+    // Connect buttons to signals
+    connect(m_stepButton,  &QPushButton::clicked, this, &ExecutionPanel::stepRequested);
+    connect(m_runButton,   &QPushButton::clicked, this, &ExecutionPanel::runRequested);
+    connect(m_stopButton,  &QPushButton::clicked, this, &ExecutionPanel::stopRequested);
+    connect(m_resetButton, &QPushButton::clicked, this, &ExecutionPanel::resetRequested);
+    connect(m_pauseButton, &QPushButton::clicked, this, &ExecutionPanel::pauseRequested);
+    // Log table
     m_logTable = new QTableWidget(this);
     m_logTable->setColumnCount(8);
     m_logTable->setHorizontalHeaderLabels({tr("Tick"), tr("MT"), tr("υ"), tr("β"), tr("κ"), tr("ψ"), tr("ρ"), tr("Stack")});
     m_logTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     m_logTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_logTable->setSelectionBehavior(QAbstractItemView::SelectRows);
-
+    // Assemble layout
     layout->addLayout(stateRow);
     layout->addLayout(buttonRow);
     layout->addWidget(m_logTable);
@@ -121,7 +130,10 @@ void ExecutionPanel::resetState()
     m_logTable->setRowCount(0);
 }
 
-// Slot for streaming updates:
+// Slot for streaming updates: update the state and log a row.  Note that the
+// engine does not currently emit psiMode or stack size, so those fields are
+// left empty or zero in the log row.  If future versions of the engine emit
+// more detailed information, this slot should be updated accordingly.
 void ExecutionPanel::updateFromEngine(size_t tick,
                                       int microtick,
                                       char /*phase*/,
@@ -141,4 +153,3 @@ void ExecutionPanel::updateFromEngine(size_t tick,
         "0"
     });
 }
-

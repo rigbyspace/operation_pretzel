@@ -1,4 +1,9 @@
-#include "EngineConfigPanel.hpp"
+// EngineConfigPanel.cpp
+// Provides the implementation for EngineConfigPanel, allowing users to
+// configure all simulation parameters via a GUI.  This version extends the
+// original upstream implementation with a checkbox for the Fibonacci gate.
+
+#include "../include/EngineConfigPanel.hpp"
 
 #include <QCheckBox>
 #include <QComboBox>
@@ -19,11 +24,13 @@
 EngineConfigPanel::EngineConfigPanel(QWidget *parent)
     : QWidget(parent) {
     buildUi();
+    // Initialize controls with default configuration
     setConfiguration(TRTSConfig{});
 }
 
 TRTSConfig EngineConfigPanel::configuration() const {
     TRTSConfig config;
+    // Enum selections
     config.psiMode = static_cast<TRTSConfig::PsiMode>(m_psiMode->currentIndex());
     config.engineMode = static_cast<TRTSConfig::EngineMode>(m_engineMode->currentIndex());
     config.koppaMode = static_cast<TRTSConfig::KoppaMode>(m_koppaMode->currentIndex());
@@ -34,6 +41,7 @@ TRTSConfig EngineConfigPanel::configuration() const {
     config.signFlipMode = static_cast<TRTSConfig::SignFlipMode>(m_signFlip->currentIndex());
     config.upsilonTrack = static_cast<TRTSConfig::EngineTrackMode>(m_upsilonTrack->currentIndex());
     config.betaTrack = static_cast<TRTSConfig::EngineTrackMode>(m_betaTrack->currentIndex());
+    // Toggles
     config.dualTrackSymmetry = m_dualTrackSymmetry->isChecked();
     config.triplePsi = m_triplePsi->isChecked();
     config.multiLevelKoppa = m_multiLevelKoppa->isChecked();
@@ -49,6 +57,8 @@ TRTSConfig EngineConfigPanel::configuration() const {
     config.psiStrengthParameter = m_psiStrengthParameter->isChecked();
     config.ratioSnapshotLogging = m_ratioSnapshotLogging->isChecked();
     config.feedbackOscillator = m_feedbackOscillator->isChecked();
+    config.fibonacciGate = m_fibonacciGate->isChecked();
+    // Seeds and timing
     config.upsilonSeed = m_upsilonSeed->text();
     config.betaSeed = m_betaSeed->text();
     config.koppaSeed = m_koppaSeed->text();
@@ -67,14 +77,12 @@ void EngineConfigPanel::loadConfigurationFromFile(const QString &path) {
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return;
     }
-
     const QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
     if (!doc.isObject()) {
         return;
     }
-
-    const TRTSConfig config = TRTSConfig::fromJson(doc.object());
-    populateFromConfig(config);
+    const TRTSConfig cfg = TRTSConfig::fromJson(doc.object());
+    populateFromConfig(cfg);
     emit configurationChanged(configuration());
 }
 
@@ -85,6 +93,7 @@ void EngineConfigPanel::emitConfigurationChanged() {
 void EngineConfigPanel::buildUi() {
     auto *layout = new QVBoxLayout(this);
 
+    // Engine track selection
     auto *tracksBox = new QGroupBox(tr("Engine tracks"));
     auto *tracksLayout = new QGridLayout(tracksBox);
     m_upsilonTrack = new QComboBox(tracksBox);
@@ -97,42 +106,36 @@ void EngineConfigPanel::buildUi() {
     tracksLayout->addWidget(m_betaTrack, 1, 1);
     tracksBox->setLayout(tracksLayout);
 
+    // Core configuration comboboxes
     auto *configBox = new QGroupBox(tr("Core configuration"));
     auto *configForm = new QFormLayout(configBox);
     m_engineMode = new QComboBox(configBox);
     m_engineMode->addItems(engineModeLabels());
     configForm->addRow(tr("Engine mode"), m_engineMode);
-
     m_psiMode = new QComboBox(configBox);
     m_psiMode->addItems(psiModeLabels());
     configForm->addRow(tr("ψ mode"), m_psiMode);
-
     m_koppaMode = new QComboBox(configBox);
     m_koppaMode->addItems(koppaModeLabels());
     configForm->addRow(tr("κ mode"), m_koppaMode);
-
     m_koppaTrigger = new QComboBox(configBox);
     m_koppaTrigger->addItems(koppaTriggerLabels());
     configForm->addRow(tr("κ trigger"), m_koppaTrigger);
-
     m_mt10Behavior = new QComboBox(configBox);
     m_mt10Behavior->addItems(mt10BehaviorLabels());
     configForm->addRow(tr("MT10"), m_mt10Behavior);
-
     m_ratioTrigger = new QComboBox(configBox);
     m_ratioTrigger->addItems(ratioTriggerLabels());
     configForm->addRow(tr("Ratio trigger"), m_ratioTrigger);
-
     m_primeTarget = new QComboBox(configBox);
     m_primeTarget->addItems(primeTargetLabels());
     configForm->addRow(tr("Prime target"), m_primeTarget);
-
     m_signFlip = new QComboBox(configBox);
     m_signFlip->addItems(signFlipLabels());
     configForm->addRow(tr("Sign flip"), m_signFlip);
-
     configBox->setLayout(configForm);
 
+    // Seed inputs
     auto *seedBox = new QGroupBox(tr("Seeds"));
     auto *seedForm = new QFormLayout(seedBox);
     m_upsilonSeed = new QLineEdit(seedBox);
@@ -143,6 +146,7 @@ void EngineConfigPanel::buildUi() {
     seedForm->addRow(tr("κ"), m_koppaSeed);
     seedBox->setLayout(seedForm);
 
+    // Timing controls
     auto *timingBox = new QGroupBox(tr("Timing"));
     auto *timingForm = new QFormLayout(timingBox);
     m_tickCount = new QSpinBox(timingBox);
@@ -158,26 +162,30 @@ void EngineConfigPanel::buildUi() {
     timingForm->addRow(tr("κ wrap"), m_koppaWrap);
     timingBox->setLayout(timingForm);
 
+    // Advanced modes toggles
     auto *modesBox = new QGroupBox(tr("Advanced modes"));
     auto *modesLayout = new QGridLayout(modesBox);
-
+    // Define pairs of label and pointer to toggle pointer.  When adding new
+    // toggles, append them here and declare the corresponding member in
+    // EngineConfigPanel.hpp.  The order controls the placement in the grid.
     const QList<QPair<QString, QCheckBox **>> toggles = {
         {tr("Dual-track symmetry"), &m_dualTrackSymmetry},
-        {tr("Triple ψ"), &m_triplePsi},
-        {tr("Multi-level κ"), &m_multiLevelKoppa},
-        {tr("Asymmetric cascade"), &m_asymmetricCascade},
-        {tr("Conditional triple ψ"), &m_conditionalTriplePsi},
-        {tr("κ gated engine"), &m_koppaGatedEngine},
+        {tr("Triple ψ"),            &m_triplePsi},
+        {tr("Multi-level κ"),       &m_multiLevelKoppa},
+        {tr("Asymmetric cascade"),  &m_asymmetricCascade},
+        {tr("Conditional triple ψ"),&m_conditionalTriplePsi},
+        {tr("κ gated engine"),      &m_koppaGatedEngine},
         {tr("Δ cross propagation"), &m_deltaCrossPropagation},
-        {tr("Δ κ offset"), &m_deltaKoppaOffset},
-        {tr("Ratio threshold ψ"), &m_ratioThresholdPsi},
-        {tr("Stack depth modes"), &m_stackDepthModes},
-        {tr("ε-φ triangle"), &m_epsilonPhiTriangle},
-        {tr("Modular wrap"), &m_modularWrap},
-        {tr("ψ strength parameter"), &m_psiStrengthParameter},
+        {tr("Δ κ offset"),          &m_deltaKoppaOffset},
+        {tr("Ratio threshold ψ"),   &m_ratioThresholdPsi},
+        {tr("Stack depth modes"),   &m_stackDepthModes},
+        {tr("ε-φ triangle"),        &m_epsilonPhiTriangle},
+        {tr("Modular wrap"),        &m_modularWrap},
+        {tr("ψ strength parameter"),&m_psiStrengthParameter},
         {tr("Ratio snapshot logging"), &m_ratioSnapshotLogging},
-        {tr("Feedback oscillator"), &m_feedbackOscillator}};
-
+        {tr("Feedback oscillator"), &m_feedbackOscillator},
+        {tr("Fibonacci gate"),      &m_fibonacciGate}
+    };
     int row = 0;
     int column = 0;
     for (const auto &pair : toggles) {
@@ -190,14 +198,15 @@ void EngineConfigPanel::buildUi() {
         }
         connect(box, &QCheckBox::toggled, this, &EngineConfigPanel::emitConfigurationChanged);
     }
-
     modesBox->setLayout(modesLayout);
 
+    // Load configuration button
     m_loadConfigButton = new QPushButton(tr("Load config"), this);
     connect(m_loadConfigButton, &QPushButton::clicked, this, [this]() {
         emit requestLoadConfig();
     });
 
+    // Assemble the panel
     layout->addWidget(tracksBox);
     layout->addWidget(configBox);
     layout->addWidget(seedBox);
@@ -206,21 +215,20 @@ void EngineConfigPanel::buildUi() {
     layout->addWidget(m_loadConfigButton);
     layout->addStretch();
 
-    const QList<QComboBox *> combos = {m_psiMode,    m_engineMode,    m_koppaMode,     m_koppaTrigger,
-                                       m_mt10Behavior, m_ratioTrigger, m_primeTarget, m_signFlip,
+    // Connect combo boxes
+    const QList<QComboBox *> combos = {m_psiMode,    m_engineMode,   m_koppaMode,     m_koppaTrigger,
+                                       m_mt10Behavior, m_ratioTrigger, m_primeTarget,   m_signFlip,
                                        m_upsilonTrack, m_betaTrack};
     for (QComboBox *combo : combos) {
-        connect(combo,
-                     static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-                     this,
-                     &EngineConfigPanel::emitConfigurationChanged);
+        connect(combo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+                this, &EngineConfigPanel::emitConfigurationChanged);
     }
-
+    // Connect line edits
     const QList<QLineEdit *> edits = {m_upsilonSeed, m_betaSeed, m_koppaSeed};
     for (QLineEdit *edit : edits) {
         connect(edit, &QLineEdit::editingFinished, this, &EngineConfigPanel::emitConfigurationChanged);
     }
-
+    // Connect spin boxes
     const QList<QSpinBox *> spins = {m_tickCount, m_microTickMs, m_koppaWrap};
     for (QSpinBox *spin : spins) {
         connect(spin, QOverload<int>::of(&QSpinBox::valueChanged), this, &EngineConfigPanel::emitConfigurationChanged);
@@ -238,7 +246,6 @@ void EngineConfigPanel::populateFromConfig(const TRTSConfig &config) {
     applyComboBoxSelection(m_signFlip, static_cast<int>(config.signFlipMode));
     applyComboBoxSelection(m_upsilonTrack, static_cast<int>(config.upsilonTrack));
     applyComboBoxSelection(m_betaTrack, static_cast<int>(config.betaTrack));
-
     m_dualTrackSymmetry->setChecked(config.dualTrackSymmetry);
     m_triplePsi->setChecked(config.triplePsi);
     m_multiLevelKoppa->setChecked(config.multiLevelKoppa);
@@ -254,7 +261,7 @@ void EngineConfigPanel::populateFromConfig(const TRTSConfig &config) {
     m_psiStrengthParameter->setChecked(config.psiStrengthParameter);
     m_ratioSnapshotLogging->setChecked(config.ratioSnapshotLogging);
     m_feedbackOscillator->setChecked(config.feedbackOscillator);
-
+    m_fibonacciGate->setChecked(config.fibonacciGate);
     m_upsilonSeed->setText(config.upsilonSeed);
     m_betaSeed->setText(config.betaSeed);
     m_koppaSeed->setText(config.koppaSeed);
@@ -271,4 +278,3 @@ void EngineConfigPanel::applyComboBoxSelection(QComboBox *combo, int index) {
         combo->setCurrentIndex(index);
     }
 }
-

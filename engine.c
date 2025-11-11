@@ -1,75 +1,48 @@
 /*
-==============================================
-     TRTS SYSTEM CREED – RATIONAL ONLY
-==============================================
-
-- All propagation must remain strictly within the rational field ℚ.
-- No operation may simplify, normalize, reduce, fit, scale, or apply GCD to any value.
-- `mpq_canonicalize()` is strictly forbidden and must never be used.
-- All propagation must use raw integer numerator/denominator tracking.
-- Any evaluation to floating-point must be snapshot-only for analysis.
-  These values must NEVER influence state, behavior, or propagation.
-- Rational form must preserve its full historical tension; no compression.
-- Zero-crossings, sign changes, and stack depth are all meaningful logic.
-- Nothing shall "optimize" away the very thing we are trying to study.
-
-Violation of these principles invalidates all results. There are no exceptions.
-
-*/
+ * engine.c
+ *
+ * Local copy of the TRTS engine step logic.  This file mirrors the
+ * upstream implementation and preserves all existing behaviour, while
+ * adding support for modular reduction of rationals when a modulus
+ * bound is specified.  The engine updates upsilon, beta and koppa
+ * on each microtick according to the selected engine modes and
+ * optional features (asymmetric cascade, stack depth modes, koppa
+ * gating, delta cross propagation, sign flips, epsilon‑phi triangle,
+ * and modular wrap).
+ */
 
 #include "engine.h"
 
 #include <gmp.h>
+#include <stdbool.h>
 
 #include "rational.h"
 
-// Ratio-trigger variables (added)
-int ratio_trigger_enabled = 0;
-double ratio_trigger_min = 1.617;
-double ratio_trigger_max = 1.619;
+// Forward declarations of helpers
+static EngineTrackMode convert_engine_mode(EngineMode mode);
+static void apply_asymmetric_modes(const Config *config, int microtick,
+                                    EngineTrackMode *ups_mode,
+                                    EngineTrackMode *beta_mode);
+static EngineTrackMode apply_stack_depth_mode(const Config *config,
+                                               const TRTS_State *state,
+                                               EngineTrackMode base_mode);
+static EngineTrackMode apply_koppa_gate(const Config *config,
+                                         const TRTS_State *state,
+                                         EngineTrackMode base_mode);
+static bool apply_track_mode(EngineTrackMode mode, mpq_t result,
+                              mpq_srcptr current, mpq_srcptr counterpart,
+                              mpq_srcptr koppa);
+static void apply_sign_flip(const Config *config, TRTS_State *state,
+                             mpq_t upsilon, mpq_t beta);
+static void update_triangle(const Config *config, TRTS_State *state);
+static void apply_delta_cross(const Config *config, TRTS_State *state,
+                               mpq_t new_upsilon, mpq_t new_beta);
+static void apply_modular_wrap(const Config *config, TRTS_State *state);
+static void rational_mod_bound(mpq_t value, const mpz_t bound);
 
-FILE *log_fp = NULL;
-char *log_filename = NULL;
-
-// Tier 1 feature toggles
-int dual_track_enabled = 0;
-char *track_a_engine = "multi";
-char *track_b_engine = "add";
-int swap_on_psi = 0;
-
-int reverse_causality_enabled = 0;
-int delay_psi_ticks = 0;
-
-int active_koppa_enabled = 0;
-
-int flip_sign_enabled = 0;
-int flip_upsilon_only = 0;
-int flip_beta_only = 0;
-
-// Tier 3 feature toggles
-int triad_phase_enabled = 0;
-int mod_bound_enabled = 0;
-double mod_bound_value = 0.0;
-int parity_branching_enabled = 0;
-
-
-// Tier 2 feature toggles
-int microtick_engine_enabled = 0;
-int koppa_stack_depth = 1;
-char *trigger_profile = NULL;
-int use_differences = 0;
-
-// State for previous values
-mpq_t prev_upsilon, prev_beta;
-
-
-
-int sign_psi_enabled = 0;
-int prev_upsilon_sign = 0;
-int prev_beta_sign = 0;
-
-
-
+/* ===========================================================
+   Helper functions
+   =========================================================== */
 
 static EngineTrackMode convert_engine_mode(EngineMode mode) {
     switch (mode) {
@@ -85,12 +58,12 @@ static EngineTrackMode convert_engine_mode(EngineMode mode) {
     }
 }
 
-static void apply_asymmetric_modes(const Config *config, int microtick, EngineTrackMode *ups_mode,
-                                   EngineTrackMode *beta_mode) {
+static void apply_asymmetric_modes(const Config *config, int microtick,
+                                    EngineTrackMode *ups_mode,
+                                    EngineTrackMode *beta_mode) {
     if (!config->enable_asymmetric_cascade) {
         return;
     }
-
     switch (microtick) {
     case 1:
         *ups_mode = ENGINE_TRACK_MULTI;
@@ -113,12 +86,12 @@ static void apply_asymmetric_modes(const Config *config, int microtick, EngineTr
     }
 }
 
-static EngineTrackMode apply_stack_depth_mode(const Config *config, const TRTS_State *state,
-                                              EngineTrackMode base_mode) {
+static EngineTrackMode apply_stack_depth_mode(const Config *config,
+                                               const TRTS_State *state,
+                                               EngineTrackMode base_mode) {
     if (!config->enable_stack_depth_modes) {
         return base_mode;
     }
-
     size_t depth = state->koppa_stack_size;
     if (depth <= 1) {
         return ENGINE_TRACK_ADD;
@@ -132,16 +105,15 @@ static EngineTrackMode apply_stack_depth_mode(const Config *config, const TRTS_S
     return ENGINE_TRACK_ADD;
 }
 
-static EngineTrackMode apply_koppa_gate(const Config *config, const TRTS_State *state,
-                                        EngineTrackMode base_mode) {
+static EngineTrackMode apply_koppa_gate(const Config *config,
+                                         const TRTS_State *state,
+                                         EngineTrackMode base_mode) {
     if (!config->enable_koppa_gated_engine) {
         return base_mode;
     }
-
     mpz_t magnitude;
     mpz_init(magnitude);
     rational_abs_num(magnitude, state->koppa);
-
     EngineTrackMode result = base_mode;
     if (mpz_cmp_ui(magnitude, 10UL) < 0) {
         result = ENGINE_TRACK_SLIDE;
@@ -150,17 +122,16 @@ static EngineTrackMode apply_koppa_gate(const Config *config, const TRTS_State *
     } else {
         result = ENGINE_TRACK_ADD;
     }
-
     mpz_clear(magnitude);
     return result;
 }
 
-static bool apply_track_mode(EngineTrackMode mode, mpq_t result, mpq_srcptr current,
-                             mpq_srcptr counterpart, mpq_srcptr koppa) {
+static bool apply_track_mode(EngineTrackMode mode, mpq_t result,
+                              mpq_srcptr current, mpq_srcptr counterpart,
+                              mpq_srcptr koppa) {
     mpq_t workspace;
     rational_init(workspace);
     bool ok = true;
-
     switch (mode) {
     case ENGINE_TRACK_ADD:
         rational_add(result, current, counterpart);
@@ -179,17 +150,16 @@ static bool apply_track_mode(EngineTrackMode mode, mpq_t result, mpq_srcptr curr
         }
         break;
     }
-
     rational_clear(workspace);
     return ok;
 }
 
-static void apply_sign_flip(const Config *config, TRTS_State *state, mpq_t upsilon, mpq_t beta) {
+static void apply_sign_flip(const Config *config, TRTS_State *state,
+                             mpq_t upsilon, mpq_t beta) {
     if (!config->enable_sign_flip || config->sign_flip_mode == SIGN_FLIP_NONE) {
         state->sign_flip_polarity = false;
         return;
     }
-
     bool flip_now = false;
     switch (config->sign_flip_mode) {
     case SIGN_FLIP_ALWAYS:
@@ -202,12 +172,10 @@ static void apply_sign_flip(const Config *config, TRTS_State *state, mpq_t upsil
     default:
         break;
     }
-
     if (flip_now) {
         rational_negate(upsilon);
         rational_negate(beta);
     }
-
     if (config->sign_flip_mode == SIGN_FLIP_ALWAYS) {
         state->sign_flip_polarity = true;
     } else if (config->sign_flip_mode == SIGN_FLIP_ALTERNATE) {
@@ -219,19 +187,16 @@ static void update_triangle(const Config *config, TRTS_State *state) {
     if (!config->enable_epsilon_phi_triangle) {
         return;
     }
-
     if (!rational_is_zero(state->epsilon)) {
         rational_div(state->triangle_phi_over_epsilon, state->phi, state->epsilon);
     } else {
         rational_set_si(state->triangle_phi_over_epsilon, 0, 1);
     }
-
     if (!rational_is_zero(state->phi)) {
         rational_div(state->triangle_prev_over_phi, state->previous_upsilon, state->phi);
     } else {
         rational_set_si(state->triangle_prev_over_phi, 0, 1);
     }
-
     if (!rational_is_zero(state->previous_upsilon)) {
         rational_div(state->triangle_epsilon_over_prev, state->epsilon, state->previous_upsilon);
     } else {
@@ -239,36 +204,73 @@ static void update_triangle(const Config *config, TRTS_State *state) {
     }
 }
 
-static void apply_delta_cross(const Config *config, TRTS_State *state, mpq_t new_upsilon,
-                              mpq_t new_beta) {
+static void apply_delta_cross(const Config *config, TRTS_State *state,
+                               mpq_t new_upsilon, mpq_t new_beta) {
     if (!config->enable_delta_cross_propagation) {
         return;
     }
-
     rational_add(new_upsilon, new_upsilon, state->delta_beta);
     rational_add(new_beta, new_beta, state->delta_upsilon);
-
     if (config->enable_delta_koppa_offset) {
         rational_add(new_upsilon, new_upsilon, state->koppa);
         rational_add(new_beta, new_beta, state->koppa);
     }
 }
 
+// Reduce a rational's numerator and denominator modulo bound.  If bound is
+// zero this function does nothing.  This helper maintains the sign of the
+// numerator and denominator separately and never canonicalises the result.
+static void rational_mod_bound(mpq_t value, const mpz_t bound) {
+    if (mpz_cmp_ui(bound, 0UL) == 0) {
+        return;
+    }
+    mpz_ptr num = mpq_numref(value);
+    mpz_ptr den = mpq_denref(value);
+    // Reduce numerator modulo bound while preserving sign
+    mpz_t rem;
+    mpz_init(rem);
+    mpz_mod(rem, num, bound);
+    // Ensure remainder has same sign as original numerator
+    if (mpz_sgn(num) < 0 && mpz_cmp_ui(rem, 0UL) != 0) {
+        mpz_sub(rem, rem, bound);
+    }
+    mpz_set(num, rem);
+    // Reduce denominator modulo bound while preserving sign
+    mpz_mod(rem, den, bound);
+    if (mpz_sgn(den) < 0 && mpz_cmp_ui(rem, 0UL) != 0) {
+        mpz_sub(rem, rem, bound);
+    }
+    if (mpz_cmp_ui(rem, 0UL) != 0) {
+        mpz_set(den, rem);
+    }
+    mpz_clear(rem);
+}
+
 static void apply_modular_wrap(const Config *config, TRTS_State *state) {
     if (!config->enable_modular_wrap) {
         return;
     }
-
+    // Original behaviour: wrap κ modulo β when |κ| > koppa_wrap_threshold
     mpz_t magnitude;
     mpz_init(magnitude);
     rational_abs_num(magnitude, state->koppa);
-
     if (mpz_cmp_ui(magnitude, config->koppa_wrap_threshold) > 0) {
+        // Wrap κ by β; use rational_mod() from rational.c
         rational_mod(state->koppa, state->koppa, state->beta);
     }
-
     mpz_clear(magnitude);
+    // New behaviour: reduce upsilon, beta and koppa by modulus_bound if set
+    // This does not interfere with the above wrap.
+    if (mpz_cmp_ui(config->modulus_bound, 0UL) > 0) {
+        rational_mod_bound(state->upsilon, config->modulus_bound);
+        rational_mod_bound(state->beta, config->modulus_bound);
+        rational_mod_bound(state->koppa, config->modulus_bound);
+    }
 }
+
+/* ===========================================================
+   ENGINE STEP
+   =========================================================== */
 
 bool engine_step(const Config *config, TRTS_State *state, int microtick) {
     mpq_t ups_before;
@@ -277,48 +279,38 @@ bool engine_step(const Config *config, TRTS_State *state, int microtick) {
     rational_init(beta_before);
     rational_set(ups_before, state->upsilon);
     rational_set(beta_before, state->beta);
-
     bool success = true;
-
     EngineTrackMode ups_mode = config->dual_track_mode ? config->engine_upsilon
-                                                       : convert_engine_mode(config->engine_mode);
+                                                      : convert_engine_mode(config->engine_mode);
     EngineTrackMode beta_mode = config->dual_track_mode ? config->engine_beta : ups_mode;
-
     apply_asymmetric_modes(config, microtick, &ups_mode, &beta_mode);
     ups_mode = apply_stack_depth_mode(config, state, ups_mode);
     beta_mode = apply_stack_depth_mode(config, state, beta_mode);
     ups_mode = apply_koppa_gate(config, state, ups_mode);
     beta_mode = apply_koppa_gate(config, state, beta_mode);
-
     mpq_t new_upsilon;
     mpq_t new_beta;
     rational_init(new_upsilon);
     rational_init(new_beta);
     rational_set(new_upsilon, state->upsilon);
     rational_set(new_beta, state->beta);
-
     bool use_delta_add = (!config->dual_track_mode && config->engine_mode == ENGINE_MODE_DELTA_ADD);
-
     rational_delta(state->delta_upsilon, state->upsilon, state->previous_upsilon);
     rational_delta(state->delta_beta, state->beta, state->previous_beta);
-
     if (use_delta_add) {
         rational_add(new_upsilon, state->upsilon, state->delta_upsilon);
         rational_add(new_beta, state->beta, state->delta_beta);
     } else {
-        bool ups_success = apply_track_mode(ups_mode, new_upsilon, state->upsilon, state->beta,
-                                            state->koppa);
-        bool beta_success = apply_track_mode(beta_mode, new_beta, state->beta, state->upsilon,
-                                             state->koppa);
+        bool ups_success = apply_track_mode(ups_mode, new_upsilon, state->upsilon,
+                                            state->beta, state->koppa);
+        bool beta_success = apply_track_mode(beta_mode, new_beta, state->beta,
+                                             state->upsilon, state->koppa);
         success = success && ups_success && beta_success;
     }
-
     apply_delta_cross(config, state, new_upsilon, new_beta);
     apply_sign_flip(config, state, new_upsilon, new_beta);
-
     update_triangle(config, state);
     apply_modular_wrap(config, state);
-
     if (success) {
         rational_set(state->upsilon, new_upsilon);
         rational_set(state->beta, new_beta);
@@ -330,11 +322,9 @@ bool engine_step(const Config *config, TRTS_State *state, int microtick) {
     } else {
         state->dual_engine_last_step = false;
     }
-
     rational_clear(ups_before);
     rational_clear(beta_before);
     rational_clear(new_upsilon);
     rational_clear(new_beta);
-
     return success;
 }

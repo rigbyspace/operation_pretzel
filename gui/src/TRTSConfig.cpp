@@ -1,4 +1,8 @@
-#include "TRTSConfig.hpp"
+// Implementation of TRTSConfig helper functions.
+// This file mirrors the upstream implementation but extends it to handle
+// serialization and deserialization of the new `fibonacciGate` flag.
+
+#include "../include/TRTSConfig.hpp"
 
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -6,6 +10,8 @@
 #include <QPair>
 
 namespace {
+// Utility to convert a list of (value,label) pairs into a QStringList of just
+// the labels.  This is used by the various *Labels() functions below.
 QStringList labelsFromPairs(const QList<QPair<int, QString>> &pairs) {
     QStringList list;
     for (const auto &pair : pairs) {
@@ -15,6 +21,8 @@ QStringList labelsFromPairs(const QList<QPair<int, QString>> &pairs) {
 }
 }
 
+// Convert an integer enum value into the corresponding label using the
+// provided list of pairs.  Returns an empty string if not found.
 static QString valueToLabel(int value, const QList<QPair<int, QString>> &pairs) {
     for (const auto &pair : pairs) {
         if (pair.first == value) {
@@ -24,6 +32,9 @@ static QString valueToLabel(int value, const QList<QPair<int, QString>> &pairs) 
     return QString();
 }
 
+// Pairs for each enumeration.  These must mirror the definitions in
+// TRTSConfig.hpp and config.h.  The order of pairs defines the index used
+// within combo boxes.
 static QList<QPair<int, QString>> psiModePairs() {
     return {
         {static_cast<int>(TRTSConfig::PsiMode::MStep), QObject::tr("mstep")},
@@ -68,8 +79,8 @@ static QList<QPair<int, QString>> koppaTriggerPairs() {
 
 static QList<QPair<int, QString>> mt10BehaviorPairs() {
     return {
-        {static_cast<int>(TRTSConfig::Mt10Behavior::ForcedEmissionOnly), QObject::tr("Forced emission" )},
-        {static_cast<int>(TRTSConfig::Mt10Behavior::ForcedPsi), QObject::tr("Forced ψ" )}
+        {static_cast<int>(TRTSConfig::Mt10Behavior::ForcedEmissionOnly), QObject::tr("Forced emission")},
+        {static_cast<int>(TRTSConfig::Mt10Behavior::ForcedPsi), QObject::tr("Forced ψ")}
     };
 }
 
@@ -97,6 +108,9 @@ static QList<QPair<int, QString>> signFlipPairs() {
     };
 }
 
+// Convert enum values to strings using the above lookup tables.  If a value
+// isn't found, an empty string is returned.  These helpers are used
+// primarily when exporting human‑readable descriptions.
 QString TRTSConfig::toString(TRTSConfig::PsiMode mode) {
     return valueToLabel(static_cast<int>(mode), psiModePairs());
 }
@@ -133,6 +147,9 @@ QString TRTSConfig::toString(TRTSConfig::SignFlipMode mode) {
     return valueToLabel(static_cast<int>(mode), signFlipPairs());
 }
 
+// Serialize this configuration into JSON.  All boolean flags are emitted to
+// preserve explicit user intent; other fields default to sensible values if
+// missing from the JSON object.
 QJsonObject TRTSConfig::toJson() const {
     QJsonObject obj;
     obj.insert("psi_mode", static_cast<int>(psiMode));
@@ -160,6 +177,7 @@ QJsonObject TRTSConfig::toJson() const {
     obj.insert("psi_strength_parameter", psiStrengthParameter);
     obj.insert("ratio_snapshot_logging", ratioSnapshotLogging);
     obj.insert("feedback_oscillator", feedbackOscillator);
+    obj.insert("fibonacci_gate", fibonacciGate);
     obj.insert("upsilon_seed", upsilonSeed);
     obj.insert("beta_seed", betaSeed);
     obj.insert("koppa_seed", koppaSeed);
@@ -172,6 +190,9 @@ QJsonObject TRTSConfig::toJson() const {
     return obj;
 }
 
+// Populate a TRTSConfig from a JSON representation.  Missing fields default
+// to the values specified in the struct definition.  Invalid enum values are
+// ignored, leaving the default.
 TRTSConfig TRTSConfig::fromJson(const QJsonObject &object) {
     TRTSConfig config;
     if (object.contains("psi_mode")) {
@@ -220,6 +241,7 @@ TRTSConfig TRTSConfig::fromJson(const QJsonObject &object) {
     config.psiStrengthParameter = object.value("psi_strength_parameter").toBool(false);
     config.ratioSnapshotLogging = object.value("ratio_snapshot_logging").toBool(false);
     config.feedbackOscillator = object.value("feedback_oscillator").toBool(false);
+    config.fibonacciGate = object.value("fibonacci_gate").toBool(false);
 
     config.upsilonSeed = object.value("upsilon_seed").toString(config.upsilonSeed);
     config.betaSeed = object.value("beta_seed").toString(config.betaSeed);
@@ -232,6 +254,7 @@ TRTSConfig TRTSConfig::fromJson(const QJsonObject &object) {
     return config;
 }
 
+// Convenience functions to retrieve lists of labels for combo boxes.
 QStringList psiModeLabels() { return labelsFromPairs(psiModePairs()); }
 QStringList koppaModeLabels() { return labelsFromPairs(koppaModePairs()); }
 QStringList engineModeLabels() { return labelsFromPairs(engineModePairs()); }
@@ -241,4 +264,3 @@ QStringList mt10BehaviorLabels() { return labelsFromPairs(mt10BehaviorPairs()); 
 QStringList ratioTriggerLabels() { return labelsFromPairs(ratioTriggerPairs()); }
 QStringList primeTargetLabels() { return labelsFromPairs(primeTargetPairs()); }
 QStringList signFlipLabels() { return labelsFromPairs(signFlipPairs()); }
-

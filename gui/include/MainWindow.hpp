@@ -1,6 +1,7 @@
 // gui/include/MainWindow.hpp
 #pragma once
 
+#include "stdio.h"
 #include <QMainWindow>
 #include <QLabel>
 #include <QTabWidget>
@@ -9,7 +10,7 @@
 // Core engine headers
 #include "../../state.h"      // TRTS_State
 #include "../../simulate.h"   // simulate_stream, Config
-
+#include "../../config.h"
 // GUI panels and widgets:
 
 #include "TRTSConfig.hpp"
@@ -45,6 +46,7 @@ private slots:
     void handleRunFinished(int exitCode, QProcess::ExitStatus status);
     void appendLogEntry(const QStringList &columns);
     void logStatus(const QString &message);
+    void handlePause();
 
 private:
     void buildUi();
@@ -72,6 +74,7 @@ private:
     QAction               *m_actionReset{};
     QAction               *m_actionClear{};
     QAction               *m_actionLoadConfig{};
+    QAction               * m_actionPause;
     QLabel                *m_statusLabel{};
 
     // Optional external-process fallback

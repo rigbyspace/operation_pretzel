@@ -24,9 +24,6 @@ CMakeFiles/trts_core.dir/psi.c.o: \
  /usr/x86_64-linux-gnu/include/bits/posix2_lim.h \
  /home/c/11_08_2025/operation_pretzel/psi.h \
  /home/c/11_08_2025/operation_pretzel/state.h \
- /home/c/11_08_2025/operation_pretzel/config.h \
- /home/c/11_08_2025/operation_pretzel/rational.h \
- /home/c/11_08_2025/operation_pretzel/rational_strict.h \
  /usr/x86_64-linux-gnu/include/stdio.h \
  /usr/lib/gcc/x86_64-linux-gnu/15/include/stdarg.h \
  /usr/x86_64-linux-gnu/include/bits/types.h \
@@ -42,6 +39,9 @@ CMakeFiles/trts_core.dir/psi.c.o: \
  /usr/x86_64-linux-gnu/include/bits/stdio_lim.h \
  /usr/x86_64-linux-gnu/include/bits/floatn.h \
  /usr/x86_64-linux-gnu/include/bits/floatn-common.h \
+ /home/c/11_08_2025/operation_pretzel/config.h \
+ /home/c/11_08_2025/operation_pretzel/rational.h \
+ /home/c/11_08_2025/operation_pretzel/rational_strict.h \
  /usr/x86_64-linux-gnu/include/stdlib.h \
  /usr/x86_64-linux-gnu/include/bits/waitflags.h \
  /usr/x86_64-linux-gnu/include/bits/waitstatus.h \

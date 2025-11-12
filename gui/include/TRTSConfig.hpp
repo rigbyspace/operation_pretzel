@@ -1,5 +1,6 @@
 #pragma once
 
+#include "stdio.h"
 #include <QString>
 #include <QStringList>
 #include <QJsonObject>
@@ -70,6 +71,7 @@ struct TRTSConfig {
     RatioTriggerMode ratioTriggerMode = RatioTriggerMode::None;
     PrimeTarget primeTarget = PrimeTarget::NewUpsilon;
     SignFlipMode signFlipMode = SignFlipMode::None;
+    
 
     bool dualTrackSymmetry = false;
     bool triplePsi = false;
@@ -86,6 +88,7 @@ struct TRTSConfig {
     bool psiStrengthParameter = false;
     bool ratioSnapshotLogging = false;
     bool feedbackOscillator = false;
+    bool fibonacciGate = false; // restore missing field
 
     QString upsilonSeed = "3/5";
     QString betaSeed = "5/7";
@@ -119,4 +122,6 @@ QStringList mt10BehaviorLabels();
 QStringList ratioTriggerLabels();
 QStringList primeTargetLabels();
 QStringList signFlipLabels();
+
+
 

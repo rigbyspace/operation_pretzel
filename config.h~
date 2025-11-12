@@ -1,21 +1,9 @@
 /*
-==============================================
-     TRTS SYSTEM CREED – RATIONAL ONLY
-==============================================
-
-- All propagation must remain strictly within the rational field ℚ.
-- No operation may simplify, normalize, reduce, fit, scale, or apply GCD to any value.
-- `mpq_canonicalize()` is strictly forbidden and must never be used.
-- All propagation must use raw integer numerator/denominator tracking.
-- Any evaluation to floating-point must be snapshot-only for analysis.
-  These values must NEVER influence state, behavior, or propagation.
-- Rational form must preserve its full historical tension; no compression.
-- Zero-crossings, sign changes, and stack depth are all meaningful logic.
-- Nothing shall "optimize" away the very thing we are trying to study.
-
-Violation of these principles invalidates all results. There are no exceptions.
-
-*/
+ * NOTE: This file is a local copy of the TRTS engine configuration header.
+ * It has been adapted from the upstream project to demonstrate how
+ * additional experimental features might be integrated.  These additions
+ * expose new configuration options without hard‑coding any constants.
+ */
 
 #ifndef CONFIG_H
 #define CONFIG_H
@@ -25,6 +13,14 @@ Violation of these principles invalidates all results. There are no exceptions.
 #include <stddef.h>
 
 #include "rational.h"
+
+/*
+ * Enumerations governing the general behaviour of the engine.  The
+ * existing PsiMode, KoppaMode, EngineMode and related enums mirror
+ * those from the upstream project.  The RatioTriggerMode has been
+ * extended with a custom range option to allow arbitrary ratio
+ * windows to trigger ψ events (see RATIO_TRIGGER_CUSTOM below).
+ */
 
 typedef enum {
     PSI_MODE_MSTEP,
@@ -68,11 +64,21 @@ typedef enum {
     MT10_FORCED_PSI
 } Mt10Behavior;
 
+/*
+ * Ratio triggers specify ranges of υ/β that will automatically
+ * trigger a ψ transform on μ-steps.  Standard options include the
+ * golden ratio, √2 and the plastic constant.  A new CUSTOM option
+ * allows callers to define their own lower and upper bounds via
+ * ratio_custom_lower and ratio_custom_upper fields in the Config
+ * struct.
+ */
+
 typedef enum {
     RATIO_TRIGGER_NONE,
     RATIO_TRIGGER_GOLDEN,
     RATIO_TRIGGER_SQRT2,
-    RATIO_TRIGGER_PLASTIC
+    RATIO_TRIGGER_PLASTIC,
+    RATIO_TRIGGER_CUSTOM
 } RatioTriggerMode;
 
 typedef enum {
@@ -80,6 +86,14 @@ typedef enum {
     SIGN_FLIP_ALWAYS,
     SIGN_FLIP_ALTERNATE
 } SignFlipMode;
+
+/*
+ * Primary configuration structure controlling engine behaviour.  The
+ * boolean flags enable optional features.  Newly added fields below
+ * are documented inline.  Any mpq_t or mpz_t members must be
+ * initialised via config_init() and cleared via config_clear() to
+ * avoid memory leaks.
+ */
 
 typedef struct {
     PsiMode psi_mode;
@@ -99,6 +113,7 @@ typedef struct {
     mpq_t initial_beta;
     mpq_t initial_koppa;
 
+    /* Existing feature toggles */
     bool enable_asymmetric_cascade;
     bool enable_conditional_triple_psi;
     bool enable_koppa_gated_engine;
@@ -112,11 +127,50 @@ typedef struct {
     bool enable_psi_strength_parameter;
     bool enable_ratio_snapshot_logging;
     bool enable_feedback_oscillator;
+    bool enable_fibonacci_gate;
     SignFlipMode sign_flip_mode;
     unsigned long koppa_wrap_threshold;
+
+    /*
+     * Custom ratio window: when ratio_trigger_mode is RATIO_TRIGGER_CUSTOM,
+     * the lower and upper bounds of the window are taken from these
+     * mpq_t fields.  The ψ transform fires when |υ/β| lies strictly
+     * between them.  Use config_init() to set defaults and
+     * config_clear() to free them.
+     */
+    bool enable_ratio_custom_range;
+    mpq_t ratio_custom_lower;
+    mpq_t ratio_custom_upper;
+
+    /*
+     * Additional prime pattern triggers: twin primes (both
+     * numerator and denominator are prime and differ by ±2),
+     * Fibonacci numbers and perfect powers.  When enabled these
+     * cause ρ to latch in the same way as standard prime
+     * detection.
+     */
+    bool enable_twin_prime_trigger;
+    bool enable_fibonacci_trigger;
+    bool enable_perfect_power_trigger;
+
+    /*
+     * Modular arithmetic bound: when enable_modular_wrap is true
+     * and either the numerator or denominator of a rational exceeds
+     * this modulus, the value is reduced modulo this bound.  This
+     * value is an arbitrary precision integer and must be initialised
+     * and cleared via config_init()/config_clear().
+     */
+    mpz_t modulus_bound;
 } Config;
 
+/* Initialise a Config with sane defaults.  Allocates internal GMP
+ * objects.  Call config_clear() when done.
+ */
 void config_init(Config *config);
+
+/* Free any GMP allocations within a Config.  Must be called on
+ * every Config initialised via config_init().
+ */
 void config_clear(Config *config);
 
-#endif // CONFIG_H
+#endif /* CONFIG_H */

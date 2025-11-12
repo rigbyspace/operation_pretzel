@@ -1,6 +1,6 @@
 // ExecutionPanel.hpp
 #pragma once
-
+#include "stdio.h"
 #include <QWidget>
 #include <QStringList>
 
@@ -30,6 +30,7 @@ signals:
     void stopRequested();
     void resetRequested();
     void stepRequested();
+    void pauseRequested();
 
 private slots:
     // Added to receive streamed updates:
@@ -54,6 +55,7 @@ private:
     QPushButton *m_runButton;
     QPushButton *m_stopButton;
     QPushButton *m_resetButton;
+    QPushButton *m_pauseButton;
 
     QTableWidget *m_logTable;
 

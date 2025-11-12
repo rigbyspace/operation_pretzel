@@ -52,6 +52,7 @@ typedef struct {
     bool ratio_threshold_recent;
     bool psi_strength_applied;
     bool sign_flip_polarity;
+    size_t tick;
 } TRTS_State;
 
 void state_init(TRTS_State *state);

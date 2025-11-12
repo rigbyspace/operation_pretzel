@@ -19,7 +19,6 @@ set(GUI_SOURCES
     src/OutputTableWidget.cpp
     src/TRTSCoreProcess.cpp
     src/TRTSConfig.cpp
-    ../../simulate.c
 )
 
 # (Headers listed for IDE convenience)
@@ -42,18 +41,22 @@ add_executable(trts_lab_gui
     ${GUI_SOURCES}
     ${GUI_HEADERS}
 )
-
+add_dependencies(trts_lab_gui trts_core)
 # Include GUI headers and the core include directory
 target_include_directories(trts_lab_gui
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
-        ${CMAKE_CURRENT_SOURCE_DIR}/..   # for trts_core headers and simulate.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/..   
+        ${GMP_INCLUDE_DIR}
 )
 
 # Link against the full core library (all C sources) and Qt
 target_link_libraries(trts_lab_gui
     PRIVATE
-        trts_core       # <— brings in simulate_stream plus all rational_/state_/engine_/psi_/koppa_ functions
+        trts_core
+        trts_core
+        ${GMP_LIBRARY}    
+        ${MATH_LIBRARY}
         Qt5::Core
         Qt5::Widgets
 )

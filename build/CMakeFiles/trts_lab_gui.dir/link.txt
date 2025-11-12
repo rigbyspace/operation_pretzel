@@ -1,1 +1,0 @@
-/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/trts_lab_gui.dir/link.d CMakeFiles/trts_lab_gui.dir/trts_lab_gui_autogen/mocs_compilation.cpp.o -o trts_lab_gui  -ltrts_core /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.15 /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.15 /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.15

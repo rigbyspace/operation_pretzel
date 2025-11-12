@@ -158,30 +158,6 @@ trts_lab_gui_autogen/fast:
 	cd /home/c/11_08_2025/operation_pretzel/build && $(MAKE) $(MAKESILENT) -f gui/CMakeFiles/trts_lab_gui_autogen.dir/build.make gui/CMakeFiles/trts_lab_gui_autogen.dir/build
 .PHONY : trts_lab_gui_autogen/fast
 
-__/simulate.o: __/simulate.c.o
-.PHONY : __/simulate.o
-
-# target to build an object file
-__/simulate.c.o:
-	cd /home/c/11_08_2025/operation_pretzel/build && $(MAKE) $(MAKESILENT) -f gui/CMakeFiles/trts_lab_gui.dir/build.make gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.o
-.PHONY : __/simulate.c.o
-
-__/simulate.i: __/simulate.c.i
-.PHONY : __/simulate.i
-
-# target to preprocess a source file
-__/simulate.c.i:
-	cd /home/c/11_08_2025/operation_pretzel/build && $(MAKE) $(MAKESILENT) -f gui/CMakeFiles/trts_lab_gui.dir/build.make gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.i
-.PHONY : __/simulate.c.i
-
-__/simulate.s: __/simulate.c.s
-.PHONY : __/simulate.s
-
-# target to generate assembly for a file
-__/simulate.c.s:
-	cd /home/c/11_08_2025/operation_pretzel/build && $(MAKE) $(MAKESILENT) -f gui/CMakeFiles/trts_lab_gui.dir/build.make gui/CMakeFiles/trts_lab_gui.dir/__/simulate.c.s
-.PHONY : __/simulate.c.s
-
 src/AnalyzerPanel.o: src/AnalyzerPanel.cpp.o
 .PHONY : src/AnalyzerPanel.o
 
@@ -529,9 +505,6 @@ help:
 	@echo "... trts_lab_gui_autogen"
 	@echo "... trts_lab_gui_autogen_timestamp_deps"
 	@echo "... trts_lab_gui"
-	@echo "... __/simulate.o"
-	@echo "... __/simulate.i"
-	@echo "... __/simulate.s"
 	@echo "... src/AnalyzerPanel.o"
 	@echo "... src/AnalyzerPanel.i"
 	@echo "... src/AnalyzerPanel.s"

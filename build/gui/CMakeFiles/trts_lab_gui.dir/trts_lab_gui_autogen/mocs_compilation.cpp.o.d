@@ -366,6 +366,7 @@ gui/CMakeFiles/trts_lab_gui.dir/trts_lab_gui_autogen/mocs_compilation.cpp.o: \
  /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/6YEA5652QU/../../../../gui/include/../../rational_strict.h \
  /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/6YEA5652QU/../../../../gui/include/../../simulate.h \
  /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/6YEA5652QU/../../../../gui/include/../../state.h \
+ /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/6YEA5652QU/../../../../gui/include/../../config.h \
  /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/6YEA5652QU/../../../../gui/include/StackViewerWidget.hpp \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QTreeWidget \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtreewidget.h \
@@ -411,11 +412,4 @@ gui/CMakeFiles/trts_lab_gui.dir/trts_lab_gui_autogen/mocs_compilation.cpp.o: \
  /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/6YEA5652QU/moc_StackViewerWidget.cpp \
  /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/6YEA5652QU/moc_TRTSCoreProcess.cpp \
  /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/6YEA5652QU/moc_TheoristExplorerPanel.cpp \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QList \
- /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/UVLADIE3JM/moc_EngineConfigPanel.cpp \
- /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/UVLADIE3JM/../../../../gui/src/EngineConfigPanel.hpp \
- /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/UVLADIE3JM/../../../../gui/src/TRTSConfig.hpp \
- /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/UVLADIE3JM/moc_ExecutionPanel.cpp \
- /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/UVLADIE3JM/../../../../gui/src/ExecutionPanel.hpp \
- /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/UVLADIE3JM/moc_MainWindow.cpp \
- /home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/UVLADIE3JM/../../../../gui/src/MainWindow.hpp
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QList

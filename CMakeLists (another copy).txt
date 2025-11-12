@@ -1,0 +1,62 @@
+cmake_minimum_required(VERSION 3.16)
+project(operation_pretzel LANGUAGES C CXX)
+
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+
+find_path(GMP_INCLUDE_DIR gmp.h)
+find_library(GMP_LIBRARY gmp)
+find_library(MATH_LIBRARY m)
+
+if (NOT GMP_INCLUDE_DIR OR NOT GMP_LIBRARY)
+    message(FATAL_ERROR "Unable to locate GMP development files")
+endif ()
+
+set(TRTS_CORE_SOURCES
+    analysis_utils.c
+    config.c
+    config_loader.c
+    engine.c
+    koppa.c
+    psi.c
+    rational.c
+    simulate.c
+    state.c
+)
+
+add_library(trts_core STATIC ${TRTS_CORE_SOURCES})
+target_include_directories(trts_core
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${GMP_INCLUDE_DIR}
+)
+target_link_libraries(trts_core PUBLIC ${GMP_LIBRARY})
+if (MATH_LIBRARY)
+    target_link_libraries(trts_core PUBLIC ${MATH_LIBRARY})
+endif ()
+
+add_executable(trts_engine trts_engine_main.c)
+target_link_libraries(trts_engine PRIVATE trts_core)
+
+add_executable(trts_phase_mapper phase_mapper.c)
+target_link_libraries(trts_phase_mapper PRIVATE trts_core)
+
+add_executable(trts_self_refine self_refine.c)
+target_link_libraries(trts_self_refine PRIVATE trts_core)
+
+add_executable(trts_sample main.c)
+target_link_libraries(trts_sample PRIVATE trts_core)
+
+add_executable(trts_go_time trts_go_time.c)
+target_link_libraries(trts_go_time PRIVATE ${GMP_LIBRARY})
+
+option(TRTS_BUILD_GUI "Build the Qt GUI" ON)
+if (TRTS_BUILD_GUI)
+    find_package(Qt5 COMPONENTS Core Widgets)
+    if (Qt5_FOUND)
+        add_subdirectory(gui)
+    else ()
+        message(WARNING "Qt5 not found; skipping GUI build")
+    endif ()
+endif ()
+

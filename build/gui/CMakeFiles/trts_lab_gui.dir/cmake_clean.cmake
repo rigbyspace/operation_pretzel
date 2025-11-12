@@ -3,8 +3,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/trts_lab_gui_autogen.dir/AutogenUsed.txt"
   "CMakeFiles/trts_lab_gui_autogen.dir/ParseCache.txt"
   "trts_lab_gui_autogen"
-  "CMakeFiles/trts_lab_gui.dir/__/simulate.c.o"
-  "CMakeFiles/trts_lab_gui.dir/__/simulate.c.o.d"
   "CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o"
   "CMakeFiles/trts_lab_gui.dir/src/AnalyzerPanel.cpp.o.d"
   "CMakeFiles/trts_lab_gui.dir/src/EngineConfigPanel.cpp.o"
@@ -40,6 +38,6 @@ file(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-foreach(lang C CXX)
+foreach(lang CXX)
   include(CMakeFiles/trts_lab_gui.dir/cmake_clean_${lang}.cmake OPTIONAL)
 endforeach()

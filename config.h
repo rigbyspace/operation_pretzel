@@ -166,7 +166,17 @@ typedef struct {
 /* Initialise a Config with sane defaults.  Allocates internal GMP
  * objects.  Call config_clear() when done.
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void config_init(Config *config);
+
+void config_clear(Config *config);
+
+#ifdef __cplusplus
+}
+#endif
 
 /* Free any GMP allocations within a Config.  Must be called on
  * every Config initialised via config_init().

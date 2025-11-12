@@ -1,6 +1,7 @@
 // gui/include/MainWindow.hpp
 #pragma once
 
+#include "stdio.h"
 #include <QMainWindow>
 #include <QLabel>
 #include <QTabWidget>
@@ -45,6 +46,7 @@ private slots:
     void handleRunFinished(int exitCode, QProcess::ExitStatus status);
     void appendLogEntry(const QStringList &columns);
     void logStatus(const QString &message);
+    void handlePause();
 
 private:
     void buildUi();
@@ -58,7 +60,7 @@ private:
     // Panels
     EngineConfigPanel     *m_engineConfig{};
     ExecutionPanel        *m_execution{};
-    RhythmVisualizerWidget*m_rhythm{};
+    RhythmVisualizerWidget *m_rhythm{};
     StackViewerWidget     *m_stack{};
     AnalyzerPanel         *m_analyzer{};
     FingerprintPanel      *m_fingerprint{};
@@ -72,6 +74,7 @@ private:
     QAction               *m_actionReset{};
     QAction               *m_actionClear{};
     QAction               *m_actionLoadConfig{};
+    QAction               * m_actionPause;
     QLabel                *m_statusLabel{};
 
     // Optional external-process fallback

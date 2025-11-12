@@ -1,5 +1,6 @@
 #pragma once
 
+#include "stdio.h"
 #include "TRTSConfig.hpp"
 
 #include <QWidget>
@@ -67,6 +68,7 @@ private:
     QCheckBox *m_psiStrengthParameter;
     QCheckBox *m_ratioSnapshotLogging;
     QCheckBox *m_feedbackOscillator;
+    QCheckBox* m_fibonacciGate;
 
     QPushButton *m_loadConfigButton;
 };

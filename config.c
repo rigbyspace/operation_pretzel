@@ -4,6 +4,7 @@
  * additional configuration fields introduced for experimental features.
  */
 
+#include "stdio.h"
 #include "config.h"
 
 void config_init(Config *config) {

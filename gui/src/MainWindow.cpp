@@ -4,12 +4,17 @@
 // explicitly and copying each field.  It also adds a Pause control.
 
 #include "../include/MainWindow.hpp"
+#include "stdio.h"
+// Step 1: Include all C headers to get the type definitions (Config, etc.).
+#include "../../simulate.h"
+#include "../../state.h"
+#include "../../config.h"
 
-// Wrap C headers in extern "C" to prevent C++ name‑mangling
+// Step 2: Use a surgical extern "C" block for *only* the failing prototypes.
+// This is the CRITICAL fix that guarantees C linkage for config_init/config_clear.
 extern "C" {
-#include "../../simulate.h"    // simulate_stream, Config
-#include "../../state.h"       // TRTS_State
-#include "../../config.h"      // Config definitions
+    void config_init(Config *config);
+    void config_clear(Config *config);
 }
 
 #include "../include/EngineConfigPanel.hpp"

@@ -92,36 +92,6 @@
 			"MU",
 			"6YEA5652QU/moc_TheoristExplorerPanel.cpp",
 			null
-		],
-		[
-			"/home/c/11_08_2025/operation_pretzel/gui/src/EngineConfigPanel.hpp",
-			"MU",
-			"UVLADIE3JM/moc_EngineConfigPanel.cpp",
-			null
-		],
-		[
-			"/home/c/11_08_2025/operation_pretzel/gui/src/ExecutionPanel.hpp",
-			"MU",
-			"UVLADIE3JM/moc_ExecutionPanel.cpp",
-			null
-		],
-		[
-			"/home/c/11_08_2025/operation_pretzel/gui/src/MainWindow.hpp",
-			"MU",
-			"UVLADIE3JM/moc_MainWindow.cpp",
-			null
-		],
-		[
-			"/home/c/11_08_2025/operation_pretzel/gui/src/TRTSConfig.hpp",
-			"MU",
-			"UVLADIE3JM/moc_TRTSConfig.cpp",
-			null
-		],
-		[
-			"/home/c/11_08_2025/operation_pretzel/simulate.h",
-			"MU",
-			"YCDLW3T4OG/moc_simulate.cpp",
-			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -166,7 +136,7 @@
 		"/usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp"
 	],
 	"MOC_PREDEFS_FILE" : "/home/c/11_08_2025/operation_pretzel/build/gui/trts_lab_gui_autogen/moc_predefs.h",
-	"MOC_RELAXED_MODE" : false,
+	"MOC_RELAXED_MODE" : true,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 4,
@@ -238,8 +208,7 @@
 			"MU",
 			null
 		],
-		[ "/home/c/11_08_2025/operation_pretzel/gui/src/main.cpp", "MU", null ],
-		[ "/home/c/11_08_2025/operation_pretzel/simulate.c", "MU", null ]
+		[ "/home/c/11_08_2025/operation_pretzel/gui/src/main.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

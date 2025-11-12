@@ -20,6 +20,7 @@ Violation of these principles invalidates all results. There are no exceptions.
 #ifndef STATE_H
 #define STATE_H
 
+#include "stdio.h"
 #include <gmp.h>
 #include <stdbool.h>
 #include <stddef.h>
